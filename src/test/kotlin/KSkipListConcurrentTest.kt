@@ -12,21 +12,22 @@ class KSkipListConcurrentTest {
     val random = Random(System.currentTimeMillis())
 
     companion object {
-        //        const val debug = false
-        const val debug = true
+        const val debug = false
+//        const val debug = true
     }
 
     @RepeatedTest(100)
     fun allOperations() {
         val repeatTestCase = 100
         val insertRates = listOf(0.55, 0.65, 0.75, 0.85, 0.95)
-        val valuesList = listOf(1..2, 1..100, 1..1000, 1..10_000, 1..100_000)
-        val ops = 100_000
+        val valuesList = listOf(1..20, 1..100, 1..1000, 1..10_000, 1..100_000)
+        val ops = 100_00
         var cur = 0
-//        val threads = 2..Runtime.getRuntime().availableProcessors() * 2
-        val threads = 2..2
+        val threads = 2..Runtime.getRuntime().availableProcessors() * 2
+//        val threads = 2..2
         val total = ops.toLong() * insertRates.size * valuesList.size * repeatTestCase * threads.toList().size
         for (threadsCount in threads) {
+            println("threadsCount = $threadsCount")
             for (values in valuesList) {
                 val threadValues = (0 until threadsCount).map { ArrayList<Int>() }
                 values.toList().subList(0, threadsCount).map { threadValues[it - 1].add(it) }
@@ -69,6 +70,9 @@ class KSkipListConcurrentTest {
                                         elementLog = element
 
                                         val op = operations[operation]!!
+                                        if (operation == Operation.REMOVE) {
+                                            return@repeat
+                                        }
                                         op.let { (first, second) ->
                                             assertEquals(
                                                 second.invoke(checkSet, element),
