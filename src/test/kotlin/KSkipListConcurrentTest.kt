@@ -1,12 +1,20 @@
+import com.google.common.base.Stopwatch
 import mine.KSkipListConcurrentV1
 import org.junit.jupiter.api.RepeatedTest
 import org.junit.jupiter.api.Test
 import org.openjdk.jol.info.ClassLayout
+import java.util.concurrent.ConcurrentSkipListSet
+import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicReference
 import kotlin.random.Random
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
+
+private val <E> ConcurrentSkipListSet<E>.opsDone: Int
+    get() {
+        return 0
+    }
 
 class KSkipListConcurrentTest {
     val random = Random(System.currentTimeMillis())
@@ -18,16 +26,19 @@ class KSkipListConcurrentTest {
 
     @RepeatedTest(100)
     fun allOperations() {
-        val repeatTestCase = 100
+        val repeatTestCase = 10
         val insertRates = listOf(0.55, 0.65, 0.75, 0.85, 0.95)
-        val valuesList = listOf(1..20, 1..100, 1..1000, 1..10_000, 1..100_000)
-        val ops = 100_00
+//        val valuesList = listOf(1..20, 1..100, 1..1000, 1..10_000, 1..100_000)
+        val valuesList = listOf(1..1000, 1..10_000, 1..100_000)
+        val ops = 10_000
         var cur = 0
         val threads = 2..Runtime.getRuntime().availableProcessors() * 2
 //        val threads = 2..2
-        val total = ops.toLong() * insertRates.size * valuesList.size * repeatTestCase * threads.toList().size
+        val total = insertRates.size * valuesList.size * repeatTestCase * threads.toList().size
+
         for (threadsCount in threads) {
             println("threadsCount = $threadsCount")
+            val createStarted = Stopwatch.createStarted()
             for (values in valuesList) {
                 val threadValues = (0 until threadsCount).map { ArrayList<Int>() }
                 values.toList().subList(0, threadsCount).map { threadValues[it - 1].add(it) }
@@ -35,15 +46,19 @@ class KSkipListConcurrentTest {
                     .map { threadValues[random.nextInt(threadsCount)].add(it) }
                 for (insertRate in insertRates) {
                     repeat(repeatTestCase) {
+                        cur++
+                        if (cur % (total / 100L) == 0L)
+                            println("${cur / (total / 100)}%")
                         val anyProblem = AtomicReference<Throwable?>(null)
-                        val skipList = KSkipListConcurrentV1(4)
+                        val skipList = KSkipListConcurrentV1(8)
+//                        val skipList = ConcurrentSkipListSet<Int>()
                         val finished = AtomicBoolean(false)
                         debug { // check that structure not handling
                             Thread {
                                 var prev = 0
                                 while (true) {
                                     Thread.sleep(3000)
-                                    val cur = skipList.opsDone.get()
+                                    val cur = skipList.opsDone
                                     if (cur == prev && !finished.get()) {
                                         println(skipList)
                                         break
@@ -60,10 +75,6 @@ class KSkipListConcurrentTest {
                                     var opLog: Operation? = null
                                     var elementLog: Int? = null
                                     try {
-                                        cur++
-                                        if (cur % (total / 100) == 0L)
-                                            println("${cur / (total / 100)}%")
-
                                         val operation = chooseOperation(insertRate)
                                         opLog = operation
                                         val element = threadValues[threadId].random(random)
@@ -117,6 +128,7 @@ class KSkipListConcurrentTest {
                     }
                 }
             }
+            println(createStarted.elapsed(TimeUnit.MILLISECONDS))
         }
     }
 
@@ -224,20 +236,20 @@ class KSkipListConcurrentTest {
 
                             val op = operations[operation]!!
                             op.let { (first, second) ->
-                                when (operation) {
-                                    Operation.ADD -> assertEquals(
-                                        second.invoke(checkSet, element),
-                                        first.invoke(skipList, element)
-                                    )
-                                    Operation.REMOVE -> assertEquals(
-                                        second.invoke(checkSet, element),
-                                        first.invoke(skipList, element)
-                                    )
-                                    Operation.CONTAINS -> assertEquals(
-                                        second.invoke(checkSet, element),
-                                        first.invoke(skipList, element)
-                                    )
-                                }
+//                                when (operation) {
+//                                    Operation.ADD -> assertEquals(
+//                                        second.invoke(checkSet, element),
+//                                        first.invoke(skipList, element)
+//                                    )
+//                                    Operation.REMOVE -> assertEquals(
+//                                        second.invoke(checkSet, element),
+//                                        first.invoke(skipList, element)
+//                                    )
+//                                    Operation.CONTAINS -> assertEquals(
+//                                        second.invoke(checkSet, element),
+//                                        first.invoke(skipList, element)
+//                                    )
+//                                }
 //                                assertEquals(checkSet.size, skipList.size())
                             }
                         } catch (e: Throwable) {
@@ -301,10 +313,16 @@ class KSkipListConcurrentTest {
     }
 
     private val operations = mapOf(
-        Operation.ADD to (KSkipListConcurrentV1::add as (KSkipListConcurrentV1, Int) -> Boolean to HashSet<Int>::add as (HashSet<Int>, Int) -> Boolean),
-        Operation.REMOVE to (KSkipListConcurrentV1::remove to HashSet<Int>::remove),
-        Operation.CONTAINS to (KSkipListConcurrentV1::contains to HashSet<Int>::contains)
+        Operation.ADD to (MutableSet<Int>::add as (MutableSet<Int>, Int) -> Boolean to HashSet<Int>::add as (HashSet<Int>, Int) -> Boolean),
+        Operation.REMOVE to (MutableSet<Int>::remove to HashSet<Int>::remove),
+        Operation.CONTAINS to (MutableSet<Int>::contains to HashSet<Int>::contains)
     )
+//
+//    private val operations = mapOf(
+//        Operation.ADD to (ConcurrentSkipListSet<Int>::add as (ConcurrentSkipListSet<Int>, Int) -> Boolean to HashSet<Int>::add as (HashSet<Int>, Int) -> Boolean),
+//        Operation.REMOVE to (ConcurrentSkipListSet<Int>::remove to HashSet<Int>::remove),
+//        Operation.CONTAINS to (ConcurrentSkipListSet<Int>::contains to HashSet<Int>::contains)
+//    )
 
     enum class OperationSelection {
         ADD_OR_REMOVE,
