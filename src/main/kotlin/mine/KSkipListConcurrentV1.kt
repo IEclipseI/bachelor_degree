@@ -9,8 +9,8 @@ import kotlin.math.min
 
 class KSkipListConcurrentV1(val k: Int) : AbstractMutableSet<Int>() {
     companion object {
-        const val debug = false
-//        const val debug = true
+//                const val debug = false
+        const val debug = true
 
         const val debugPrint = false
 //        const val debugPrint = true
@@ -43,7 +43,6 @@ class KSkipListConcurrentV1(val k: Int) : AbstractMutableSet<Int>() {
         return atomicIntegerArray
     }
 
-
     inner class Node() {
         @Volatile
         var key: AtomicIntegerArray = kArray()
@@ -66,6 +65,9 @@ class KSkipListConcurrentV1(val k: Int) : AbstractMutableSet<Int>() {
             if (deleted) {
                 return -1 to -1
             }
+            debug {
+                check(min.get() <= v) { "$this, $v"}
+            }
             var posV = -1
             var posEmpty = -1
             for (i in 0 until k) {
@@ -77,11 +79,20 @@ class KSkipListConcurrentV1(val k: Int) : AbstractMutableSet<Int>() {
                     posV = i
                 }
             }
+            debug {
+                val ar = getFullArray()
+                check(posV == ar.indexOf(v))
+                check(posEmpty == ar.indexOf(EMPTY))
+            }
             return posV to posEmpty
         }
 
         fun getArray(): IntArray {
             return (0 until k).map { key.get(it) }.filter { it != EMPTY }.toIntArray()
+        }
+
+        fun getFullArray(): IntArray {
+            return (0 until k).map { key.get(it) }.toIntArray()
         }
 
         fun lock() {
@@ -146,6 +157,9 @@ class KSkipListConcurrentV1(val k: Int) : AbstractMutableSet<Int>() {
                     }
                     i++
                 }
+                debug {
+                    check(posV == getFullArray().indexOf(v))
+                }
                 return if (posV != -1) {
                     key.set(posV, EMPTY)
                     true
@@ -171,10 +185,16 @@ class KSkipListConcurrentV1(val k: Int) : AbstractMutableSet<Int>() {
                     }
                     i++
                 }
+                debug {
+                    check(posV == getFullArray().indexOf(v))
+                }
                 key.set(posV, EMPTY)
                 if (newMin == null) {
                     deleted = true
                 } else {
+                    debug {
+                        check(min.get() < newMin)
+                    }
                     min.set(newMin)
                 }
                 return true
@@ -205,7 +225,7 @@ class KSkipListConcurrentV1(val k: Int) : AbstractMutableSet<Int>() {
         return cur
     }
 
-    private inline fun moveForwardBlocking(curInp: Node, level: Int, v: Int, less: (Int, Int) -> Boolean): Node {
+    private fun moveForwardBlocking(curInp: Node, level: Int, v: Int, comp: Comparator<Int>): Node {
         debug {
             check(curInp.lock.isHeldByCurrentThread)
         }
@@ -219,14 +239,18 @@ class KSkipListConcurrentV1(val k: Int) : AbstractMutableSet<Int>() {
         }
         next.lock()
         debug {
+            check(next.deletedBy.size <= level)
             checkTwoNodes(cur, next, level)
         }
-        while (next !== tail && less(next.min.get(), v)) {
+        while (next !== tail && (comp.compare(next.min.get(), v) <= 0
+            || next.deleted && comp.compare(next.min.get(), v) == 0)
+        ) {
             debug {
                 check(cur.lock.isHeldByCurrentThread)
 //                check(!next.lock.isHeldByCurrentThread)
                 check(cur !== tail)
                 check(cur !== next)
+                check(next.deletedBy.size <= level)
 //                println("Spinning-1")
             }
             debug {
@@ -234,11 +258,14 @@ class KSkipListConcurrentV1(val k: Int) : AbstractMutableSet<Int>() {
             }
             cur.unlock()
             cur = next
-            next = cur.next[level]
+            next = next.next[level]
             debug {
                 debugPrint("V= $v ${Thread.currentThread().name} lock-2 $next  , curLevel = $level, lc=${locks.get()}")
             }
             next.lock()
+            debug {
+                check(next.deletedBy.size <= level)
+            }
         }
         next.unlock()
 
@@ -251,27 +278,34 @@ class KSkipListConcurrentV1(val k: Int) : AbstractMutableSet<Int>() {
     }
 
     private fun moveForwardUntilBlocking(curInp: Node, level: Int, v: Int): Node {
-        return moveForwardBlocking(curInp, level, v) { a, b -> a < b }
+        return moveForwardBlocking(curInp, level, v) { a, b -> a - b + 1} //TODO
     }
 
     private fun moveForwardIncludeBlocking(curInp: Node, level: Int, v: Int): Node {
-        return moveForwardBlocking(curInp, level, v) { a, b -> a <= b }
+        return moveForwardBlocking(curInp, level, v) { a, b -> a - b}
     }
 
     override fun add(v: Int): Boolean {
         debug {
             debugPrint("${Thread.currentThread().name} ${locks.get()} ------------------------------------------------------------------------------------------------------------------------")
         }
-        var (cur, path) = findAllCandidates(v)
+        var (cur, path) = findAllPrevCandidates(v)
 
         debug {
             debugPrint("V= $v ${Thread.currentThread().name} lock-0 $cur")
         }
         cur.lock()
 
+        debug {
+            check(cur.min.get() <= v) {"$cur, $v"}
+
+            check(cur.lock.isHeldByCurrentThread)
+        }
         cur = moveForwardIncludeBlocking(cur, 0, v)
 
         debug {
+            check(cur.min.get() <= v) {"$cur, $v"}
+
             check(cur.lock.isHeldByCurrentThread)
         }
         if (cur === head) {
@@ -287,20 +321,20 @@ class KSkipListConcurrentV1(val k: Int) : AbstractMutableSet<Int>() {
             cur.next[0] = newNode
 
             var curLevel = 0
-            while (sift) {
-                curLevel++
-                if (curLevel > maxLevel.get()) {
-                    newNode.next.add(tail)
-                    cur.next.add(newNode)
-                    if (!maxLevel.compareAndSet(maxLevel.get(), curLevel)) {
-                        throw RuntimeException("error")
-                    }
-                    break
-                } else {
-                    newNode.next.add(cur.next[curLevel])
-                    cur.next[curLevel] = newNode
-                }
-            }
+//            while (sift) {
+//                curLevel++
+//                if (curLevel > maxLevel.get()) {
+//                    newNode.next.add(tail)
+//                    cur.next.add(newNode)
+//                    if (!maxLevel.compareAndSet(maxLevel.get(), curLevel)) {
+//                        throw RuntimeException("error")
+//                    }
+//                    break
+//                } else {
+//                    newNode.next.add(cur.next[curLevel])
+//                    cur.next[curLevel] = newNode
+//                }
+//            }
             newNode.unlock()
             cur.unlock()
         } else {
@@ -348,51 +382,54 @@ class KSkipListConcurrentV1(val k: Int) : AbstractMutableSet<Int>() {
                     cur.next[0] = newNode
                     cur.key = kArrayL
                     val minToSearch = newNode.min.get()
-                    newNode.unlock()
                     debug {
+                        checkTwoNodes(cur, newNode, 0)
                         check(newNode.min.get() != v)
                         check(cur.min.get() != v)
                     }
+                    newNode.unlock()
                     cur.unlock()
                     var curLevel = 0
                     var increasedHeight = false
-                    while (sift && !increasedHeight) {
-                        curLevel++
-                        cur = if (curLevel >= path.size) head else path[curLevel]!!
-                        debug {
-                            debugPrint("V= $v ${Thread.currentThread().name} lock-5 $cur, lc=${locks.get()}")
-                        }
-                        cur.lock()
-                        if (cur.next.size <= curLevel) {
-                            debug {
-                                check(cur === head)
-                            }
-                            cur.next.add(tail)
-                            maxLevel.incrementAndGet()
-                            increasedHeight = true
-                        }
-                        cur = moveForwardIncludeBlocking(cur, curLevel, minToSearch)
-
-                        debug {
-                            debugPrint("V= $v ${Thread.currentThread().name} lock-6 $newNode, lc=${locks.get()}")
-                        }
-                        newNode.lock()
-                        debug {
-                            checkTwoNodes(cur, newNode, curLevel)
-                        }
-                        if (newNode.deleted) {
-                            newNode.unlock()
-                            cur.unlock()
-                            debug {
-                                opsDoneV.incrementAndGet()
-                            }
-                            return true
-                        }
-                        newNode.next.add(cur.next[curLevel])
-                        cur.next[curLevel] = newNode
-                        newNode.unlock()
-                        cur.unlock()
-                    }
+//                    while (sift && !increasedHeight) {
+//                        curLevel++
+//                        cur = if (curLevel >= path.size) head else path[curLevel]!!
+//                        debug {
+//                            debugPrint("V= $v ${Thread.currentThread().name} lock-5 $cur, lc=${locks.get()}")
+//                        }
+//                        cur.lock()
+//                        if (cur.next.size <= curLevel) {
+//                            debug {
+//                                check(cur === head)
+//                            }
+//                            cur.next.add(tail)
+//                            maxLevel.incrementAndGet()
+//                            increasedHeight = true
+//                        }
+//                        cur = moveForwardIncludeBlocking(cur, curLevel, minToSearch)
+////                        debug {
+////                            check(cur.next[curLevel].min.get() != cur.min.get())
+////                        }
+//                        debug {
+//                            debugPrint("V= $v ${Thread.currentThread().name} lock-6 $newNode, lc=${locks.get()}")
+//                        }
+//                        newNode.lock()
+//                        debug {
+//                            checkTwoNodes(cur, newNode, curLevel)
+//                        }
+//                        if (newNode.deleted) {
+//                            newNode.unlock()
+//                            cur.unlock()
+//                            debug {
+//                                opsDoneV.incrementAndGet()
+//                            }
+//                            return true
+//                        }
+//                        newNode.next.add(cur.next[curLevel])
+//                        cur.next[curLevel] = newNode
+//                        newNode.unlock()
+//                        cur.unlock()
+//                    }
                 } else {
                     if (!cur.key.compareAndSet(emptyPos, EMPTY, v)) {
                         throw RuntimeException("error")
@@ -413,7 +450,7 @@ class KSkipListConcurrentV1(val k: Int) : AbstractMutableSet<Int>() {
 
     override fun remove(element: Int): Boolean {
         debug {
-            println("${Thread.currentThread().name} ${locks.get()} ------------------------------------------------------------------------------------------------------------------------")
+            debugPrint("${Thread.currentThread().name} ${locks.get()} ------------------------------------------------------------------------------------------------------------------------")
         }
         var (cur, path) = findAllPrevCandidates(element)
         var curLevel = 0
@@ -423,6 +460,10 @@ class KSkipListConcurrentV1(val k: Int) : AbstractMutableSet<Int>() {
         cur.lock()
         cur = firstNotPhysicallyDeleted(cur, 0)
         debug {
+            check(!(cur.min.get() == 2 && cur.deleted && cur.deletedBy.size > 0)) //for 2 only
+        }
+        debug {
+//            check(cur.min.get() != 2) //for 2 only
             check(!cur.deleted)
             check(cur.lock.isHeldByCurrentThread)
         }
@@ -447,6 +488,9 @@ class KSkipListConcurrentV1(val k: Int) : AbstractMutableSet<Int>() {
             checkTwoNodes(cur, next, curLevel)
         }
         if (next === tail || next.min.get() > element) {
+            debug {
+                check(next.min.get() != element)
+            }
             cur.unlock()
             next.unlock()
             debug {
@@ -455,6 +499,7 @@ class KSkipListConcurrentV1(val k: Int) : AbstractMutableSet<Int>() {
             }
             return false
         }
+
         var nextNext = next.next[curLevel]
         debug {
             debugPrint("V= $element ${Thread.currentThread().name} lock-13 $nextNext , curLevel = $curLevel, lc=${locks.get()}")
@@ -476,7 +521,6 @@ class KSkipListConcurrentV1(val k: Int) : AbstractMutableSet<Int>() {
             nextNext.lock()
         }
         nextNext.unlock()
-
         debug {
             check(cur.deletedBy.size <= curLevel)
             check(next !== tail)
@@ -494,70 +538,73 @@ class KSkipListConcurrentV1(val k: Int) : AbstractMutableSet<Int>() {
             val height = forDelete.next.size
             next.unlock()
             cur.unlock()
-            curLevel++
-            while (curLevel < height) {
-                cur = if (curLevel < path.size) path[curLevel]!! else head
-                debug {
-                    debugPrint("V= $element ${Thread.currentThread().name} lock-15 $cur , curLevel = $curLevel, lc=${locks.get()}")
-                }
-                cur.lock()
-                cur = firstNotPhysicallyDeleted(cur, curLevel)
-                debug {
-                    check(cur.lock.isHeldByCurrentThread)
-                }
-                next = cur.next[curLevel]
-                debug {
-                    check(cur.deletedBy.size <= curLevel)
-                    check(next.deletedBy.size <= curLevel)
-                    check(next.next.size > curLevel)
-                }
-                debug {
-                    check(next !== tail) { curLevel }
-                }
-                while (next !== forDelete) {
-                    debug {
-                        debugPrint("V= $element ${Thread.currentThread().name} lock-16 $next , curLevel = $curLevel, lc=${locks.get()}")
-                    }
-                    next.lock()
-                    debug {
-
-                        check(next !== tail)
-                        check(cur.lock.isHeldByCurrentThread)
-                        checkTwoNodes(cur, next, curLevel)
-                    }
-                    cur.unlock()
-                    cur = next
-                    next = next.next[curLevel]
-                    debug {
-                        check(next !== tail)
-                    }
-                }
-
-                debug {
-                    debugPrint("V= $element ${Thread.currentThread().name} lock-17 $forDelete , curLevel = $curLevel, lc=${locks.get()}")
-                }
-                forDelete.lock()
-
-                debug {
-                    check(cur.lock.isHeldByCurrentThread)
-                    checkTwoNodes(cur, forDelete, curLevel)
-                }
-                cur.next[curLevel] = forDelete.next[curLevel]
-                forDelete.deletedBy.add(cur)
-                forDelete.next[curLevel] = cur //experiment
-                debug {
-                    check(next.deletedBy.size == curLevel + 1)
-                }
-                next.unlock()
-                cur.unlock()
-                curLevel++
-            }
-            debug {
-                opsDoneV.incrementAndGet()
-                check(locks.get() == 0)
-            }
+//            curLevel++
+//            while (curLevel < height) {
+//                cur = if (curLevel < path.size) path[curLevel]!! else head
+//                debug {
+//                    debugPrint("V= $element ${Thread.currentThread().name} lock-15 $cur , curLevel = $curLevel, lc=${locks.get()}")
+//                }
+//                cur.lock()
+//                cur = firstNotPhysicallyDeleted(cur, curLevel)
+//                debug {
+//                    check(cur.lock.isHeldByCurrentThread)
+//                }
+//                next = cur.next[curLevel]
+//                debug {
+//                    check(cur.deletedBy.size <= curLevel)
+//                    check(next.deletedBy.size <= curLevel)
+//                    check(next.next.size > curLevel)
+//                }
+//                debug {
+//                    check(next !== tail) { curLevel }
+//                }
+//                while (next !== forDelete) {
+//                    debug {
+//                        debugPrint("V= $element ${Thread.currentThread().name} lock-16 $next , curLevel = $curLevel, lc=${locks.get()}")
+//                    }
+//                    next.lock()
+//                    debug {
+//
+//                        check(next !== tail)
+//                        check(cur.lock.isHeldByCurrentThread)
+//                        checkTwoNodes(cur, next, curLevel)
+//                    }
+//                    cur.unlock()
+//                    cur = next
+//                    next = next.next[curLevel]
+//                    debug {
+//                        check(next !== tail)
+//                    }
+//                }
+//
+//                debug {
+//                    debugPrint("V= $element ${Thread.currentThread().name} lock-17 $forDelete , curLevel = $curLevel, lc=${locks.get()}")
+//                }
+//                forDelete.lock()
+//
+//                debug {
+//                    check(cur.lock.isHeldByCurrentThread)
+//                    checkTwoNodes(cur, forDelete, curLevel)
+//                }
+//                cur.next[curLevel] = forDelete.next[curLevel]
+//                forDelete.deletedBy.add(cur)
+//                forDelete.next[curLevel] = cur //experiment
+//                debug {
+//                    check(next.deletedBy.size == curLevel + 1)
+//                }
+//                next.unlock()
+//                cur.unlock()
+//                curLevel++
+//            }
+//            debug {
+//                opsDoneV.incrementAndGet()
+//                check(locks.get() == 0)
+//            }
             return true
         } else {
+            debug {
+                check(!(next.min.get() == element && !next.deleted && !removeRes))
+            }
             next.unlock()
             cur.unlock()
             debug {
@@ -620,7 +667,7 @@ class KSkipListConcurrentV1(val k: Int) : AbstractMutableSet<Int>() {
         var prev = head
         var cur = head
         var curDepth = maxLevel.get()
-        val path = arrayOfNulls<Node?>(curDepth + 1)
+        val path = arrayOfNulls<Node>(curDepth + 1)
         while (curDepth >= 0) {
             var next = cur.next[curDepth]
             while (next !== tail && next.min.get() <= v) {
@@ -636,6 +683,9 @@ class KSkipListConcurrentV1(val k: Int) : AbstractMutableSet<Int>() {
             path[curDepth] = prev
 //            if (curDepth > 0) path.add(cur)
             curDepth--
+        }
+        debug {
+            check(prev.min.get() <= v)
         }
         return prev to path
     }
@@ -662,7 +712,7 @@ class KSkipListConcurrentV1(val k: Int) : AbstractMutableSet<Int>() {
             }
             cur = cur.next[0]
         }
-        return arrayList
+        return arrayList.sorted()
     }
 
     fun toSet() = toList().toSet()
@@ -679,7 +729,7 @@ class KSkipListConcurrentV1(val k: Int) : AbstractMutableSet<Int>() {
                 .intersect(
                     next.getArray().toSet()
                 ).isEmpty()
-        )
+        ){ "cur $cur \n next $next level $level" }
         check(cur.getArray().all { f -> next.getArray().all { f < it } }) { "cur $cur \n next $next level $level" }
     }
 
