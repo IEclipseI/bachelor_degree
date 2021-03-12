@@ -24,6 +24,12 @@ class KSkipListConcurrentTest {
 
     @RepeatedTest(100)
     fun allOperations() {
+        val testedOperations = setOf(
+            Operation.ADD,
+            Operation.REMOVE,
+            Operation.CONTAINS
+        )
+
         val repeatTestCase = 100
         val insertRates = listOf(0.55, 0.65, 0.75, 0.85, 0.95)
         val valuesList = listOf(1..20, 1..100, 1..1000, 1..10_000, 1..100_000)
@@ -70,7 +76,7 @@ class KSkipListConcurrentTest {
                         (0 until threadsCount).map { threadId ->
                             Thread {
                                 val checkSet = HashSet<Int>()
-                                repeat(ops) {
+                                repeat(ops) curIteration@{
                                     var opLog: Operation? = null
                                     var elementLog: Int? = null
                                     try {
@@ -80,9 +86,10 @@ class KSkipListConcurrentTest {
                                         elementLog = element
 
                                         val op = operations[operation]!!
-//                                        if (operation == Operation.REMOVE) {
-//                                            return@repeat
-//                                        }
+//
+                                        if (!testedOperations.contains(operation)) {
+                                            return@curIteration
+                                        }
                                         op.let { func ->
                                             assertEquals(
                                                 func.invoke(checkSet, element),
@@ -90,9 +97,6 @@ class KSkipListConcurrentTest {
                                             )
                                         }
                                     } catch (e: Throwable) {
-                                        if (opLog == Operation.CONTAINS) {
-                                            return@repeat
-                                        }
                                         anyProblem.compareAndSet(null, e)
                                         println(
                                             """

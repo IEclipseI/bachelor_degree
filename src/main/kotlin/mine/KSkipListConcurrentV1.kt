@@ -5,12 +5,11 @@ import java.util.concurrent.ThreadLocalRandom
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicIntegerArray
 import java.util.concurrent.locks.ReentrantLock
-import kotlin.math.min
 
 class KSkipListConcurrentV1(val k: Int) : AbstractMutableSet<Int>() {
     companion object {
-//                const val debug = false
-        const val debug = true
+        const val debug = false
+//        const val debug = true
 
         const val debugPrint = false
 //        const val debugPrint = true
@@ -43,11 +42,14 @@ class KSkipListConcurrentV1(val k: Int) : AbstractMutableSet<Int>() {
         return atomicIntegerArray
     }
 
-    inner class Node() {
+    inner class Node {
         @Volatile
         var key: AtomicIntegerArray = kArray()
 
         val min: AtomicInteger = AtomicInteger(EMPTY)
+
+        @Volatile
+        var initialMin = EMPTY
         val next = CopyOnWriteArrayList<Node>()
         val lock = ReentrantLock()
 
@@ -66,7 +68,7 @@ class KSkipListConcurrentV1(val k: Int) : AbstractMutableSet<Int>() {
                 return -1 to -1
             }
             debug {
-                check(min.get() <= v) { "$this, $v"}
+                check(min.get() <= v) { "$this, $v" }
             }
             var posV = -1
             var posEmpty = -1
@@ -146,59 +148,21 @@ class KSkipListConcurrentV1(val k: Int) : AbstractMutableSet<Int>() {
                 check(!deleted)
                 check(lock.isHeldByCurrentThread)
             }
-            if (v != min.get()) {
-                var i = 0
-                var posV = -1
-                while (i < k) {
-                    val curVal = key.get(i)
-                    if (curVal == v) {
-                        posV = i
-                        break
-                    }
-                    i++
-                }
-                debug {
-                    check(posV == getFullArray().indexOf(v))
-                }
-                return if (posV != -1) {
-                    key.set(posV, EMPTY)
-                    true
+            var removeRes = false
+            var markDeleted = true
+            for (i in 0 until k) {
+                val curVal = key.get(i)
+                if (curVal == v) {
+                    key.set(i, EMPTY)
+                    removeRes = true
                 } else {
-                    false
-                }
-            } else {
-                var i = 0
-                var posV = 0
-                var newMin: Int? = null
-                while (i < k) {
-                    val curVal = key.get(i)
-                    if (curVal == v) {
-                        posV = i
-                    } else {
-                        if (curVal != EMPTY) {
-                            newMin = if (newMin == null) {
-                                curVal
-                            } else {
-                                min(newMin, curVal)
-                            }
-                        }
+                    if (curVal != EMPTY) {
+                        markDeleted = false
                     }
-                    i++
                 }
-                debug {
-                    check(posV == getFullArray().indexOf(v))
-                }
-                key.set(posV, EMPTY)
-                if (newMin == null) {
-                    deleted = true
-                } else {
-                    debug {
-                        check(min.get() < newMin)
-                    }
-                    min.set(newMin)
-                }
-                return true
             }
+            deleted = markDeleted
+            return removeRes
         }
     }
 
@@ -242,8 +206,8 @@ class KSkipListConcurrentV1(val k: Int) : AbstractMutableSet<Int>() {
             check(next.deletedBy.size <= level)
             checkTwoNodes(cur, next, level)
         }
-        while (next !== tail && (comp.compare(next.min.get(), v) <= 0
-            || next.deleted && comp.compare(next.min.get(), v) == 0)
+        while (next !== tail && (comp.compare(next.initialMin, v) <= 0
+                    || next.deleted && comp.compare(next.initialMin, v) == 0)
         ) {
             debug {
                 check(cur.lock.isHeldByCurrentThread)
@@ -278,18 +242,18 @@ class KSkipListConcurrentV1(val k: Int) : AbstractMutableSet<Int>() {
     }
 
     private fun moveForwardUntilBlocking(curInp: Node, level: Int, v: Int): Node {
-        return moveForwardBlocking(curInp, level, v) { a, b -> a - b + 1} //TODO
+        return moveForwardBlocking(curInp, level, v) { a, b -> a - b + 1 } //TODO
     }
 
     private fun moveForwardIncludeBlocking(curInp: Node, level: Int, v: Int): Node {
-        return moveForwardBlocking(curInp, level, v) { a, b -> a - b}
+        return moveForwardBlocking(curInp, level, v) { a, b -> a - b }
     }
 
     override fun add(v: Int): Boolean {
         debug {
             debugPrint("${Thread.currentThread().name} ${locks.get()} ------------------------------------------------------------------------------------------------------------------------")
         }
-        var (cur, path) = findAllPrevCandidates(v)
+        var (cur, path) = findAllCandidates(v)
 
         debug {
             debugPrint("V= $v ${Thread.currentThread().name} lock-0 $cur")
@@ -297,14 +261,14 @@ class KSkipListConcurrentV1(val k: Int) : AbstractMutableSet<Int>() {
         cur.lock()
 
         debug {
-            check(cur.min.get() <= v) {"$cur, $v"}
+            check(cur.initialMin <= v) { "$cur, $v" }
 
             check(cur.lock.isHeldByCurrentThread)
         }
         cur = moveForwardIncludeBlocking(cur, 0, v)
 
         debug {
-            check(cur.min.get() <= v) {"$cur, $v"}
+            check(cur.initialMin <= v) { "$cur, $v" }
 
             check(cur.lock.isHeldByCurrentThread)
         }
@@ -316,6 +280,7 @@ class KSkipListConcurrentV1(val k: Int) : AbstractMutableSet<Int>() {
             newNode.lock()
             newNode.key.set(0, v)
             newNode.min.set(v)
+            newNode.initialMin = v
 
             newNode.next.add(cur.next[0])
             cur.next[0] = newNode
@@ -365,12 +330,12 @@ class KSkipListConcurrentV1(val k: Int) : AbstractMutableSet<Int>() {
                         newNode.key.set(i, sorted[k / 2 + i])
                     }
                     newNode.min.set(newNode.key.get(0))
-
+                    newNode.initialMin = newNode.key.get(0)
                     newNode.next.add(cur.next[0])
                     debug {
                         check(newNode.min.get() != EMPTY)
                     }
-                    if (newNode.min.get() < v) {
+                    if (newNode.initialMin < v) {
                         newNode.key.set(k / 2, v)
                     } else {
                         kArrayL.set(k / 2, v)
@@ -487,7 +452,7 @@ class KSkipListConcurrentV1(val k: Int) : AbstractMutableSet<Int>() {
             check(next.deletedBy.size == 0)
             checkTwoNodes(cur, next, curLevel)
         }
-        if (next === tail || next.min.get() > element) {
+        if (next === tail || next.initialMin > element) {
             debug {
                 check(next.min.get() != element)
             }
@@ -506,7 +471,7 @@ class KSkipListConcurrentV1(val k: Int) : AbstractMutableSet<Int>() {
             check(nextNext.deletedBy.size == 0)
         }
         nextNext.lock()
-        while (nextNext !== tail && nextNext.min.get() <= element) {
+        while (nextNext !== tail && nextNext.initialMin <= element) {
             cur.unlock()
             cur = next
             next = nextNext
@@ -530,7 +495,7 @@ class KSkipListConcurrentV1(val k: Int) : AbstractMutableSet<Int>() {
         }
         val removeRes = next.remove(element)
 
-        if (removeRes && next.deleted) {
+        if (next.deleted) {
             cur.next[curLevel] = nextNext
             next.deletedBy.add(cur)
             next.next[curLevel] = cur //experiment
@@ -622,7 +587,7 @@ class KSkipListConcurrentV1(val k: Int) : AbstractMutableSet<Int>() {
 //        var curDepth = 0
         while (curDepth >= 0) {
             var next = cur.next[curDepth]
-            while (next !== tail && next.min.get() <= v) {
+            while (next !== tail && next.initialMin <= v) {
                 debug {
 //                    println("cur $cur")
 //                    println("next $next")
@@ -647,7 +612,7 @@ class KSkipListConcurrentV1(val k: Int) : AbstractMutableSet<Int>() {
         val path = Array<Node?>(curDepth + 1) { null }
         while (curDepth >= 0) {
             var next = cur.next[curDepth]
-            while (next !== tail && next.min.get() <= v) {
+            while (next !== tail && next.initialMin <= v) {
                 debug {
 //                    println("Spinning7")
 //                    println("value $v")
@@ -670,7 +635,7 @@ class KSkipListConcurrentV1(val k: Int) : AbstractMutableSet<Int>() {
         val path = arrayOfNulls<Node>(curDepth + 1)
         while (curDepth >= 0) {
             var next = cur.next[curDepth]
-            while (next !== tail && next.min.get() <= v) {
+            while (next !== tail && next.initialMin <= v) {
                 debug {
 //                    println("Spinning7")
 //                    println("value $v")
@@ -697,7 +662,7 @@ class KSkipListConcurrentV1(val k: Int) : AbstractMutableSet<Int>() {
                 return true
             }
             cur = cur.next[0]
-        } while (cur !== tail && cur.min.get() <= v)
+        } while (cur !== tail && cur.initialMin <= v)
         return false
     }
 
@@ -729,7 +694,7 @@ class KSkipListConcurrentV1(val k: Int) : AbstractMutableSet<Int>() {
                 .intersect(
                     next.getArray().toSet()
                 ).isEmpty()
-        ){ "cur $cur \n next $next level $level" }
+        ) { "cur $cur \n next $next level $level" }
         check(cur.getArray().all { f -> next.getArray().all { f < it } }) { "cur $cur \n next $next level $level" }
     }
 
