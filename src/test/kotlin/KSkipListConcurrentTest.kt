@@ -21,7 +21,7 @@ class KSkipListConcurrentTest {
 //        const val debug = true
     }
 
-    val testedOperations = setOf(
+    private val testedOperations = setOf(
         Operation.ADD,
         Operation.REMOVE,
         Operation.CONTAINS

@@ -6,25 +6,36 @@ import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicReferenceArray
 import java.util.concurrent.locks.ReentrantLock
 
-class KSkipListConcurrentV1Generic<E>(val k: Int) : AbstractMutableSet<E>() {
+class KSkipListConcurrentV1Generic<E> : AbstractMutableSet<E> {
+    private val k: Int
+    private val comparator: Comparator<E>?
 
-    private var comparator: Comparator<E>? = null
+    constructor(): this(32)
 
-    constructor(k: Int, comp: Comparator<E>) : this(k) {
+    constructor(k: Int) {
+        this.k = k
+        comparator = null
+        tail = Node()
+        head = Node()
+        head.next.add(tail)
+        tail.next.add(tail)
+    }
+
+    constructor(k: Int, comp: Comparator<E>) {
+        this.k = k
         comparator = comp
+        tail = Node()
+        head = Node()
+        head.next.add(tail)
+        tail.next.add(tail)
     }
 
     private val sift get() = ThreadLocalRandom.current().nextDouble() < 0.5
     val maxLevel = AtomicInteger(0)
 
     private val EMPTY: E? = null
-    private val tail = Node()
-    private val head = Node()
-
-    init {
-        head.next.add(tail)
-        tail.next.add(tail)
-    }
+    private val tail: Node
+    private val head: Node
 
     private fun kArray(): AtomicReferenceArray<E> {
         val atomicIntegerArray = AtomicReferenceArray<E>(k)
@@ -34,18 +45,12 @@ class KSkipListConcurrentV1Generic<E>(val k: Int) : AbstractMutableSet<E>() {
         return atomicIntegerArray
     }
 
-    class Vector<T> {
+    inner class Vector {
         @Volatile
-        var values: AtomicReferenceArray<T>
+        var values: AtomicReferenceArray<Node>
 
-        constructor() : this(0)
-
-        constructor(size: Int) {
-            values = AtomicReferenceArray<T>(size)
-        }
-
-        fun add(v: T) {
-            val newAr = AtomicReferenceArray<T>(values.length() + 1)
+        fun add(v: Node) {
+            val newAr = AtomicReferenceArray<Node>(values.length() + 1)
             for (i in 0 until values.length()) {
                 newAr[i] = values[i]
             }
@@ -53,13 +58,17 @@ class KSkipListConcurrentV1Generic<E>(val k: Int) : AbstractMutableSet<E>() {
             values = newAr
         }
 
-        operator fun set(i: Int, v: T) = values.set(i, v)
+        operator fun set(i: Int, v: Node) = values.set(i, v)
 
-        operator fun get(i: Int): T = values.get(i)
+        operator fun get(i: Int): Node = values.get(i)
 
         val size get() = values.length()
 
         val indices get() = 0 until size
+
+        init {
+            values = AtomicReferenceArray<Node>(0)
+        }
     }
 
     inner class Node {
@@ -70,7 +79,7 @@ class KSkipListConcurrentV1Generic<E>(val k: Int) : AbstractMutableSet<E>() {
         var initialMin = EMPTY
 
         //        val next = CopyOnWriteArrayList<Node>()
-        val next = Vector<Node>()
+        val next = Vector()
 
         val lock = ReentrantLock()
 
@@ -449,7 +458,7 @@ class KSkipListConcurrentV1Generic<E>(val k: Int) : AbstractMutableSet<E>() {
     }
 
     fun cpr(x: E?, y: E?): Int {
-        return comparator?.compare(x, y) ?: (x as Comparable<E?>).compareTo(y)
-    }
 
+        return if (comparator != null) comparator.compare(x, y) else (x as Comparable<E?>).compareTo(y)
+    }
 }
