@@ -1,5 +1,5 @@
 import com.google.common.base.Stopwatch
-import mine.KSkipListConcurrentV1
+import mine.KSkipListConcurrentV1Generic
 import org.junit.jupiter.api.RepeatedTest
 import java.util.concurrent.ConcurrentSkipListSet
 import java.util.concurrent.TimeUnit
@@ -33,10 +33,11 @@ class KSkipListConcurrentTest {
         val insertRates = listOf(0.55, 0.65, 0.75, 0.85, 0.95)
         val values = 1..100000
         val operationsPerThread = 1000000
-        val k = 16
+        val k = 32
         for (insertRate in insertRates) {
 //            val skipList = KSkipListConcurrentV1(k)
-            val skipList = ConcurrentSkipListSet<Int>()
+//            val skipList = ConcurrentSkipListSet<Int>()
+            val skipList = KSkipListConcurrentV1Generic<Int>(k)
             (1..threadCount).map {
                 val operationsResult = values.map { value ->
                     value to testedOperations
@@ -123,24 +124,10 @@ class KSkipListConcurrentTest {
                         if (cur % (total / 100L) == 0L)
                             println("${cur / (total / 100)}%")
                         val anyProblem = AtomicReference<Throwable?>(null)
-                        val skipList = KSkipListConcurrentV1(4)
+//                        val skipList = KSkipListConcurrentV1(4)
+                        val skipList = KSkipListConcurrentV1Generic<Int>(16)
 //                        val skipList = ConcurrentSkipListSet<Int>()
                         val finished = AtomicBoolean(false)
-                        debug { // check that structure not handling
-                            Thread {
-                                var prev = 0
-                                while (true) {
-                                    Thread.sleep(3000)
-                                    val cur = skipList.opsDone
-                                    if (cur == prev && !finished.get()) {
-                                        println(skipList)
-                                        break
-                                    }
-                                    prev = cur
-                                }
-//                                exc.get()?.let { throw it }
-                            }.start()
-                        }
                         (0 until threadsCount).map { threadId ->
                             Thread {
                                 val checkSet = HashSet<Int>()
