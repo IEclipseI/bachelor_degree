@@ -75,8 +75,6 @@ class KSkipListConcurrentV1(val k: Int) : AbstractMutableSet<Int>() {
         @Volatile
         var key: AtomicIntegerArray = kArray()
 
-//        val min: AtomicInteger = AtomicInteger(EMPTY)
-
         @Volatile
         var initialMin = EMPTY
 
@@ -334,7 +332,6 @@ class KSkipListConcurrentV1(val k: Int) : AbstractMutableSet<Int>() {
                 }
                 newNode.lock()
                 newNode.key.set(0, v)
-//            newNode.min.set(v)
                 newNode.initialMin = v
 
                 newNode.next.add(cur.next[0])
