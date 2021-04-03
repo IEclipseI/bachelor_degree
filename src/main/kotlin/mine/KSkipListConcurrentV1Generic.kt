@@ -84,28 +84,31 @@ class KSkipListConcurrentV1Generic<E> : AbstractMutableSet<E> {
         val lock = ReentrantLock()
 
         @Volatile
+        var begin = (0).toChar()
+        @Volatile
+        var end = (0).toChar()
+
+        @Volatile
         var deletedBy: CopyOnWriteArrayList<Node?> = CopyOnWriteArrayList<Node?>()
 
         @Volatile
         var deleted = false
 
         fun posOfVAndEmpty(v: E): Pair<Int, Int> {
-            if (deleted) {
+            if (begin == end) {
                 return -1 to -1
-            }
-            var posV = -1
-            var posEmpty = -1
-            for (i in 0 until k) {
-                val cur = key.get(i)
-                if (posEmpty == -1 && cur == EMPTY) {
-                    posEmpty = i
-                    continue
+            } else {
+                var posV = -1
+                var i = begin
+                while (i != end) {
+                    val cur = key.get(i.toInt() % k)
+                    if (cpr(cur, v) == 0) {
+                        posV = i.toInt() % k
+                    }
+                    i++
                 }
-                if (posV == -1 && cur != EMPTY && cpr(cur, v) == 0) {
-                    posV = i
-                }
+                return posV to if (begin + k == end) -1 else end.toInt() % k
             }
-            return posV to posEmpty
         }
 
         fun lock() {
@@ -122,7 +125,7 @@ class KSkipListConcurrentV1Generic<E> : AbstractMutableSet<E> {
                 return false
             repeat(k) {
                 val cur = singleReadKey.get(it)
-                if (cur != EMPTY && cpr(cur,v) == 0) {
+                if (cur !== EMPTY && cpr(cur,v) == 0) {
                     return true
                 }
             }
@@ -136,25 +139,33 @@ class KSkipListConcurrentV1Generic<E> : AbstractMutableSet<E> {
         }
 
         fun remove(v: E): Boolean {
-            var removeRes = false
-            var markDeleted = true
-            for (i in 0 until k) {
-                val curVal = key.get(i)
-                if (curVal != EMPTY) {
-                    if (cpr(curVal, v) == 0) {
-                        key.set(i, EMPTY)
-                        removeRes = true
-                    } else {
-                        markDeleted = false
+            if (begin == end) {
+                return false
+            } else {
+                var posV = -1
+                var i = begin
+                while (i != end) {
+                    val cur = key.get(i.toInt() % k)
+                    if (cpr(cur, v) == 0) {
+                        posV = i.toInt() % k
+                        break
                     }
+                    i++
+                }
+                if (posV != -1) {
+                    key.set(posV, key.get(begin.toInt() % k))
+                    key.set(begin.toInt() % k, EMPTY)
+                    begin++
+                    deleted = begin == end
+                    return true
+                } else {
+                    return false
                 }
             }
-            deleted = markDeleted
-            return removeRes
         }
     }
 
-    private fun firstNotPhysicallyDeleted(curInp: Node, level: Int): Node {
+private fun firstNotPhysicallyDeleted(curInp: Node, level: Int): Node {
         var cur = curInp
         while (cur.deleted && cur.deletedBy.size > level) {
             val next = cur.deletedBy[level]!!
@@ -199,7 +210,7 @@ class KSkipListConcurrentV1Generic<E> : AbstractMutableSet<E> {
             newNode.lock()
             newNode.key.set(0, element)
             newNode.initialMin = element
-
+            newNode.end++
             newNode.next.add(cur.next[0])
             cur.next[0] = newNode
             newNode.unlock()
@@ -226,7 +237,7 @@ class KSkipListConcurrentV1Generic<E> : AbstractMutableSet<E> {
                         }
                     }
                     if (r == k) {
-                        kArrayL[0] = element
+                        kArrayL[l++] = element
                         var newMin: E? = null
                         for (i in 0 until k) {
                             newMin = if (newMin == null) {
@@ -237,17 +248,24 @@ class KSkipListConcurrentV1Generic<E> : AbstractMutableSet<E> {
                         }
                         newNode.initialMin = newMin!!
                     } else {
-                        newNode.key[r] = element
+                        newNode.key[r++] = element
                         newNode.initialMin = element
                     }
+                    check(l + r == k + 1)
+                    newNode.begin = (0).toChar()
+                    newNode.end = (0).toChar() + r
+
                     newNode.next.add(cur.next[0])
                     newNode.lock()
+                    cur.begin = (0).toChar()
+                    cur.end = (0).toChar() + l
                     cur.next[0] = newNode
                     cur.key = kArrayL
                     newNode.unlock()
                     cur.unlock()
                 } else {
                     cur.key.compareAndSet(emptyPos, EMPTY, element)
+                    cur.end++
                     cur.unlock()
                 }
             }
@@ -437,7 +455,23 @@ class KSkipListConcurrentV1Generic<E> : AbstractMutableSet<E> {
     override val size: Int
         get() = toList().size
 
-
+    fun fullfilment(): Double {
+        var top = 0.0
+        var bot = 0.0
+        val arrayList = ArrayList<E>()
+        var cur = head
+        while (cur !== tail) {
+            repeat(k) {
+                if (cur.key.get(it) != EMPTY) {
+                    arrayList.add(cur.key.get(it))
+                    top += 1
+                }
+                bot += 1
+            }
+            cur = cur.next[0]
+        }
+        return top / bot
+    }
     override fun toString(): String {
         val res = StringBuilder()
         for (i in head.next.indices.reversed()) {
