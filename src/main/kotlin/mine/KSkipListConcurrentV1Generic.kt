@@ -10,7 +10,14 @@ class KSkipListConcurrentV1Generic<E> : AbstractMutableSet<E> {
     private val k: Int
     private val comparator: Comparator<E>?
 
-    constructor(): this(32)
+    private val sift get() = ThreadLocalRandom.current().nextDouble() < 0.5
+    val maxLevel = AtomicInteger(0)
+
+    private val EMPTY: E? = null
+    private val tail: Node
+    private val head: Node
+
+    constructor() : this(32)
 
     constructor(k: Int) {
         this.k = k
@@ -30,12 +37,6 @@ class KSkipListConcurrentV1Generic<E> : AbstractMutableSet<E> {
         tail.next.add(tail)
     }
 
-    private val sift get() = ThreadLocalRandom.current().nextDouble() < 0.5
-    val maxLevel = AtomicInteger(0)
-
-    private val EMPTY: E? = null
-    private val tail: Node
-    private val head: Node
 
     private fun kArray(): AtomicReferenceArray<E> {
         val atomicIntegerArray = AtomicReferenceArray<E>(k)
@@ -85,6 +86,7 @@ class KSkipListConcurrentV1Generic<E> : AbstractMutableSet<E> {
 
         @Volatile
         var begin = (0).toChar()
+
         @Volatile
         var end = (0).toChar()
 
@@ -125,7 +127,7 @@ class KSkipListConcurrentV1Generic<E> : AbstractMutableSet<E> {
                 return false
             repeat(k) {
                 val cur = singleReadKey.get(it)
-                if (cur !== EMPTY && cpr(cur,v) == 0) {
+                if (cur !== EMPTY && cpr(cur, v) == 0) {
                     return true
                 }
             }
@@ -165,7 +167,7 @@ class KSkipListConcurrentV1Generic<E> : AbstractMutableSet<E> {
         }
     }
 
-private fun firstNotPhysicallyDeleted(curInp: Node, level: Int): Node {
+    private fun firstNotPhysicallyDeleted(curInp: Node, level: Int): Node {
         var cur = curInp
         while (cur.deleted && cur.deletedBy.size > level) {
             val next = cur.deletedBy[level]!!
@@ -230,7 +232,7 @@ private fun firstNotPhysicallyDeleted(curInp: Node, level: Int): Node {
                     val kArrayL = kArray()
                     for (i in 0 until k) {
                         val curValue = cur.key[i]
-                        if (cpr(element, curValue) == -1) {
+                        if (cpr(element, curValue) == -1) { //TODO(почему не пополам)
                             newNode.key[r++] = curValue
                         } else {
                             kArrayL[l++] = curValue
@@ -264,7 +266,7 @@ private fun firstNotPhysicallyDeleted(curInp: Node, level: Int): Node {
                     newNode.unlock()
                     cur.unlock()
                 } else {
-                    cur.key.compareAndSet(emptyPos, EMPTY, element)
+                    cur.key.set(emptyPos, element)
                     cur.end++
                     cur.unlock()
                 }
@@ -307,7 +309,7 @@ private fun firstNotPhysicallyDeleted(curInp: Node, level: Int): Node {
         var next = cur.next[curLevel]
 
         next.lock()
-        if (next === tail || cpr(next.initialMin, element) == 1) {
+        if (next === tail || cpr(next.initialMin, element) >= 1) {
             cur.unlock()
             next.unlock()
             return false
@@ -472,6 +474,7 @@ private fun firstNotPhysicallyDeleted(curInp: Node, level: Int): Node {
         }
         return top / bot
     }
+
     override fun toString(): String {
         val res = StringBuilder()
         for (i in head.next.indices.reversed()) {

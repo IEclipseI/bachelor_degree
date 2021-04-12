@@ -1,4 +1,5 @@
 import com.google.common.base.Stopwatch
+import mine.KSkipListConcurrentGeneric
 import mine.KSkipListConcurrentV1Generic
 import org.junit.jupiter.api.RepeatedTest
 import java.util.concurrent.ConcurrentSkipListSet
@@ -29,16 +30,18 @@ class KSkipListConcurrentTest {
 
     @RepeatedTest(100)
     fun crossThreadValidation() {
+        //TODO(начинать не с пустого листа, а заполненного половиной элементов)
         val threadCount = Runtime.getRuntime().availableProcessors()
-        val insertRates = listOf(0.55, 0.65, 0.75, 0.85, 0.95)
+        val insertRates = listOf(0.5, 0.55, 0.65, 0.75, 0.85, 0.95)
         val values = 1..100000
-        val operationsPerThread = 1000000
+        val operationsPerThread = 10000
         val k = 32
         for (insertRate in insertRates) {
 //            val skipList = KSkipListConcurrentV1(k)
 //            val skipList = ConcurrentSkipListSet<Int>()
-            val skipList = KSkipListConcurrentV1Generic<Int>(k)
-            (1..threadCount).map {
+//            val skipList = KSkipListConcurrentV1Generic<Int>(k)
+            val skipList = KSkipListConcurrentGeneric<Int>(k)
+            check((1..threadCount).map {
                 val operationsResult = values.map { value ->
                     value to testedOperations
                         .map { it to OperationResult(0, 0) }
@@ -91,7 +94,10 @@ class KSkipListConcurrentTest {
                 } else {
                     check(!skipList.contains(value))
                 }
-            }
+                addSuccess - removeSuccess;
+                //TODO(проверить размер после окончания, так как мы занем, сколько было успешных вста)
+            }.sum() == skipList.size)
+//            println("fullfilment ${skipList.fullfilment()}")
         }
     }
 
@@ -100,7 +106,7 @@ class KSkipListConcurrentTest {
     @RepeatedTest(100)
     fun allOperations() {
         val repeatTestCase = 100
-        val insertRates = listOf(0.55, 0.65, 0.75, 0.85, 0.95)
+        val insertRates = listOf(0.5, 0.55, 0.65, 0.75, 0.85, 0.95)
         val valuesList = listOf(1..20, 1..100, 1..1000, 1..10_000, 1..100_000)
 //        val valuesList = listOf(1..1000, 1..10_000, 1..100_000)
 //        val valuesList = listOf(1..2)
