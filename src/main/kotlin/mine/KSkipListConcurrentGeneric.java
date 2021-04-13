@@ -15,7 +15,9 @@ import static kotlin.TuplesKt.to;
 
 public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
     private final int k;
+    private final int andK;
     private final Comparator<E> comparator;
+    private static final int MAX_HEIGHT = 32;
 
     private boolean sift() {
         return ThreadLocalRandom.current().nextDouble() < 0.5;
@@ -38,6 +40,7 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
 
     public KSkipListConcurrentGeneric(int k, Comparator<E> comp) {
         this.k = k;
+        this.andK = k - 1;
         comparator = comp;
         tail = new Node();
         head = new Node();
@@ -138,13 +141,14 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
                 int posV = -1;
                 char i = begin;
                 while (i != end) {
-                    E cur = key.get(i % k);
+                    E cur = key.get(i & andK);
                     if (cpr(cur, v) == 0) {
-                        posV = i % k;
+                        posV = i & andK;
+                        break;
                     }
                     i++;
                 }
-                return to(posV, begin + k == end ? -1 : end % k);
+                return to(posV, begin + k == end ? -1 : end & andK);
             }
         }
 
@@ -348,20 +352,23 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
                     cur.key.set(emptyPos, element);
                     cur.end++;
                     cur.unlock();
+                    return true;
                 }
             }
         }
         if (newNode != null) {
-            var curLevel = 0;
-            var increasedHeight = false;
-            while (sift() && !increasedHeight) {
-                curLevel++;
+            int currentMaxLevel = maxLevel.get();
+            int heightForNode = 0;
+            while (heightForNode <= currentMaxLevel && heightForNode < MAX_HEIGHT && sift()) {
+                heightForNode++;
+            }
+
+            for (int curLevel = 1; curLevel <= heightForNode; curLevel++) {
                 cur = curLevel >= path.size() ? head : path.get(curLevel);
                 cur.lock();
                 if (cur.next.size() <= curLevel) {
                     cur.next.add(tail);
                     maxLevel.incrementAndGet();
-                    increasedHeight = true;
                 }
                 cur = moveForwardBlocking(cur, curLevel, newNode.initialMin);
                 newNode.lock();
@@ -483,6 +490,37 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
         return false;
     }
 
+
+//    private Comparable<? super E> comparable(Object key)
+//            throws ClassCastException {
+//        if (key == null)
+//            throw new NullPointerException();
+//        if (comparator != null)
+//            return new ComparableUsingComparator<E>((E) key, comparator);
+//        else
+//            return (Comparable<? super E>) key;
+//    }
+//
+    static final class ComparableUsingComparator<K> implements Comparable<K> {
+        final K actualKey;
+        final Comparator<? super K> cmp;
+
+        ComparableUsingComparator(K key, Comparator<? super K> cmp) {
+            this.actualKey = key;
+            this.cmp = cmp;
+        }
+
+        public int compareTo(K k2) {
+            return cmp.compare(actualKey, k2);
+        }
+    }
+
+    private Comparable<? super E> comparable(Object key) {
+        if (comparator != null)
+            return new ComparableUsingComparator<>((E) key, comparator);
+        else
+            return (Comparable<? super E>) key;
+    }
 
     int cpr(E x, E y) {
         return comparator != null ? comparator.compare(x, y) : ((Comparable<E>) x).compareTo(y);
