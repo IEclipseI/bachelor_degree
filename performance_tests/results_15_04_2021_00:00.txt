@@ -1,0 +1,149 @@
+Threads: 1, insert rate: 0.2
+ConcurrentSkipListSet 547500.0
+KSkipListConcurrent(2) 409875.0
+KSkipListConcurrent(4) 530000.0
+KSkipListConcurrent(8) 591575.0
+KSkipListConcurrent(16) 615625.0
+KSkipListConcurrent(32) 350725.0
+KSkipListConcurrent(64) 486775.0
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 1, insert rate: 0.5
+ConcurrentSkipListSet 313125.0
+KSkipListConcurrent(2) 423025.0
+KSkipListConcurrent(4) 476075.0
+KSkipListConcurrent(8) 550450.0
+KSkipListConcurrent(16) 581725.0
+KSkipListConcurrent(32) 509300.0
+KSkipListConcurrent(64) 434000.0
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 1, insert rate: 1.0
+ConcurrentSkipListSet 506000.0
+KSkipListConcurrent(2) 322900.0
+KSkipListConcurrent(4) 370100.0
+KSkipListConcurrent(8) 402800.0
+KSkipListConcurrent(16) 437775.0
+KSkipListConcurrent(32) 444775.0
+KSkipListConcurrent(64) 418475.0
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 2, insert rate: 0.2
+ConcurrentSkipListSet 946875.0
+KSkipListConcurrent(2) 745675.0
+KSkipListConcurrent(4) 959575.0
+KSkipListConcurrent(8) 1079200.0
+KSkipListConcurrent(16) 1120950.0
+KSkipListConcurrent(32) 1133425.0
+KSkipListConcurrent(64) 1043275.0
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 2, insert rate: 0.5
+ConcurrentSkipListSet 969325.0
+KSkipListConcurrent(2) 644525.0
+KSkipListConcurrent(4) 732025.0
+KSkipListConcurrent(8) 934200.0
+KSkipListConcurrent(16) 651975.0
+KSkipListConcurrent(32) 973775.0
+KSkipListConcurrent(64) 872200.0
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 2, insert rate: 1.0
+ConcurrentSkipListSet 621200.0
+KSkipListConcurrent(2) 677150.0
+KSkipListConcurrent(4) 605200.0
+KSkipListConcurrent(8) 736075.0
+KSkipListConcurrent(16) 797875.0
+KSkipListConcurrent(32) 824825.0
+KSkipListConcurrent(64) 724125.0
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 4, insert rate: 0.2
+ConcurrentSkipListSet 1743550.0
+KSkipListConcurrent(2) 1468825.0
+KSkipListConcurrent(4) 1544575.0
+KSkipListConcurrent(8) 1758675.0
+KSkipListConcurrent(16) 1957350.0
+KSkipListConcurrent(32) 1701725.0
+KSkipListConcurrent(64) 1563725.0
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 4, insert rate: 0.5
+ConcurrentSkipListSet 1138225.0
+KSkipListConcurrent(2) 1124675.0
+KSkipListConcurrent(4) 1285125.0
+KSkipListConcurrent(8) 1486600.0
+KSkipListConcurrent(16) 1625525.0
+KSkipListConcurrent(32) 1484750.0
+KSkipListConcurrent(64) 1239800.0
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 4, insert rate: 1.0
+ConcurrentSkipListSet 1369450.0
+KSkipListConcurrent(2) 917075.0
+KSkipListConcurrent(4) 1007125.0
+KSkipListConcurrent(8) 1232750.0
+KSkipListConcurrent(16) 1338200.0
+KSkipListConcurrent(32) 1491150.0
+KSkipListConcurrent(64) 1229050.0
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 8, insert rate: 0.2
+ConcurrentSkipListSet 2318450.0
+KSkipListConcurrent(2) 1856350.0
+KSkipListConcurrent(4) 2079700.0
+KSkipListConcurrent(8) 2373425.0
+KSkipListConcurrent(16) 2573650.0
+KSkipListConcurrent(32) 2488775.0
+KSkipListConcurrent(64) 2135800.0
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 8, insert rate: 0.5
+ConcurrentSkipListSet 1815200.0
+KSkipListConcurrent(2) 1456575.0
+KSkipListConcurrent(4) 1390050.0
+KSkipListConcurrent(8) 2016250.0
+KSkipListConcurrent(16) 2121250.0
+KSkipListConcurrent(32) 2154450.0
+KSkipListConcurrent(64) 1630525.0
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 8, insert rate: 1.0
+ConcurrentSkipListSet 1968400.0
+KSkipListConcurrent(2) 1041150.0
+KSkipListConcurrent(4) 1318000.0
+KSkipListConcurrent(8) 1630475.0
+KSkipListConcurrent(16) 1747700.0
+KSkipListConcurrent(32) 1772400.0
+KSkipListConcurrent(64) 1522550.0
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 16, insert rate: 0.2
+ConcurrentSkipListSet 1788700.0
+KSkipListConcurrent(2) 1953425.0
+KSkipListConcurrent(4) 2189400.0
+KSkipListConcurrent(8) 2076075.0
+KSkipListConcurrent(16) 2668550.0
+KSkipListConcurrent(32) 2635375.0
+KSkipListConcurrent(64) 2301700.0
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 16, insert rate: 0.5
+ConcurrentSkipListSet 1742525.0
+KSkipListConcurrent(2) 1490050.0
+KSkipListConcurrent(4) 1671425.0
+KSkipListConcurrent(8) 2035675.0
+KSkipListConcurrent(16) 2187350.0
+KSkipListConcurrent(32) 2115075.0
+KSkipListConcurrent(64) 1819900.0
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 16, insert rate: 1.0
+ConcurrentSkipListSet 1743350.0
+KSkipListConcurrent(2) 1113175.0
+KSkipListConcurrent(4) 1449250.0
+KSkipListConcurrent(8) 1614500.0
+KSkipListConcurrent(16) 1776075.0
+KSkipListConcurrent(32) 1684650.0
+KSkipListConcurrent(64) 1555025.0
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
