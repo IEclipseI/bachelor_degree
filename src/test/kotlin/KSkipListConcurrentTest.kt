@@ -1,6 +1,5 @@
 import com.google.common.base.Stopwatch
 import mine.KSkipListConcurrentGeneric
-import mine.KSkipListConcurrentV1
 import org.junit.jupiter.api.RepeatedTest
 import java.util.concurrent.ConcurrentSkipListSet
 import java.util.concurrent.TimeUnit
@@ -107,13 +106,13 @@ class KSkipListConcurrentTest {
     fun allOperations() {
         val repeatTestCase = 100
         val insertRates = listOf(0.5, 0.55, 0.65, 0.75, 0.85, 0.95)
-//        val valuesList = listOf(1..20, 1..100, 1..1000, 1..10_000, 1..100_000)
+        val valuesList = listOf(1..20, 1..100, 1..1000, 1..10_000, 1..100_000)
 //        val valuesList = listOf(1..1000, 1..10_000, 1..100_000)
-        val valuesList = listOf(1..2)
+//        val valuesList = listOf(1..2)
         val ops = 10_00
         var cur = 0
-//        val threads = 2..Runtime.getRuntime().availableProcessors()
-        val threads = 2..2
+        val threads = 2..Runtime.getRuntime().availableProcessors()
+//        val threads = 2..2
         val total = insertRates.size * valuesList.size * repeatTestCase * threads.toList().size
 
         for (threadsCount in threads) {
@@ -130,9 +129,9 @@ class KSkipListConcurrentTest {
                         if (cur % (total / 100L) == 0L)
                             println("${cur / (total / 100)}%")
                         val anyProblem = AtomicReference<Throwable?>(null)
-                        val skipList = KSkipListConcurrentV1(4)
+//                        val skipList = KSkipListConcurrentV1(4)
 //                        val skipList = KSkipListConcurrentV1Generic<Int>(4)
-//                        val skipList = KSkipListConcurrentGeneric<Int>(16)
+                        val skipList = KSkipListConcurrentGeneric<Int>(16)
 //                        val skipList = ConcurrentSkipListSet<Int>()
                         val finished = AtomicBoolean(false)
                         (0 until threadsCount).map { threadId ->

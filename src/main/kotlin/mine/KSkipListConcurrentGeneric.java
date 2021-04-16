@@ -59,8 +59,8 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
         Node cur = head;
         while (cur != tail) {
             for (int it = 0; it < k; it++) {
-                if (cur.key.get(it) != EMPTY) {
-                    arrayList.add(cur.key.get(it));
+                if (cur.array.key.get(it) != EMPTY) {
+                    arrayList.add(cur.array.key.get(it));
                 }
             }
             cur = cur.next.get(0);
@@ -74,7 +74,7 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
         Node cur = head;
         while (cur != tail) {
             for (int it = 0; it < k; it++) {
-                if (cur.key.get(it) != EMPTY) {
+                if (cur.array.key.get(it) != EMPTY) {
                     size++;
                 }
             }
@@ -121,34 +121,51 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
         }
     }
 
+    class NodeArray {
+        final AtomicReferenceArray<E> key;
+        volatile int end;
+
+        public NodeArray() {
+            this.key = kArray();
+            this.end = 0;
+        }
+
+        public NodeArray(AtomicReferenceArray<E> kArray, int end) {
+            this.key = kArray;
+            this.end = end;
+        }
+    }
+
     class Node {
 
-        volatile AtomicReferenceArray<E> key = kArray();
+//        volatile AtomicReferenceArray<E> key = kArray();
+//        volatile int end = 0;
+        volatile NodeArray array = new NodeArray();
+//        volatile Pair<Integer, >
         volatile E initialMin = EMPTY;
 
         final Vector next = new Vector();
         final Lock lock = new ReentrantLock();
 
-        volatile char begin = 0;
-        volatile char end = 0;
         volatile CopyOnWriteArrayList<Node> deletedBy = new CopyOnWriteArrayList<>();
         volatile boolean deleted = false;
 
         Pair<Integer, Integer> posOfVAndEmpty(Comparable<? super E> v) {
-            if (begin == end) {
+            int end = array.end;
+            if (end == 0) {
                 return to(-1, -1);
             } else {
                 int posV = -1;
-                char i = begin;
+                int i = 0;
                 while (i != end) {
-                    E cur = key.get(i & andK);
+                    E cur = array.key.get(i);
                     if (v.compareTo(cur) == 0) {
-                        posV = i & andK;
+                        posV = i;
                         break;
                     }
                     i++;
                 }
-                return to(posV, begin + k == end ? -1 : end & andK);
+                return to(posV, k == end ? -1 : end);
             }
         }
 
@@ -161,10 +178,11 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
         }
 
         boolean has(Comparable<? super E> v) {
-            AtomicReferenceArray<E> singleReadKey = key;
+            NodeArray singleReadArray = this.array;
+            AtomicReferenceArray<E> singleReadKey = singleReadArray.key;
             if (deleted)
                 return false;
-            for (int it = 0; it < k; it++) {
+            for (int it = singleReadArray.end - 1; it >= 0; it--) {
                 E cur = singleReadKey.get(it);
                 if (cur != EMPTY && v.compareTo(cur) == 0) {
                     return true;
@@ -175,24 +193,26 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
 
 
         boolean remove(E v) {
-            if (begin == end) {
+            int end = array.end;
+            AtomicReferenceArray<E> key = array.key;
+            if (end == 0) {
                 return false;
             } else {
                 int posV = -1;
-                char i = begin;
+                int i = 0;
                 while (i != end) {
-                    E cur = key.get(i % k);
+                    E cur = key.get(i);
                     if (cpr(cur, v) == 0) {
-                        posV = i % k;
+                        posV = i;
                         break;
                     }
                     i++;
                 }
                 if (posV != -1) {
-                    key.set(posV, key.get(begin % k));
-                    key.set(begin % k, EMPTY);
-                    begin++;
-                    deleted = begin == end;
+                    key.set(posV, key.get(end - 1));
+                    key.set(end - 1, EMPTY);
+                    array.end--;
+                    deleted = end == 1;
                     return true;
                 } else {
                     return false;
@@ -289,9 +309,9 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
         if (cur == head) {
             newNode = new Node();
             newNode.lock();
-            newNode.key.set(0, element1);
+            newNode.array.key.set(0, element1);
             newNode.initialMin = element1;
-            newNode.end++;
+            newNode.array.end++;
             newNode.next.add(cur.next.get(0));
             cur.next.set(0, newNode);
             newNode.unlock();
@@ -312,9 +332,9 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
                     int r = 0;
                     AtomicReferenceArray<E> kArrayL = kArray();
                     for (int i = 0; i < k; i++) {
-                        E curValue = cur.key.get(i);
+                        E curValue = cur.array.key.get(i);
                         if (element.compareTo(curValue) < 0) { //TODO(почему не пополам)
-                            newNode.key.set(r++, curValue);
+                            newNode.array.key.set(r++, curValue);
                         } else {
                             kArrayL.set(l++, curValue);
                         }
@@ -324,34 +344,31 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
                         E newMin = null;
                         for (int i = 0; i < k; i++) {
                             if (newMin == null) {
-                                newMin = newNode.key.get(i);
+                                newMin = newNode.array.key.get(i);
                             } else {
-                                if (cpr(newNode.key.get(i), newMin) >= 0) {
+                                if (cpr(newNode.array.key.get(i), newMin) >= 0) {
                                     newMin = newMin;
                                 } else {
-                                    newMin = newNode.key.get(i);
+                                    newMin = newNode.array.key.get(i);
                                 }
                             }
                         }
                         newNode.initialMin = newMin;
                     } else {
-                        newNode.key.set(r++, element1);
+                        newNode.array.key.set(r++, element1);
                         newNode.initialMin = element1;
                     }
-                    newNode.begin = 0;
-                    newNode.end = (char) r;
+                    newNode.array.end = r;
 
                     newNode.next.add(cur.next.get(0));
                     newNode.lock();
-                    cur.begin = 0;
-                    cur.end = (char) l;
                     cur.next.set(0, newNode);
-                    cur.key = kArrayL;
+                    cur.array = new NodeArray(kArrayL, l);
                     newNode.unlock();
                     cur.unlock();
                 } else {
-                    cur.key.set(emptyPos, element1);
-                    cur.end++;
+                    cur.array.key.set(emptyPos, element1);
+                    cur.array.end++;
                     cur.unlock();
                     return true;
                 }
