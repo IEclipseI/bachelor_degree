@@ -694,7 +694,6 @@ class KSkipListConcurrentV1(val k: Int) : AbstractMutableSet<Int>() {
     private fun find(v: Int): Node {
         var cur = head
         var curDepth = maxLevel.get()
-//        var curDepth = 0
         while (curDepth >= 0) {
             var next = cur.next[curDepth]
             while (next.deleted) {

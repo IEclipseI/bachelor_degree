@@ -232,7 +232,7 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
     private Pair<Node, List<Node>> findAllCandidates(Comparable<? super E> v) {
         Node cur = head;
         int curDepth = maxLevel.get();
-        List<Node> path = new ArrayList<>(curDepth + 1);
+        List<Node> path = new ArrayList<>(curDepth + 2);
         for (int i = 0; i < curDepth + 1; i++) {
             path.add(null);
         }
@@ -251,7 +251,7 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
     private Pair<Node, List<Node>> findAllPrevCandidates(E v) {
         Node prev = head;
         int curDepth = maxLevel.get();
-        List<Node> path = new ArrayList<>(curDepth + 1);
+        List<Node> path = new ArrayList<>(curDepth + 2);
         for (int i = 0; i < curDepth + 1; i++) {
             path.add(null);
         }
@@ -491,17 +491,6 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
         return false;
     }
 
-
-    //    private Comparable<? super E> comparable(Object key)
-//            throws ClassCastException {
-//        if (key == null)
-//            throw new NullPointerException();
-//        if (comparator != null)
-//            return new ComparableUsingComparator<E>((E) key, comparator);
-//        else
-//            return (Comparable<? super E>) key;
-//    }
-//
     static final class ComparableUsingComparator<K> implements Comparable<K> {
         final K actualKey;
         final Comparator<? super K> cmp;

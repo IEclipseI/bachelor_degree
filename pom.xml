@@ -19,13 +19,6 @@
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
-    <!--    <repositories>-->
-    <!--        <repository>-->
-    <!--            <id>mavenCentral</id>-->
-    <!--            <url>https://repo1.maven.org/maven2/</url>-->
-    <!--        </repository>-->
-    <!--    </repositories>-->
-
     <build>
         <sourceDirectory>src/main/kotlin</sourceDirectory>
         <testSourceDirectory>src/test/kotlin</testSourceDirectory>
@@ -54,6 +47,9 @@
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.2</version>
+                <configuration>
+                    <argLine>-Xmx8g</argLine>
+                </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>

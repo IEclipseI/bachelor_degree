@@ -1,17 +1,23 @@
+package test
+
 import mine.KSkipListConcurrentGeneric
-import org.junit.jupiter.api.Test
 import java.time.Instant
+import java.util.concurrent.ConcurrentSkipListSet
 import kotlin.random.Random
+
+fun main() {
+    PerformanceTests().performance()
+}
 
 class PerformanceTests {
     //    val threadCounts = listOf(1, 2, 4, 8, 16, 32, 64)
 //
     val threadCounts = listOf(8)
     val mainRandom = Random(System.currentTimeMillis())
-//    val insertRates = listOf(0.2, 0.5, 1.0)
+
+    //    val insertRates = listOf(0.2, 0.5, 1.0)
     val insertRates = listOf(1.0)
 
-    @Test
     fun performance() {
         val executionsNumber = 10
         val values = 1..100_000
@@ -21,14 +27,14 @@ class PerformanceTests {
         }
 
         val structuresToTest = listOf(
-//            Struct("KSkipListConcurrent(2)") { KSkipListConcurrentGeneric(2) },
-//            Struct("KSkipListConcurrent(4)") { KSkipListConcurrentGeneric(4) },
-//            Struct("KSkipListConcurrent(8)") { KSkipListConcurrentGeneric(8) },
-//            Struct("ConcurrentSkipListSet") { ConcurrentSkipListSet() },
+            Struct("KSkipListConcurrent(2)") { KSkipListConcurrentGeneric(2) },
+            Struct("KSkipListConcurrent(4)") { KSkipListConcurrentGeneric(4) },
+            Struct("KSkipListConcurrent(8)") { KSkipListConcurrentGeneric(8) },
+            Struct("ConcurrentSkipListSet") { ConcurrentSkipListSet() },
             Struct("KSkipListConcurrent(16)") { KSkipListConcurrentGeneric(16) },
             Struct("KSkipListConcurrent(32)") { KSkipListConcurrentGeneric(32) },
-//            Struct("KSkipListConcurrent(64)") { KSkipListConcurrentGeneric(64) },
-//            Struct("KSkipListConcurrent(64)") { KSkipListConcurrentGeneric(128) }
+            Struct("KSkipListConcurrent(64)") { KSkipListConcurrentGeneric(64) },
+            Struct("KSkipListConcurrent(64)") { KSkipListConcurrentGeneric(128) }
         )
         for (threads in threadCounts) {
             for (insertRate in insertRates) {
