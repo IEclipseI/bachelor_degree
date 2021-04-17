@@ -1,35 +1,35 @@
 import mine.KSkipListConcurrentGeneric
 import org.junit.jupiter.api.Test
 import java.time.Instant
-import java.util.concurrent.ConcurrentSkipListSet
 import kotlin.random.Random
 
 class PerformanceTests {
 //        val threadCounts = listOf(1, 2, 4, 8, 16, 32, 64)
-        val threadCounts = listOf(1, 2, 4, 8, 16)
+        val threadCounts = listOf(2, 4, 8, 16)
 //
 //    val threadCounts = listOf(8)
     val mainRandom = Random(System.currentTimeMillis())
-    val insertRates = listOf(0.2, 0.5, 1.0)
-//    val insertRates = listOf(1.0)
+//    val insertRates = listOf(0.2, 0.5, 1.0)
+    val insertRates = listOf(0.0)
+//    val insertRates = listOf(0.66)
 
     @Test
     fun performance() {
         val executionsNumber = 10
-        val values = 1..1000_000
+        val values = 1..2000_000
         val initialState = (0 until executionsNumber).map {
             val initialState = values.shuffled(mainRandom).take(values.last / 2)
             initialState to mainRandom.nextInt()
         }
 
         val structuresToTest = listOf(
-            Struct("KSkipListConcurrent(2)") { KSkipListConcurrentGeneric(2) },
-            Struct("KSkipListConcurrent(4)") { KSkipListConcurrentGeneric(4) },
-            Struct("KSkipListConcurrent(8)") { KSkipListConcurrentGeneric(8) },
-            Struct("KSkipListConcurrent(16)") { KSkipListConcurrentGeneric(16) },
+//            Struct("KSkipListConcurrent(2)") { KSkipListConcurrentGeneric(2) },
+//            Struct("KSkipListConcurrent(4)") { KSkipListConcurrentGeneric(4) },
+//            Struct("KSkipListConcurrent(8)") { KSkipListConcurrentGeneric(8) },
+//            Struct("KSkipListConcurrent(16)") { KSkipListConcurrentGeneric(16) },
             Struct("KSkipListConcurrent(32)") { KSkipListConcurrentGeneric(32) },
             Struct("KSkipListConcurrent(64)") { KSkipListConcurrentGeneric(64) },
-            Struct("ConcurrentSkipListSet") { ConcurrentSkipListSet() },
+//            Struct("ConcurrentSkipListSet") { ConcurrentSkipListSet() },
 //            Struct("KSkipListConcurrent(64)") { KSkipListConcurrentGeneric(128) }
         )
         for (threads in threadCounts) {

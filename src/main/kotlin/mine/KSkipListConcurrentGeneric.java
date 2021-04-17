@@ -192,7 +192,7 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
         }
 
 
-        boolean remove(E v) {
+        boolean remove(Comparable<? super E> v) {
             int end = array.end;
             AtomicReferenceArray<E> key = array.key;
             if (end == 0) {
@@ -202,7 +202,7 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
                 int i = 0;
                 while (i != end) {
                     E cur = key.get(i);
-                    if (cpr(cur, v) == 0) {
+                    if (v.compareTo(cur) == 0) {
                         posV = i;
                         break;
                     }
@@ -268,7 +268,7 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
         return to(cur, path);
     }
 
-    private Pair<Node, List<Node>> findAllPrevCandidates(E v) {
+    private Pair<Node, List<Node>> findAllPrevCandidates(Comparable<? super E> v) {
         Node prev = head;
         int curDepth = maxLevel.get();
         List<Node> path = new ArrayList<>(curDepth + 2);
@@ -281,7 +281,7 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
             while (next.deleted) {
                 next = next.next.get(curDepth);
             }
-            while (next != tail && cpr(next.initialMin, v) <= 0) {
+            while (next != tail && v.compareTo(next.initialMin) >= 0) {
                 prev = cur;
                 cur = next;
                 next = cur.next.get(curDepth);
@@ -304,7 +304,7 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
         cur.lock();
 
         cur = moveForwardBlocking(cur, 0, element);
-        Node newNode = null;
+        Node newNode;
 
         if (cur == head) {
             newNode = new Node();
@@ -407,7 +407,7 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
 
     @Override
     public boolean remove(Object element1) {
-        E element = (E) element1;
+        Comparable<? super E> element = comparable(element1);
         Pair<Node, List<Node>> allPrevCandidates = findAllPrevCandidates(element);
         Node cur = allPrevCandidates.component1();
         List<Node> path = allPrevCandidates.component2();
@@ -417,14 +417,14 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
         Node next = cur.next.get(curLevel);
 
         next.lock();
-        if (next == tail || cpr(next.initialMin, element) >= 1) {
+        if (next == tail || element.compareTo(next.initialMin) <= -1 ) {
             cur.unlock();
             next.unlock();
             return false;
         }
         Node nextNext = next.next.get(curLevel);
 //        nextNext.lock();
-        while (nextNext != tail && cpr(nextNext.initialMin, element) <= 0) {
+        while (nextNext != tail && element.compareTo(nextNext.initialMin) >= 0) {
             cur.unlock();
             cur = next;
             next = nextNext;
