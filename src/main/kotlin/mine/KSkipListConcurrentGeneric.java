@@ -8,14 +8,12 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReferenceArray;
-import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 import static kotlin.TuplesKt.to;
 
 public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
     private final int k;
-    private final int andK;
     private final Comparator<E> comparator;
     private static final int MAX_HEIGHT = 32;
 
@@ -40,7 +38,6 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
 
     public KSkipListConcurrentGeneric(int k, Comparator<E> comp) {
         this.k = k;
-        this.andK = k - 1;
         comparator = comp;
         tail = new Node();
         head = new Node();
@@ -138,27 +135,25 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
 
     class Node {
 
-//        volatile AtomicReferenceArray<E> key = kArray();
-//        volatile int end = 0;
         volatile NodeArray array = new NodeArray();
-//        volatile Pair<Integer, >
         volatile E initialMin = EMPTY;
 
         final Vector next = new Vector();
-        final Lock lock = new ReentrantLock();
+        final ReentrantLock lock = new ReentrantLock();
 
         volatile CopyOnWriteArrayList<Node> deletedBy = new CopyOnWriteArrayList<>();
         volatile boolean deleted = false;
 
         Pair<Integer, Integer> posOfVAndEmpty(Comparable<? super E> v) {
             int end = array.end;
+            AtomicReferenceArray<E> key = array.key;
             if (end == 0) {
                 return to(-1, -1);
             } else {
                 int posV = -1;
                 int i = 0;
                 while (i != end) {
-                    E cur = array.key.get(i);
+                    E cur = key.getPlain(i);
                     if (v.compareTo(cur) == 0) {
                         posV = i;
                         break;
@@ -183,7 +178,7 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
             if (deleted)
                 return false;
             for (int it = singleReadArray.end - 1; it >= 0; it--) {
-                E cur = singleReadKey.get(it);
+                E cur = singleReadKey.getPlain(it);
                 if (cur != EMPTY && v.compareTo(cur) == 0) {
                     return true;
                 }
@@ -201,7 +196,7 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
                 int posV = -1;
                 int i = 0;
                 while (i != end) {
-                    E cur = key.get(i);
+                    E cur = key.getPlain(i);
                     if (v.compareTo(cur) == 0) {
                         posV = i;
                         break;
@@ -209,7 +204,7 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
                     i++;
                 }
                 if (posV != -1) {
-                    key.set(posV, key.get(end - 1));
+                    key.setPlain(posV, key.getPlain(end - 1));
                     key.set(end - 1, EMPTY);
                     array.end--;
                     deleted = end == 1;
@@ -219,16 +214,36 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
                 }
             }
         }
+
+        private String toArr() {
+            StringBuilder sb = new StringBuilder("");
+            AtomicReferenceArray<E> key = array.key;
+            sb.append(key.get(0));
+            for (int i = 1; i < k; i++) {
+                sb.append(",");
+                sb.append(key.get(i));
+            }
+            return sb.toString();
+        }
+
+        @Override
+        public String toString() {
+            return "|min:" + initialMin + "; del:" + deleted + ";ar:" + toArr() + "|";
+        }
     }
 
     private Node firstNotPhysicallyDeleted(Node curInp, int level) {
         Node cur = curInp;
-        while (cur.deleted && cur.deletedBy.size() > level) {
-            Node next = cur.deletedBy.get(level);
+        int height = cur.next.size();
+        int notDeletedLevels = height - cur.deletedBy.size();
+        while (cur.deleted && notDeletedLevels - 1 < level) {
+            Node next = cur.deletedBy.get(height - level - 1);
             cur.unlock();
 
             cur = next;
             cur.lock();
+            height = cur.next.size();
+            notDeletedLevels = height - cur.deletedBy.size();
         }
         return cur;
     }
@@ -249,52 +264,6 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
         return cur;
     }
 
-    private Pair<Node, List<Node>> findAllCandidates(Comparable<? super E> v) {
-        Node cur = head;
-        int curDepth = maxLevel.get();
-        List<Node> path = new ArrayList<>(curDepth + 2);
-        for (int i = 0; i < curDepth + 1; i++) {
-            path.add(null);
-        }
-        while (curDepth >= 0) {
-            Node next = cur.next.get(curDepth);
-            while (next != tail && v.compareTo(next.initialMin) >= 0) {
-                cur = next;
-                next = cur.next.get(curDepth);
-            }
-            path.set(curDepth, cur);
-            curDepth--;
-        }
-        return to(cur, path);
-    }
-
-    private Pair<Node, List<Node>> findAllPrevCandidates(Comparable<? super E> v) {
-        Node prev = head;
-        int curDepth = maxLevel.get();
-        List<Node> path = new ArrayList<>(curDepth + 2);
-        for (int i = 0; i < curDepth + 1; i++) {
-            path.add(null);
-        }
-        while (curDepth >= 0) {
-            Node cur = prev;
-            Node next = cur.next.get(curDepth);
-            while (next.deleted) {
-                next = next.next.get(curDepth);
-            }
-            while (next != tail && v.compareTo(next.initialMin) >= 0) {
-                prev = cur;
-                cur = next;
-                next = cur.next.get(curDepth);
-                while (next.deleted) {
-                    next = next.next.get(curDepth);
-                }
-            }
-            path.set(curDepth, prev);
-            curDepth--;
-        }
-        return to(prev, path);
-    }
-
     @Override
     public boolean add(E element1) {
         Comparable<? super E> element = comparable(element1);
@@ -306,7 +275,7 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
         cur = moveForwardBlocking(cur, 0, element);
         Node newNode;
 
-        if (cur == head) {
+        if (cur == head || cur.deleted) {
             newNode = new Node();
             newNode.lock();
             newNode.array.key.set(0, element1);
@@ -331,31 +300,33 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
                     int l = 0;
                     int r = 0;
                     AtomicReferenceArray<E> kArrayL = kArray();
+                    AtomicReferenceArray<E> newNodeKey = newNode.array.key;
+                    AtomicReferenceArray<E> oldNodeKey = cur.array.key;
                     for (int i = 0; i < k; i++) {
-                        E curValue = cur.array.key.get(i);
+                        E curValue = oldNodeKey.getPlain(i);
                         if (element.compareTo(curValue) < 0) { //TODO(почему не пополам)
-                            newNode.array.key.set(r++, curValue);
+                            newNodeKey.setPlain(r++, curValue);
                         } else {
                             kArrayL.set(l++, curValue);
                         }
                     }
                     if (r == k) {
-                        kArrayL.set(l++, element1);
+                        kArrayL.setPlain(l++, element1);
                         E newMin = null;
                         for (int i = 0; i < k; i++) {
                             if (newMin == null) {
-                                newMin = newNode.array.key.get(i);
+                                newMin = newNodeKey.getPlain(i);
                             } else {
-                                if (cpr(newNode.array.key.get(i), newMin) >= 0) {
+                                if (cpr(newNodeKey.getPlain(i), newMin) >= 0) {
                                     newMin = newMin;
                                 } else {
-                                    newMin = newNode.array.key.get(i);
+                                    newMin = newNodeKey.getPlain(i);
                                 }
                             }
                         }
                         newNode.initialMin = newMin;
                     } else {
-                        newNode.array.key.set(r++, element1);
+                        newNodeKey.set(r++, element1);
                         newNode.initialMin = element1;
                     }
                     newNode.array.end = r;
@@ -423,27 +394,21 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
             return false;
         }
         Node nextNext = next.next.get(curLevel);
-//        nextNext.lock();
         while (nextNext != tail && element.compareTo(nextNext.initialMin) >= 0) {
             cur.unlock();
             cur = next;
             next = nextNext;
             next.lock();
             nextNext = nextNext.next.get(curLevel);
-//            nextNext.lock();
         }
-//        nextNext.unlock();
         boolean removeRes = next.remove(element);
 
-        if (next.deleted) {
-            cur.next.set(curLevel, nextNext);
-            next.deletedBy.add(cur);
-            Node forDelete = next;
-            int height = forDelete.next.size();
+        if (removeRes && next.deleted) {
             next.unlock();
             cur.unlock();
-            curLevel++;
-            while (curLevel < height) {
+            Node forDelete = next;
+            curLevel = forDelete.next.size() - 1;
+            while (curLevel >= 0) {
                 cur = curLevel < path.size() ? path.get(curLevel) : head;
                 cur.lock();
                 cur = firstNotPhysicallyDeleted(cur, curLevel);
@@ -456,16 +421,15 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
                 }
                 if (next == tail || cpr(next.initialMin, forDelete.initialMin) >= 1) {
                     cur.unlock();
-                    curLevel++;
+                    curLevel--;
                     continue;
                 }
-
                 forDelete.lock();
                 cur.next.set(curLevel, forDelete.next.get(curLevel));
                 forDelete.deletedBy.add(cur);
                 forDelete.unlock();
                 cur.unlock();
-                curLevel++;
+                curLevel--;
             }
             return true;
         } else {
@@ -475,20 +439,56 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
         }
     }
 
+    private Pair<Node, List<Node>> findAllCandidates(Comparable<? super E> v) {
+        Node cur = head;
+        int curDepth = maxLevel.get();
+        List<Node> path = new ArrayList<>(curDepth + 2);
+        for (int i = 0; i < curDepth + 1; i++) {
+            path.add(null);
+        }
+        while (curDepth >= 0) {
+            Node next = cur.next.get(curDepth);
+            while (next != tail && v.compareTo(next.initialMin) >= 0) {
+                cur = next;
+                next = cur.next.get(curDepth);
+            }
+            path.set(curDepth, cur);
+            curDepth--;
+        }
+        return to(cur, path);
+    }
+
+    private Pair<Node, List<Node>> findAllPrevCandidates(Comparable<? super E> v) {
+        Node prev = head;
+        int curDepth = maxLevel.get();
+//        Node[] path2 = (Node[])new Object[curDepth + 1];
+//        path2[0] = prev;
+        List<Node> path = new ArrayList<>(curDepth + 2);
+        for (int i = 0; i < curDepth + 1; i++) {
+            path.add(null);
+        }
+        while (curDepth >= 0) {
+            Node cur = prev;
+            Node next = cur.next.get(curDepth);
+            while (next != tail && v.compareTo(next.initialMin) >= 0) {
+                prev = cur;
+                cur = next;
+                next = cur.next.get(curDepth);
+            }
+            path.set(curDepth, prev);
+            curDepth--;
+        }
+        return to(prev, path);
+    }
+
     private Node find(Comparable<? super E> v) {
         Node cur = head;
         int curDepth = maxLevel.get();
         while (curDepth >= 0) {
             Node next = cur.next.get(curDepth);
-            while (next.deleted) {
-                next = next.next.get(curDepth);
-            }
             while (next != tail && v.compareTo(next.initialMin) >= 0) {
                 cur = next;
                 next = next.next.get(curDepth);
-                while (next.deleted) {
-                    next = next.next.get(curDepth);
-                }
             }
             curDepth--;
         }
@@ -531,5 +531,19 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
 
     int cpr(E x, E y) {
         return comparator != null ? comparator.compare(x, y) : ((Comparable<E>) x).compareTo(y);
+    }
+
+    private void check(boolean cond) {
+        check(cond, "");
+    }
+
+    private void check(boolean cond, String message) {
+        if (!cond) {
+            throw new AssertionError(message);
+        }
+    }
+
+    public AtomicInteger getMaxLevel() {
+        return maxLevel;
     }
 }

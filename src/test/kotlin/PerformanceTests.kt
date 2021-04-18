@@ -5,13 +5,13 @@ import kotlin.random.Random
 
 class PerformanceTests {
 //        val threadCounts = listOf(1, 2, 4, 8, 16, 32, 64)
-        val threadCounts = listOf(2, 4, 8, 16)
+//        val threadCounts = listOf(1, 2, 4, 8, 16)
 //
-//    val threadCounts = listOf(8)
+    val threadCounts = listOf(8)
     val mainRandom = Random(System.currentTimeMillis())
 //    val insertRates = listOf(0.2, 0.5, 1.0)
-    val insertRates = listOf(0.0)
-//    val insertRates = listOf(0.66)
+//    val insertRates = listOf(0.0)
+    val insertRates = listOf(0.66)
 
     @Test
     fun performance() {
@@ -21,15 +21,36 @@ class PerformanceTests {
             val initialState = values.shuffled(mainRandom).take(values.last / 2)
             initialState to mainRandom.nextInt()
         }
+        val seconds = 5L
 
         val structuresToTest = listOf(
 //            Struct("KSkipListConcurrent(2)") { KSkipListConcurrentGeneric(2) },
 //            Struct("KSkipListConcurrent(4)") { KSkipListConcurrentGeneric(4) },
 //            Struct("KSkipListConcurrent(8)") { KSkipListConcurrentGeneric(8) },
 //            Struct("KSkipListConcurrent(16)") { KSkipListConcurrentGeneric(16) },
-            Struct("KSkipListConcurrent(32)") { KSkipListConcurrentGeneric(32) },
+//            Struct("KSkipListConcurrent(24)") { KSkipListConcurrentGeneric(24) },
+//            Struct("KSkipListConcurrent(32)") { KSkipListConcurrentGeneric(32) },
+//            Struct("KSkipListConcurrent(40)") { KSkipListConcurrentGeneric(40) },
+//            Struct("KSkipListConcurrent(48)") { KSkipListConcurrentGeneric(48) },
+//            Struct("KSkipListConcurrent(56)") { KSkipListConcurrentGeneric(56) },
             Struct("KSkipListConcurrent(64)") { KSkipListConcurrentGeneric(64) },
+//            Struct("KSkipListConcurrent(68)") { KSkipListConcurrentGeneric(68) },
+//            Struct("KSkipListConcurrent(72)") { KSkipListConcurrentGeneric(72) },
+//            Struct("KSkipListConcurrent(80)") { KSkipListConcurrentGeneric(80) },
+//            Struct("KSkipListConcurrent(88)") { KSkipListConcurrentGeneric(88) },
+//            Struct("KSkipListConcurrent(96)") { KSkipListConcurrentGeneric(96) },
+//            Struct("KSkipListConcurrent(128)") { KSkipListConcurrentGeneric(128) },
+//            Struct("KSkipListConcurrent(144)") { KSkipListConcurrentGeneric(144) },
+//            Struct("KSkipListConcurrent(160)") { KSkipListConcurrentGeneric(160) },
+//            Struct("KSkipListConcurrent(176)") { KSkipListConcurrentGeneric(176) },
+//            Struct("KSkipListConcurrent(182)") { KSkipListConcurrentGeneric(182) },
+//            Struct("KSkipListConcurrent(198)") { KSkipListConcurrentGeneric(198) },
+//            Struct("KSkipListConcurrent(214)") { KSkipListConcurrentGeneric(214) },
+//            Struct("KSkipListConcurrent(230)") { KSkipListConcurrentGeneric(230) },
+//            Struct("KSkipListConcurrent(246)") { KSkipListConcurrentGeneric(246) },
+//            Struct("KSkipListConcurrent(262)") { KSkipListConcurrentGeneric(262) },
 //            Struct("ConcurrentSkipListSet") { ConcurrentSkipListSet() },
+//            Struct("NonBlockingFriendlySkipListSet") { NonBlockingFriendlySkipListSet() },
 //            Struct("KSkipListConcurrent(64)") { KSkipListConcurrentGeneric(128) }
         )
         for (threads in threadCounts) {
@@ -37,11 +58,12 @@ class PerformanceTests {
                 println("Threads: $threads, insert rate: $insertRate")
                 for (structure in structuresToTest) {
                     val results = ArrayList<Int>()
+                    val heights = ArrayList<Int>()
                     initialState.map { (a, seed) ->
                         val list = structure.construct()
                         list.addAll(a)
                         val startTime = Instant.now()
-                        val finishTime = startTime.plusSeconds(1)
+                        val finishTime = startTime.plusSeconds(seconds)
                         val localRandom = Random(seed)
                         val operationsDone = (0 until threads).map {
                             Random(localRandom.nextInt())
@@ -68,12 +90,14 @@ class PerformanceTests {
                             it.component1().join()
                             it.component2()[0]
                         }.sum()
+                        heights.add(if (list is KSkipListConcurrentGeneric) list.maxLevel.get() else 0)
                         results.add(operationsDone)
                         System.gc()
                     }
                     results.sort()
-                    val average = results.drop(3).dropLast(3).average()
-                    println(structure.name + " " + average)
+                    val average = results.drop(3).dropLast(3).average().div(seconds)
+                    val high = heights.average()
+                    println(structure.name + " " + average + " " + high)
 
                 }
                 println("–".repeat(120))

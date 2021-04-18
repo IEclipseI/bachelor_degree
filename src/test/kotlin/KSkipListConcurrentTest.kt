@@ -112,6 +112,7 @@ class KSkipListConcurrentTest {
         val ops = 10_00
         var cur = 0
         val threads = 2..Runtime.getRuntime().availableProcessors()
+//        val threads = 1..1
 //        val threads = 2..2
         val total = insertRates.size * valuesList.size * repeatTestCase * threads.toList().size
 
