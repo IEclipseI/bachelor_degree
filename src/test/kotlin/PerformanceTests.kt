@@ -7,7 +7,7 @@ import kotlin.random.Random
 
 class PerformanceTests {
 //        val threadCounts = listOf(1, 2, 4, 8, 16, 32, 64)
-        val threadCounts = listOf(1, 2, 4, 8, 16)
+        val threadCounts = listOf(2, 4, 8)
 //
 //    val threadCounts = listOf(8)
     val mainRandom = Random(System.currentTimeMillis())
