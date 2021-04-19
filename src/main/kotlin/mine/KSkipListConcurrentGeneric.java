@@ -141,7 +141,7 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
         final CopyOnWriteArrayList<Node> next = new CopyOnWriteArrayList<>();
         final ReentrantLock lock = new ReentrantLock();
 
-        volatile CopyOnWriteArrayList<Node> deletedBy = new CopyOnWriteArrayList<>();
+        ArrayList<Node> deletedBy = new ArrayList<>();
         volatile boolean deleted = false;
 
         int posOfV(Comparable<? super E> v) {
@@ -332,7 +332,7 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
                     newNode.unlock();
                     cur.unlock();
                 } else {
-                    cur.array.key.set(emptyPos, element1);
+                    cur.array.key.setPlain(emptyPos, element1);
                     cur.array.end++;
                     cur.unlock();
                     return true;
