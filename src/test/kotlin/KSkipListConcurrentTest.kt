@@ -29,7 +29,6 @@ class KSkipListConcurrentTest {
 
     @RepeatedTest(100)
     fun crossThreadValidation() {
-        //TODO(начинать не с пустого листа, а заполненного половиной элементов)
         val threadCount = Runtime.getRuntime().availableProcessors()
         val insertRates = listOf(0.5, 0.55, 0.65, 0.75, 0.85, 0.95)
         val values = 1..100000
@@ -94,7 +93,6 @@ class KSkipListConcurrentTest {
                     check(!skipList.contains(value))
                 }
                 addSuccess - removeSuccess;
-                //TODO(проверить размер после окончания, так как мы занем, сколько было успешных вста)
             }.sum() == skipList.size)
 //            println("fullfilment ${skipList.fullfilment()}")
         }

@@ -267,9 +267,7 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
     @Override
     public boolean add(E element1) {
         Comparable<? super E> element = comparable(element1);
-        Pair<Node, List<Node>> allCandidates = findAllCandidates(element);
-        Node cur = allCandidates.component1();
-        List<Node> path = allCandidates.component2();
+        Node cur = find(element);
         cur.lock();
 
         cur = moveForwardBlocking(cur, 0, element);
@@ -351,9 +349,10 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
             while (heightForNode <= currentMaxLevel && heightForNode < MAX_HEIGHT && sift()) {
                 heightForNode++;
             }
-
+            List<Node> path = findAllCandidates(newNode, heightForNode + 1);
             for (int curLevel = 1; curLevel <= heightForNode; curLevel++) {
-                cur = curLevel >= path.size() ? head : path.get(curLevel);
+//                cur = curLevel >= path.size() ? head : path.get(curLevel);
+                cur = path.get(curLevel) == null ? head : path.get(curLevel);
                 cur.lock();
                 if (cur.next.size() <= curLevel) {
                     cur.next.add(tail);
@@ -393,22 +392,22 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
         boolean deleted = cur.deleted;
         cur.unlock();
         if (optimisticRemoveRes) {
-            //need remove physical node remove
             if (deleted) {
+                //need physically remove node
                 List<Node> path = findAllPrevs(cur);
                 Node forDelete = cur;
                 int curLevel = forDelete.next.size() - 1;
-//                check(path.size() == forDelete.next.size());
+                check(path.size() == forDelete.next.size());
                 while (curLevel >= 0) {
                     cur = path.get(curLevel);
-//                    check(cur != forDelete);
+                    check(cur != forDelete);
                     cur.lock();
                     cur = firstNotPhysicallyDeleted(cur, curLevel);
-//                    check(cur == head || cpr(cur.initialMin, forDelete.initialMin) <= 0);
+                    check(cur == head || cpr(cur.initialMin, forDelete.initialMin) <= 0);
                     Node next = cur.next.get(curLevel);
-//                    check(next != tail, "pizdec2");
+                    check(next != tail, "pizdec2");
                     while (next != forDelete) {
-//                        check(next != tail, "pizdec");
+                        check(next != tail, "pizdec");
                         next.lock();
                         cur.unlock();
                         cur = next;
@@ -447,10 +446,37 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
         return to(cur, path);
     }
 
+    private List<Node> findAllCandidates(Node node, int nodeHeight) {
+        Comparable<? super E> v = comparable(node.initialMin);
+        List<Node> path = new ArrayList<>(nodeHeight + 2);
+        for (int i = 0; i < nodeHeight; i++) {
+            path.add(null);
+        }
+
+        Node cur = head;
+        int curDepth = maxLevel.get();
+        while (curDepth >= nodeHeight) {
+            Node next = cur.next.get(curDepth);
+            while (next != tail && v.compareTo(next.initialMin) >= 0) {
+                cur = next;
+                next = cur.next.get(curDepth);
+            }
+            curDepth--;
+        }
+        while (curDepth >= 1) {
+            Node next = cur.next.get(curDepth);
+            while (next != tail && v.compareTo(next.initialMin) >= 0) {
+                cur = next;
+                next = cur.next.get(curDepth);
+            }
+            path.set(curDepth, cur);
+            curDepth--;
+        }
+        return path;
+    }
+
     private List<Node> findAllPrevs(Node node) {
-        Node prev = head;
-        int maxHeight = maxLevel.get();
-        int curDepth = maxHeight;
+        int curDepth = maxLevel.get();
         Comparable<? super E> v = comparable(node.initialMin);
         int nodeHeight = node.next.size();
 
@@ -459,10 +485,10 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
             path.add(null);
         }
 
-        Node cur = prev;
+        Node cur = head;
         while (curDepth >= nodeHeight) {
             Node next = cur.next.get(curDepth);
-            while (next != tail && v.compareTo(next.initialMin) >= 0) {
+            while (next != tail && v.compareTo(next.initialMin) > 0) {
                 cur = next;
                 next = cur.next.get(curDepth);
             }
@@ -473,9 +499,6 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
             Node next = cur.next.get(curDepth);
             while (next != node) {
                 cur = next;
-//                check(cur != tail, "ooops " + maxHeight + " " + (nodeHeight - 1) + " " + curDepth +
-//                        " node:  " + node +
-//                        ", curStart " + curStart);
                 next = cur.next.get(curDepth);
             }
             path.set(curDepth, cur);
