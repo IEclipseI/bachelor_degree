@@ -340,9 +340,8 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
             }
         }
         if (newNode != null) {
-            int currentMaxLevel = maxLevel.get();
             int heightForNode = 0;
-            while (heightForNode <= currentMaxLevel && heightForNode < MAX_HEIGHT && sift()) {
+            while (heightForNode < MAX_HEIGHT && sift()) {
                 heightForNode++;
             }
             List<Node> path = findAllCandidates(newNode, heightForNode + 1);
