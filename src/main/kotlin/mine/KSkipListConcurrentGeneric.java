@@ -250,14 +250,12 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
         Node cur = firstNotPhysicallyDeleted(curInp, level);
         Node next = cur.next.get(level);
 
-        next.lock();
         while (next != tail && v.compareTo(next.initialMin) >= 0) {
+            next.lock();
             cur.unlock();
             cur = next;
             next = next.next.get(level);
-            next.lock();
         }
-        next.unlock();
 
         return cur;
     }
@@ -274,7 +272,7 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
         if (cur == head || cur.deleted) {
             newNode = new Node();
             newNode.lock();
-            newNode.array.key.set(0, element1);
+            newNode.array.key.setPlain(0, element1);
             newNode.initialMin = element1;
             newNode.array.end++;
             newNode.next.add(cur.next.get(0));
@@ -303,7 +301,7 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
                         if (element.compareTo(curValue) < 0) { //TODO(почему не пополам)
                             newNodeKey.setPlain(r++, curValue);
                         } else {
-                            kArrayL.set(l++, curValue);
+                            kArrayL.setPlain(l++, curValue);
                         }
                     }
                     if (r == k) {
