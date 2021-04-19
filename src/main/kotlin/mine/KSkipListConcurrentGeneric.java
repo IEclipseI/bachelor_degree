@@ -138,7 +138,7 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
         volatile NodeArray array = new NodeArray();
         volatile E initialMin = EMPTY;
 
-        final Vector next = new Vector();
+        final CopyOnWriteArrayList<Node> next = new CopyOnWriteArrayList<>();
         final ReentrantLock lock = new ReentrantLock();
 
         volatile CopyOnWriteArrayList<Node> deletedBy = new CopyOnWriteArrayList<>();

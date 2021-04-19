@@ -1,17 +1,19 @@
+import kset.NonBlockingFriendlySkipListSet
 import mine.KSkipListConcurrentGeneric
 import org.junit.jupiter.api.Test
 import java.time.Instant
+import java.util.concurrent.ConcurrentSkipListSet
 import kotlin.random.Random
 
 class PerformanceTests {
 //        val threadCounts = listOf(1, 2, 4, 8, 16, 32, 64)
-//        val threadCounts = listOf(1, 2, 4, 8, 16)
+        val threadCounts = listOf(1, 2, 4, 8, 16)
 //
-    val threadCounts = listOf(8)
+//    val threadCounts = listOf(8)
     val mainRandom = Random(System.currentTimeMillis())
-//    val insertRates = listOf(0.2, 0.5, 1.0)
+    val insertRates = listOf(0.1, 0.2, 0.5, 1.0)
 //    val insertRates = listOf(0.0)
-    val insertRates = listOf(0.66)
+//    val insertRates = listOf(0.66)
 
     @Test
     fun performance() {
@@ -21,24 +23,24 @@ class PerformanceTests {
             val initialState = values.shuffled(mainRandom).take(values.last / 2)
             initialState to mainRandom.nextInt()
         }
-        val seconds = 5L
+        val seconds = 1L
 
         val structuresToTest = listOf(
 //            Struct("KSkipListConcurrent(2)") { KSkipListConcurrentGeneric(2) },
 //            Struct("KSkipListConcurrent(4)") { KSkipListConcurrentGeneric(4) },
 //            Struct("KSkipListConcurrent(8)") { KSkipListConcurrentGeneric(8) },
-//            Struct("KSkipListConcurrent(16)") { KSkipListConcurrentGeneric(16) },
-//            Struct("KSkipListConcurrent(24)") { KSkipListConcurrentGeneric(24) },
-//            Struct("KSkipListConcurrent(32)") { KSkipListConcurrentGeneric(32) },
-//            Struct("KSkipListConcurrent(40)") { KSkipListConcurrentGeneric(40) },
-//            Struct("KSkipListConcurrent(48)") { KSkipListConcurrentGeneric(48) },
-//            Struct("KSkipListConcurrent(56)") { KSkipListConcurrentGeneric(56) },
+            Struct("KSkipListConcurrent(16)") { KSkipListConcurrentGeneric(16) },
+            Struct("KSkipListConcurrent(24)") { KSkipListConcurrentGeneric(24) },
+            Struct("KSkipListConcurrent(32)") { KSkipListConcurrentGeneric(32) },
+            Struct("KSkipListConcurrent(40)") { KSkipListConcurrentGeneric(40) },
+            Struct("KSkipListConcurrent(48)") { KSkipListConcurrentGeneric(48) },
+            Struct("KSkipListConcurrent(56)") { KSkipListConcurrentGeneric(56) },
             Struct("KSkipListConcurrent(64)") { KSkipListConcurrentGeneric(64) },
-//            Struct("KSkipListConcurrent(68)") { KSkipListConcurrentGeneric(68) },
-//            Struct("KSkipListConcurrent(72)") { KSkipListConcurrentGeneric(72) },
-//            Struct("KSkipListConcurrent(80)") { KSkipListConcurrentGeneric(80) },
-//            Struct("KSkipListConcurrent(88)") { KSkipListConcurrentGeneric(88) },
-//            Struct("KSkipListConcurrent(96)") { KSkipListConcurrentGeneric(96) },
+            Struct("KSkipListConcurrent(68)") { KSkipListConcurrentGeneric(68) },
+            Struct("KSkipListConcurrent(72)") { KSkipListConcurrentGeneric(72) },
+            Struct("KSkipListConcurrent(80)") { KSkipListConcurrentGeneric(80) },
+            Struct("KSkipListConcurrent(88)") { KSkipListConcurrentGeneric(88) },
+            Struct("KSkipListConcurrent(96)") { KSkipListConcurrentGeneric(96) },
 //            Struct("KSkipListConcurrent(128)") { KSkipListConcurrentGeneric(128) },
 //            Struct("KSkipListConcurrent(144)") { KSkipListConcurrentGeneric(144) },
 //            Struct("KSkipListConcurrent(160)") { KSkipListConcurrentGeneric(160) },
@@ -49,8 +51,8 @@ class PerformanceTests {
 //            Struct("KSkipListConcurrent(230)") { KSkipListConcurrentGeneric(230) },
 //            Struct("KSkipListConcurrent(246)") { KSkipListConcurrentGeneric(246) },
 //            Struct("KSkipListConcurrent(262)") { KSkipListConcurrentGeneric(262) },
-//            Struct("ConcurrentSkipListSet") { ConcurrentSkipListSet() },
-//            Struct("NonBlockingFriendlySkipListSet") { NonBlockingFriendlySkipListSet() },
+            Struct("ConcurrentSkipListSet") { ConcurrentSkipListSet() },
+            Struct("NonBlockingFriendlySkipListSet") { NonBlockingFriendlySkipListSet() },
 //            Struct("KSkipListConcurrent(64)") { KSkipListConcurrentGeneric(128) }
         )
         for (threads in threadCounts) {

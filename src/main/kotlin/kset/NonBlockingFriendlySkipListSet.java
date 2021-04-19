@@ -27,7 +27,7 @@ public class NonBlockingFriendlySkipListSet<E> extends AbstractSet<E> {
 
     @Override
     public boolean remove(Object element1) {
-        return map.remove(element1);
+        return map.remove(element1) == null;
     }
 
     @Override
