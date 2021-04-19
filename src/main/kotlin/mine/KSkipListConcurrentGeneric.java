@@ -397,17 +397,17 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
                 List<Node> path = findAllPrevs(cur);
                 Node forDelete = cur;
                 int curLevel = forDelete.next.size() - 1;
-                check(path.size() == forDelete.next.size());
+//                check(path.size() == forDelete.next.size());
                 while (curLevel >= 0) {
                     cur = path.get(curLevel);
-                    check(cur != forDelete);
+//                    check(cur != forDelete);
                     cur.lock();
                     cur = firstNotPhysicallyDeleted(cur, curLevel);
-                    check(cur == head || cpr(cur.initialMin, forDelete.initialMin) <= 0);
+//                    check(cur == head || cpr(cur.initialMin, forDelete.initialMin) <= 0);
                     Node next = cur.next.get(curLevel);
-                    check(next != tail, "pizdec2");
+//                    check(next != tail, "pizdec2");
                     while (next != forDelete) {
-                        check(next != tail, "pizdec");
+//                        check(next != tail, "pizdec");
                         next.lock();
                         cur.unlock();
                         cur = next;
