@@ -132,7 +132,7 @@ class KSkipListConcurrentTest {
                         val anyProblem = AtomicReference<Throwable?>(null)
 //                        val skipList = KSkipListConcurrentV1(4)
 //                        val skipList = KSkipListConcurrentV1Generic<Int>(4)
-                        val skipList = KSkipListConcurrentGeneric<Int>(16)
+                        val skipList = KSkipListConcurrentGeneric<Int>(4)
 //                        val skipList = ConcurrentSkipListSet<Int>()
                         val finished = AtomicBoolean(false)
                         (0 until threadsCount).map { threadId ->

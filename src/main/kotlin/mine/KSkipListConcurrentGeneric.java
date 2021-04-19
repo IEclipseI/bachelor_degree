@@ -379,64 +379,53 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
     @Override
     public boolean remove(Object element1) {
         Comparable<? super E> element = comparable(element1);
-        Pair<Node, List<Node>> allPrevCandidates = findAllPrevCandidates(element);
-        Node cur = allPrevCandidates.component1();
-        List<Node> path = allPrevCandidates.component2();
-        int curLevel = 0;
-        cur.lock();
-        cur = firstNotPhysicallyDeleted(cur, curLevel);
-        Node next = cur.next.get(curLevel);
 
-        next.lock();
-        if (next == tail || element.compareTo(next.initialMin) <= -1 ) {
+        //OPTIMISTIC REMOVE
+        Node find = find(element);
+        find.lock();
+//        cur = firstNotPhysicallyDeleted(cur, 0);
+        Node cur = moveForwardBlocking(find, 0, element);
+        if (cur.deleted) {
             cur.unlock();
-            next.unlock();
             return false;
         }
-        Node nextNext = next.next.get(curLevel);
-        while (nextNext != tail && element.compareTo(nextNext.initialMin) >= 0) {
-            cur.unlock();
-            cur = next;
-            next = nextNext;
-            next.lock();
-            nextNext = nextNext.next.get(curLevel);
-        }
-        boolean removeRes = next.remove(element);
-
-        if (removeRes && next.deleted) {
-            next.unlock();
-            cur.unlock();
-            Node forDelete = next;
-            curLevel = forDelete.next.size() - 1;
-            while (curLevel >= 0) {
-                cur = curLevel < path.size() ? path.get(curLevel) : head;
-                cur.lock();
-                cur = firstNotPhysicallyDeleted(cur, curLevel);
-                next = cur.next.get(curLevel);
-                while (next != forDelete && next != tail && cpr(next.initialMin, forDelete.initialMin) <= 0) {
-                    next.lock();
-                    cur.unlock();
-                    cur = next;
-                    next = next.next.get(curLevel);
-                }
-                if (next == tail || cpr(next.initialMin, forDelete.initialMin) >= 1) {
+        boolean optimisticRemoveRes = cur.remove(element);
+        boolean deleted = cur.deleted;
+        cur.unlock();
+        if (optimisticRemoveRes) {
+            //need remove physical node remove
+            if (deleted) {
+                List<Node> path = findAllPrevs(cur);
+                Node forDelete = cur;
+                int curLevel = forDelete.next.size() - 1;
+//                check(path.size() == forDelete.next.size());
+                while (curLevel >= 0) {
+                    cur = path.get(curLevel);
+//                    check(cur != forDelete);
+                    cur.lock();
+                    cur = firstNotPhysicallyDeleted(cur, curLevel);
+//                    check(cur == head || cpr(cur.initialMin, forDelete.initialMin) <= 0);
+                    Node next = cur.next.get(curLevel);
+//                    check(next != tail, "pizdec2");
+                    while (next != forDelete) {
+//                        check(next != tail, "pizdec");
+                        next.lock();
+                        cur.unlock();
+                        cur = next;
+                        next = next.next.get(curLevel);
+                    }
+                    forDelete.lock();
+                    cur.next.set(curLevel, forDelete.next.get(curLevel));
+                    forDelete.deletedBy.add(cur);
+                    forDelete.unlock();
                     cur.unlock();
                     curLevel--;
-                    continue;
                 }
-                forDelete.lock();
-                cur.next.set(curLevel, forDelete.next.get(curLevel));
-                forDelete.deletedBy.add(cur);
-                forDelete.unlock();
-                cur.unlock();
-                curLevel--;
             }
             return true;
-        } else {
-            next.unlock();
-            cur.unlock();
-            return removeRes;
         }
+        return false;
+
     }
 
     private Pair<Node, List<Node>> findAllCandidates(Comparable<? super E> v) {
@@ -458,27 +447,41 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
         return to(cur, path);
     }
 
-    private Pair<Node, List<Node>> findAllPrevCandidates(Comparable<? super E> v) {
+    private List<Node> findAllPrevs(Node node) {
         Node prev = head;
-        int curDepth = maxLevel.get();
-//        Node[] path2 = (Node[])new Object[curDepth + 1];
-//        path2[0] = prev;
-        List<Node> path = new ArrayList<>(curDepth + 2);
-        for (int i = 0; i < curDepth + 1; i++) {
+        int maxHeight = maxLevel.get();
+        int curDepth = maxHeight;
+        Comparable<? super E> v = comparable(node.initialMin);
+        int nodeHeight = node.next.size();
+
+        List<Node> path = new ArrayList<>(nodeHeight + 2);
+        for (int i = 0; i < nodeHeight; i++) {
             path.add(null);
         }
-        while (curDepth >= 0) {
-            Node cur = prev;
+
+        Node cur = prev;
+        while (curDepth >= nodeHeight) {
             Node next = cur.next.get(curDepth);
             while (next != tail && v.compareTo(next.initialMin) >= 0) {
-                prev = cur;
                 cur = next;
                 next = cur.next.get(curDepth);
             }
-            path.set(curDepth, prev);
             curDepth--;
         }
-        return to(prev, path);
+        Node curStart = cur;
+        while (curDepth >= 0) {
+            Node next = cur.next.get(curDepth);
+            while (next != node) {
+                cur = next;
+//                check(cur != tail, "ooops " + maxHeight + " " + (nodeHeight - 1) + " " + curDepth +
+//                        " node:  " + node +
+//                        ", curStart " + curStart);
+                next = cur.next.get(curDepth);
+            }
+            path.set(curDepth, cur);
+            curDepth--;
+        }
+        return path;
     }
 
     private Node find(Comparable<? super E> v) {
