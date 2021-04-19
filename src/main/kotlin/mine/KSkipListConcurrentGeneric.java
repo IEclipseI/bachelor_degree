@@ -81,11 +81,11 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
     }
 
     private AtomicReferenceArray<E> kArray() {
-        AtomicReferenceArray<E> atomicIntegerArray = new AtomicReferenceArray<E>(k);
+        AtomicReferenceArray<E> array = new AtomicReferenceArray<>(k);
         for (int it = 0; it < k; it++) {
-            atomicIntegerArray.set(it, EMPTY);
+            array.setPlain(it, EMPTY);
         }
-        return atomicIntegerArray;
+        return array;
     }
 
     class Vector {
@@ -144,24 +144,22 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
         volatile CopyOnWriteArrayList<Node> deletedBy = new CopyOnWriteArrayList<>();
         volatile boolean deleted = false;
 
-        Pair<Integer, Integer> posOfVAndEmpty(Comparable<? super E> v) {
+        int posOfV(Comparable<? super E> v) {
             int end = array.end;
-            AtomicReferenceArray<E> key = array.key;
             if (end == 0) {
-                return to(-1, -1);
+                return -1;
             } else {
-                int posV = -1;
+                AtomicReferenceArray<E> key = array.key;
                 int i = 0;
                 while (i != end) {
                     E cur = key.getPlain(i);
                     if (v.compareTo(cur) == 0) {
-                        posV = i;
-                        break;
+                        return i;
                     }
                     i++;
                 }
-                return to(posV, k == end ? -1 : end);
             }
+            return -1;
         }
 
         void lock() {
@@ -284,13 +282,13 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
             newNode.unlock();
             cur.unlock();
         } else {
-            Pair<Integer, Integer> posOfVAndEmpty = cur.posOfVAndEmpty(element);
-            int vPos = posOfVAndEmpty.component1();
-            int emptyPos = posOfVAndEmpty.component2();
+            int vPos = cur.posOfV(element);
             if (vPos != -1) {
                 cur.unlock();
                 return false;
             } else {
+                int end = cur.array.end;
+                int emptyPos = end == k ? -1 : end;
                 if (emptyPos == -1) {
                     newNode = new Node();
                     //splitting array between nodes

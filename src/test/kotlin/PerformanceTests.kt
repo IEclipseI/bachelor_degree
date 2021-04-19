@@ -22,7 +22,7 @@ class PerformanceTests {
             val initialState = values.shuffled(mainRandom).take(values.last / 2)
             initialState to mainRandom.nextInt()
         }
-        val seconds = 5L
+        val seconds = 10L
 
         val structuresToTest = listOf(
 //            Struct("KSkipListConcurrent(2)") { KSkipListConcurrentGeneric(2) },
