@@ -6,9 +6,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReferenceArray;
-import java.util.concurrent.locks.ReentrantLock;
 
 import static kotlin.TuplesKt.to;
 
@@ -133,13 +133,25 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
         }
     }
 
+    static class SpinLock {
+        AtomicBoolean lock = new AtomicBoolean(false);
+
+        public void lock() {
+            while (!lock.compareAndSet(false, true)) {}
+        }
+
+        public void unlock() {
+            lock.compareAndSet(true, false);
+        }
+    }
+
     class Node {
 
         volatile NodeArray array = new NodeArray();
         volatile E initialMin = EMPTY;
 
         final CopyOnWriteArrayList<Node> next = new CopyOnWriteArrayList<>();
-        final ReentrantLock lock = new ReentrantLock();
+        final SpinLock lock = new SpinLock();
 
         ArrayList<Node> deletedBy = new ArrayList<>();
         volatile boolean deleted = false;
