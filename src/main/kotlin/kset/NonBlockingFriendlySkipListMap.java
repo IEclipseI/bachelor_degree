@@ -1845,8 +1845,8 @@ public class NonBlockingFriendlySkipListMap<K, V> extends AbstractMap<K, V>
 				// Remove this skip list from the ones that will be maintained
 				skipLists.remove(this);
 			}
-			System.out
-					.println("Height Changes: " + bottomLevelRaiseCount.get());
+//			System.out
+//					.println("Height Changes: " + bottomLevelRaiseCount.get());
 		}
 		return true;
 	}
