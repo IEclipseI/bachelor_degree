@@ -1,37 +1,39 @@
 import mine.KSkipListConcurrentGeneric
 import org.junit.jupiter.api.Test
 import java.time.Instant
+import java.util.concurrent.ConcurrentSkipListSet
 import kotlin.random.Random
 
 class PerformanceTests {
     val mainRandom = Random(System.currentTimeMillis())
 
-//        val threadCounts = listOf(1, 2, 4, 8, 16, 32, 64)
-//        val threadCounts = listOf(2, 4, 8)
-    val threadCounts = listOf(8)
+    //        val threadCounts = listOf(8, 12)
+    val threadCounts = listOf(12)
+//    val threadCounts = listOf(12)
+//    val threadCounts = listOf(12)
 
-//    val insertRates = listOf(0.1, 0.2, 0.5, 1.0)
+    val insertRates = listOf(0.1, 0.2, 0.35, 0.5, 1.0)
 //    val insertRates = listOf(0.0)
-    val insertRates = listOf(0.66)
+//    val insertRates = listOf(1.0)
 
     @Test
     fun performance() {
-        val executionsNumber = 10
-        val values = 1..2000_000
+        val executionsNumber = 1
+        val values = 1..100_000;
         val initialState = (0 until executionsNumber).map {
             val initialState = values.shuffled(mainRandom).take(values.last / 2)
             initialState to mainRandom.nextInt()
         }
-        val seconds = 10L
-
+        val seconds = 15L
+        println(values.last)
         val structuresToTest = listOf(
 //            Struct("KSkipListConcurrent(2)") { KSkipListConcurrentGeneric(2) },
 //            Struct("KSkipListConcurrent(4)") { KSkipListConcurrentGeneric(4) },
-//            Struct("KSkipListConcurrent(8)") { KSkipListConcurrentGeneric(8) },
-//            Struct("KSkipListConcurrent(16)") { KSkipListConcurrentGeneric(16) },
-//            Struct("KSkipListConcurrent(24)") { KSkipListConcurrentGeneric(24) },
+            Struct("KSkipListConcurrent(8)") { KSkipListConcurrentGeneric(8) },
+            Struct("KSkipListConcurrent(16)") { KSkipListConcurrentGeneric(16) },
+            Struct("KSkipListConcurrent(24)") { KSkipListConcurrentGeneric(24) },
             Struct("KSkipListConcurrent(32)") { KSkipListConcurrentGeneric(32) },
-//            Struct("KSkipListConcurrent(40)") { KSkipListConcurrentGeneric(40) },
+            Struct("KSkipListConcurrent(40)") { KSkipListConcurrentGeneric(40) },
 //            Struct("KSkipListConcurrent(48)") { KSkipListConcurrentGeneric(48) },
 //            Struct("KSkipListConcurrent(56)") { KSkipListConcurrentGeneric(56) },
 //            Struct("KSkipListConcurrent(64)") { KSkipListConcurrentGeneric(64) },
@@ -50,7 +52,7 @@ class PerformanceTests {
 //            Struct("KSkipListConcurrent(230)") { KSkipListConcurrentGeneric(230) },
 //            Struct("KSkipListConcurrent(246)") { KSkipListConcurrentGeneric(246) },
 //            Struct("KSkipListConcurrent(262)") { KSkipListConcurrentGeneric(262) },
-//            Struct("ConcurrentSkipListSet") { ConcurrentSkipListSet() },
+            Struct("ConcurrentSkipListSet") { ConcurrentSkipListSet() },
 //            Struct("NonBlockingFriendlySkipListSet") { NonBlockingFriendlySkipListSet() },
 //            Struct("KSkipListConcurrent(64)") { KSkipListConcurrentGeneric(128) }
         )
@@ -96,9 +98,10 @@ class PerformanceTests {
                         System.gc()
                     }
                     results.sort()
-                    val average = results.drop(3).dropLast(3).average().div(seconds)
+//                    val average = results.drop(3).dropLast(3).average().div(seconds)
+                    val average = results.average().div(seconds)
                     val high = heights.average()
-                    println(structure.name + " " + average + " " + high)
+                    println(String.format("%-24s %12.0f  %.2f", structure.name, average, high))
 
                 }
                 println("–".repeat(120))
