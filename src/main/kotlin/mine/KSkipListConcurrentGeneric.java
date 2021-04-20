@@ -89,36 +89,6 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
         return array;
     }
 
-    class Vector {
-        volatile AtomicReferenceArray<Node> values;
-
-        public void add(Node v) {
-            AtomicReferenceArray<Node> newAr = new AtomicReferenceArray<>(values.length() + 1);
-            for (int i = 0; i < values.length(); i++) {
-                newAr.set(i, values.get(i));
-            }
-            newAr.set(values.length(), v);
-            values = newAr;
-        }
-
-        void set(int i, Node v) {
-            values.set(i, v);
-        }
-
-
-        Node get(int i) {
-            return values.get(i);
-        }
-
-        int size() {
-            return values.length();
-        }
-
-        Vector() {
-            values = new AtomicReferenceArray<>(0);
-        }
-    }
-
     class NodeArray {
         final AtomicReferenceArray<E> key;
         volatile int end;
@@ -142,7 +112,7 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
         }
 
         public void unlock() {
-            lock.compareAndSet(true, false);
+            lock.set(false);
         }
     }
 
@@ -153,6 +123,7 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
 
         final CopyOnWriteArrayList<Node> next = new CopyOnWriteArrayList<>();
         final SpinLock lock = new SpinLock();
+//        final ReentrantLock lock = new ReentrantLock();
 
         ArrayList<Node> deletedBy = new ArrayList<>();
         volatile boolean deleted = false;
