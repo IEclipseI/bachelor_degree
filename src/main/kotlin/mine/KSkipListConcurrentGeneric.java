@@ -220,9 +220,9 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
         Node cur = curInp;
         int height = cur.next.size();
         int notDeletedLevels = height - cur.deletedBy.size();
-        stat.get().findNotDeletedCalls++;
+//        stat.get().findNotDeletedCalls++;
         while (cur.deleted && notDeletedLevels - 1 < level) {
-            stat.get().deletedNodesTraversed++;
+//            stat.get().deletedNodesTraversed++;
             Node next = cur.deletedBy.get(height - level - 1);
             cur.unlock();
 
@@ -237,9 +237,9 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
     private Node moveForwardBlocking(Node curInp, int level, Comparable<? super E> v) { //TODO count successful calls
         Node cur = firstNotPhysicallyDeleted(curInp, level);
         Node next = cur.next.get(level);
-        stat.get().moveForwardRequests++;
+//        stat.get().moveForwardRequests++;
         while (next != tail && v.compareTo(next.initialMin) >= 0) {
-            stat.get().nodesMovedForward++;
+//            stat.get().nodesMovedForward++;
             next.lock();
             cur.unlock();
             cur = next;
@@ -320,7 +320,7 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
                     cur.array.key.setPlain(emptyPos, element1);
                     cur.array.end++;
                     cur.unlock();
-                    stat.get().successfulOptimisticAdds++;
+//                    stat.get().successfulOptimisticAdds++;
                     return true;
                 }
             }
@@ -333,7 +333,7 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
         if (heightForNode == 0) {
             return true;
         }
-        stat.get().failedOptimisticAdds++;
+//        stat.get().failedOptimisticAdds++;
         List<Node> path = findAllCandidates(newNode, heightForNode + 1);
         for (int curLevel = 1; curLevel <= heightForNode; curLevel++) {
 //                cur = curLevel >= path.size() ? head : path.get(curLevel);
@@ -377,7 +377,7 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
         cur.unlock();
         if (optimisticRemoveRes) {
             if (deleted) {
-                stat.get().failedOptimisticRemoves++;
+//                stat.get().failedOptimisticRemoves++;
                 //need physically remove node
                 List<Node> path = findAllPrevs(cur);
                 Node forDelete = cur;
@@ -400,9 +400,9 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
                     cur.unlock();
                     curLevel--;
                 }
-            } else {
+            } /*else {
                 stat.get().successfulOptimisticRemoves++;
-            }
+            }*/
             return true;
         }
         return false;
