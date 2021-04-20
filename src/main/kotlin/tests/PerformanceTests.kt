@@ -77,6 +77,8 @@ class PerformanceTests(
                             heights.add(if (list is KSkipListConcurrentGeneric) list.maxLevel.get() else 0)
                             results.add(operationsDone)
                             System.gc()
+                            if (list is NonBlockingFriendlySkipListSet)
+                                list.stopMaintenance()
                         }
                         results.sort()
                         val average = results.average().div(seconds)

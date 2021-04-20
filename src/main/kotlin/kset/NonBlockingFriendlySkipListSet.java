@@ -34,4 +34,8 @@ public class NonBlockingFriendlySkipListSet<E> extends AbstractSet<E> {
     public boolean contains(Object element1) {
         return map.containsKey(element1);
     }
+
+    public void stopMaintenance() {
+        map.stopMaintenance();
+    }
 }
