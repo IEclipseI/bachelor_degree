@@ -36,7 +36,7 @@ class PerformanceTests(
             }
             for ((t, threads) in threadCounts.withIndex()) {
                 for ((index, insertRate) in updateRates.withIndex()) {
-                    println("Threads: $threads, insert rate: $insertRate")
+                    println("Threads: $threads, update rate: $insertRate")
                     for (structure in structuresToTest) {
                         val results = ArrayList<Int>()
                         val heights = ArrayList<Int>()
