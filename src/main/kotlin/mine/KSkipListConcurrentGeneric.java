@@ -1,6 +1,7 @@
 package mine;
 
 import kotlin.Pair;
+import mine.util.Statistic;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -17,6 +18,7 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
     private final int k;
     private final Comparator<E> comparator;
     private static final int MAX_HEIGHT = 32;
+    public static final ThreadLocal<Statistic> stat = ThreadLocal.withInitial(Statistic::new);
 
     private boolean sift() {
         return ThreadLocalRandom.current().nextDouble() < 0.5;
@@ -218,7 +220,9 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
         Node cur = curInp;
         int height = cur.next.size();
         int notDeletedLevels = height - cur.deletedBy.size();
+        stat.get().findNotDeletedCalls++;
         while (cur.deleted && notDeletedLevels - 1 < level) {
+            stat.get().deletedNodesTraversed++;
             Node next = cur.deletedBy.get(height - level - 1);
             cur.unlock();
 
@@ -233,8 +237,9 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
     private Node moveForwardBlocking(Node curInp, int level, Comparable<? super E> v) { //TODO count successful calls
         Node cur = firstNotPhysicallyDeleted(curInp, level);
         Node next = cur.next.get(level);
-
+        stat.get().moveForwardRequests++;
         while (next != tail && v.compareTo(next.initialMin) >= 0) {
+            stat.get().nodesMovedForward++;
             next.lock();
             cur.unlock();
             cur = next;
@@ -315,6 +320,7 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
                     cur.array.key.setPlain(emptyPos, element1);
                     cur.array.end++;
                     cur.unlock();
+                    stat.get().successfulOptimisticAdds++;
                     return true;
                 }
             }
@@ -324,6 +330,10 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
         while (heightForNode < MAX_HEIGHT && sift()) {
             heightForNode++;
         }
+        if (heightForNode == 0) {
+            return true;
+        }
+        stat.get().failedOptimisticAdds++;
         List<Node> path = findAllCandidates(newNode, heightForNode + 1);
         for (int curLevel = 1; curLevel <= heightForNode; curLevel++) {
 //                cur = curLevel >= path.size() ? head : path.get(curLevel);
@@ -357,7 +367,6 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
         //OPTIMISTIC REMOVE //TODO count successful
         Node find = find(element);
         find.lock();
-//        cur = firstNotPhysicallyDeleted(cur, 0);
         Node cur = moveForwardBlocking(find, 0, element);
         if (cur.deleted) {
             cur.unlock();
@@ -368,6 +377,7 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
         cur.unlock();
         if (optimisticRemoveRes) {
             if (deleted) {
+                stat.get().failedOptimisticRemoves++;
                 //need physically remove node
                 List<Node> path = findAllPrevs(cur);
                 Node forDelete = cur;
@@ -390,6 +400,8 @@ public class KSkipListConcurrentGeneric<E> extends AbstractSet<E> {
                     cur.unlock();
                     curLevel--;
                 }
+            } else {
+                stat.get().successfulOptimisticRemoves++;
             }
             return true;
         }

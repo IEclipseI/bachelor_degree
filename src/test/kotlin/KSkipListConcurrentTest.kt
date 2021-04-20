@@ -105,12 +105,10 @@ class KSkipListConcurrentTest {
         val repeatTestCase = 100
         val insertRates = listOf(0.5, 0.55, 0.65, 0.75, 0.85, 0.95)
         val valuesList = listOf(1..20, 1..100, 1..1000, 1..10_000, 1..100_000)
-//        val valuesList = listOf(1..1000, 1..10_000, 1..100_000)
 //        val valuesList = listOf(1..2)
-        val ops = 10_00
+        val ops = 1_000
         var cur = 0
         val threads = 2..Runtime.getRuntime().availableProcessors()
-//        val threads = 1..1
 //        val threads = 2..2
         val total = insertRates.size * valuesList.size * repeatTestCase * threads.toList().size
 

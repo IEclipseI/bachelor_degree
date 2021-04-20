@@ -1,7 +1,8 @@
 import mine.KSkipListConcurrentGeneric
+import mine.util.Statistic
 import org.junit.jupiter.api.Test
 import java.time.Instant
-import java.util.concurrent.ConcurrentSkipListSet
+import java.util.concurrent.CopyOnWriteArrayList
 import kotlin.random.Random
 
 class PerformanceTests {
@@ -29,11 +30,11 @@ class PerformanceTests {
         val structuresToTest = listOf(
 //            Struct("KSkipListConcurrent(2)") { KSkipListConcurrentGeneric(2) },
 //            Struct("KSkipListConcurrent(4)") { KSkipListConcurrentGeneric(4) },
-            Struct("KSkipListConcurrent(8)") { KSkipListConcurrentGeneric(8) },
-            Struct("KSkipListConcurrent(16)") { KSkipListConcurrentGeneric(16) },
-            Struct("KSkipListConcurrent(24)") { KSkipListConcurrentGeneric(24) },
+//            Struct("KSkipListConcurrent(8)") { KSkipListConcurrentGeneric(8) },
+//            Struct("KSkipListConcurrent(16)") { KSkipListConcurrentGeneric(16) },
+//            Struct("KSkipListConcurrent(24)") { KSkipListConcurrentGeneric(24) },
             Struct("KSkipListConcurrent(32)") { KSkipListConcurrentGeneric(32) },
-            Struct("KSkipListConcurrent(40)") { KSkipListConcurrentGeneric(40) },
+//            Struct("KSkipListConcurrent(40)") { KSkipListConcurrentGeneric(40) },
 //            Struct("KSkipListConcurrent(48)") { KSkipListConcurrentGeneric(48) },
 //            Struct("KSkipListConcurrent(56)") { KSkipListConcurrentGeneric(56) },
 //            Struct("KSkipListConcurrent(64)") { KSkipListConcurrentGeneric(64) },
@@ -52,7 +53,7 @@ class PerformanceTests {
 //            Struct("KSkipListConcurrent(230)") { KSkipListConcurrentGeneric(230) },
 //            Struct("KSkipListConcurrent(246)") { KSkipListConcurrentGeneric(246) },
 //            Struct("KSkipListConcurrent(262)") { KSkipListConcurrentGeneric(262) },
-            Struct("ConcurrentSkipListSet") { ConcurrentSkipListSet() },
+//            Struct("ConcurrentSkipListSet") { ConcurrentSkipListSet() },
 //            Struct("NonBlockingFriendlySkipListSet") { NonBlockingFriendlySkipListSet() },
 //            Struct("KSkipListConcurrent(64)") { KSkipListConcurrentGeneric(128) }
         )
@@ -62,17 +63,19 @@ class PerformanceTests {
                 for (structure in structuresToTest) {
                     val results = ArrayList<Int>()
                     val heights = ArrayList<Int>()
+                    val statistics = CopyOnWriteArrayList<Statistic>()
                     initialState.map { (a, seed) ->
                         val list = structure.construct()
                         list.addAll(a)
+                        val localRandom = Random(seed)
                         val startTime = Instant.now()
                         val finishTime = startTime.plusSeconds(seconds)
-                        val localRandom = Random(seed)
                         val operationsDone = (0 until threads).map {
                             Random(localRandom.nextInt())
                         }.map { rnd ->
                             var opsDone = IntArray(1) { 0 }
                             val thread = Thread {
+
                                 var run = true
                                 while (run) {
                                     repeat(100) {
@@ -84,6 +87,7 @@ class PerformanceTests {
                                     }
                                     run = Instant.now().isBefore(finishTime)
                                 }
+                                statistics.add(KSkipListConcurrentGeneric.stat.get())
                             }
                             thread to opsDone
                         }.map {
@@ -101,7 +105,18 @@ class PerformanceTests {
 //                    val average = results.drop(3).dropLast(3).average().div(seconds)
                     val average = results.average().div(seconds)
                     val high = heights.average()
+
                     println(String.format("%-24s %12.0f  %.2f", structure.name, average, high))
+                    println(String.format("Optimistic/pessimistic add %.4f",
+                        statistics.map { it.successfulOptimisticAdds / it.failedOptimisticAdds.toDouble() }.average()))
+                    println(String.format("Optimistic/pessimistic remove %.4f",
+                        statistics.map { it.successfulOptimisticRemoves / it.failedOptimisticRemoves.toDouble()  }.average()))
+//                    println(String.format("Not deleted found %d", statistics.map { it.deletedNodesTraversed }.sum()))
+                    println(String.format("Find first not deleted average range %.9f",
+                        statistics.map { it.deletedNodesTraversed.toDouble() / it.findNotDeletedCalls }.average()))
+                    println(String.format("Move forward average range %.9f",
+                        statistics.map { it.nodesMovedForward.toDouble() / it.moveForwardRequests }.average()))
+//                    println("––".repeat(10))
 
                 }
                 println("–".repeat(120))
