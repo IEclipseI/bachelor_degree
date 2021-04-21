@@ -14,7 +14,8 @@ class PerformanceTests(
     private val valuesLists: List<IntRange>,
     private val kArraySizes: List<Int> = listOf(32),
     private val seconds: Int = 1,
-    private val executionsNumber: Int = 1
+    private val executionsNumber: Int = 1,
+    private val onlyKArray: Boolean = false
 ) {
     private val mainRandom = Random(System.currentTimeMillis())
 
@@ -24,10 +25,10 @@ class PerformanceTests(
     }
 
     fun run() {
-        val structuresToTest = kArraySizes.map { struct(it) } + listOf(
+        val otherStructures = listOf(
             Struct("ConcurrentSkipListSet") { ConcurrentSkipListSet() },
-            Struct("NonBlockingFriendlySkipListSet") { NonBlockingFriendlySkipListSet() }
-        )
+            Struct("NonBlockingFriendlySkipListSet") { NonBlockingFriendlySkipListSet() })
+        val structuresToTest = kArraySizes.map { struct(it) } + if (onlyKArray) listOf() else otherStructures
         for (values in valuesLists) {
             println(values.last)
             val initialState = (0 until executionsNumber).map {
