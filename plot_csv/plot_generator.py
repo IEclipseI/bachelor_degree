@@ -29,7 +29,7 @@ for files_block in res:
         f = sorted_by_ratio[i]
         print(sorted_by_ratio)
         marker_ind = 0
-        ratio = f.split('_')[2][:-4]
+        ratio = f.split('_')[3][:-4]
         df = read_csv(f)
         cores = list(df.index)
         header = list(df)

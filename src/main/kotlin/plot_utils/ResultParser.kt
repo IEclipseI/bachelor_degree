@@ -46,8 +46,9 @@ fun oneValueRange(inp: String) {
         if (file.exists())
             file.delete()
         file.createNewFile()
-        file.appendText(structures.drop(3).joinToString(", ") + "\n")
-        list.forEach { file.appendText((listOf(it[0]) + it.drop(4)).joinToString(",") + "\n") }
-//        file.writeText()
+//        file.appendText(structures.drop(3).joinToString(", ") + "\n")
+//        list.forEach { file.appendText((listOf(it[0]) + it.drop(4)).joinToString(",") + "\n") }
+        file.appendText(structures.joinToString(", ") + "\n")
+        list.forEach { file.appendText(it.joinToString(",") + "\n") }
     }
 }
