@@ -38,7 +38,7 @@ class PerformanceTests(
                 for ((index, insertRate) in updateRates.withIndex()) {
                     println("Threads: $threads, update rate: $insertRate")
                     for (structure in structuresToTest) {
-                        val results = ArrayList<Int>()
+                        val results = ArrayList<Long>()
                         val heights = ArrayList<Int>()
                         val statistics = CopyOnWriteArrayList<Statistic>()
                         initialState.map { (a, seed) ->
@@ -50,7 +50,7 @@ class PerformanceTests(
                             val operationsDone = (0 until threads).map {
                                 Random(localRandom.nextInt())
                             }.map { rnd ->
-                                var opsDone = IntArray(1) { 0 }
+                                var opsDone = LongArray(1) { 0L }
                                 val thread = Thread {
 
                                     var run = true
