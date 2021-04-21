@@ -11,6 +11,6 @@ fun main() {
         kArraySizes = listOf(32), //7
         seconds = Duration.ofMinutes(5).toSeconds().toInt(),
         executionsNumber = 1,
-        onlyKArray = true).run()
+        onlyKArray = false).run()
     println("Finished")
 }
