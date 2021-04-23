@@ -46,4 +46,4 @@ for files_block in res:
     values_range = f.split('_')[1]
     fig.suptitle(values_range + " values")
     handles, labels = axs[-1].get_legend_handles_labels()
-    fig.savefig("../plots/" + slurm + "_" + files_block[0].split("_")[1] + "_values.pdf")
+    fig.savefig("../plots/" + slurm + "_" + files_block[0].split("_")[1] + "_values.jpeg", dpi=400)
