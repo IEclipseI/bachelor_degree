@@ -1,7 +1,9 @@
 package tests
 
+import kset.ConcurrentSkipListSetInt
 import kset.NonBlockingFriendlySkipListSet
 import mine.KSkipListConcurrentGeneric
+import mine.KSkipListConcurrentInt
 import mine.util.Statistic
 import java.time.Instant
 import java.util.concurrent.ConcurrentSkipListSet
@@ -26,7 +28,9 @@ class PerformanceTests(
 
     fun run() {
         val otherStructures = listOf(
+            Struct("KSkipListConcurrentInt(32)") { KSkipListConcurrentInt(32) },
             Struct("ConcurrentSkipListSet") { ConcurrentSkipListSet() },
+            Struct("ConcurrentSkipListSetInt") { ConcurrentSkipListSetInt() },
             Struct("NonBlockingFriendlySkipListSet") { NonBlockingFriendlySkipListSet() })
         val structuresToTest = kArraySizes.map { struct(it) } + if (onlyKArray) listOf() else otherStructures
         for (values in valuesLists) {
