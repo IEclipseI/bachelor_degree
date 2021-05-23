@@ -1,0 +1,2177 @@
+100000
+Threads: 1, update rate: 0.2
+KSkipListConcurrent(16)              1575480
+KSkipListConcurrent(20)              1624965
+KSkipListConcurrent(24)              1607525
+KSkipListConcurrent(28)              1591420
+KSkipListConcurrent(32)              1653420
+KSkipListConcurrent(36)              1656375
+KSkipListConcurrent(40)              1637430
+ConcurrentSkipListSet                1664095
+NonBlockingFriendlySkipListSet       1790530
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 1, update rate: 0.35
+KSkipListConcurrent(16)              1543015
+KSkipListConcurrent(20)              1453950
+KSkipListConcurrent(24)              1562640
+KSkipListConcurrent(28)              1612240
+KSkipListConcurrent(32)              1547660
+KSkipListConcurrent(36)              1555610
+KSkipListConcurrent(40)              1581115
+ConcurrentSkipListSet                1537715
+NonBlockingFriendlySkipListSet       1631075
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 1, update rate: 0.5
+KSkipListConcurrent(16)              1419135
+KSkipListConcurrent(20)              1578895
+KSkipListConcurrent(24)              1482700
+KSkipListConcurrent(28)              1488275
+KSkipListConcurrent(32)              1459445
+KSkipListConcurrent(36)              1560115
+KSkipListConcurrent(40)              1524660
+ConcurrentSkipListSet                1427735
+NonBlockingFriendlySkipListSet       1614010
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 1, update rate: 0.75
+KSkipListConcurrent(16)              1545375
+KSkipListConcurrent(20)              1458310
+KSkipListConcurrent(24)              1363900
+KSkipListConcurrent(28)              1560810
+KSkipListConcurrent(32)              1480010
+KSkipListConcurrent(36)              1461140
+KSkipListConcurrent(40)              1497620
+ConcurrentSkipListSet                1431225
+NonBlockingFriendlySkipListSet       1412465
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 1, update rate: 1.0
+KSkipListConcurrent(16)              1563610
+KSkipListConcurrent(20)              1451170
+KSkipListConcurrent(24)              1434935
+KSkipListConcurrent(28)              1523195
+KSkipListConcurrent(32)              1558230
+KSkipListConcurrent(36)              1577315
+KSkipListConcurrent(40)              1510560
+ConcurrentSkipListSet                1364930
+NonBlockingFriendlySkipListSet       1345075
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 2, update rate: 0.2
+KSkipListConcurrent(16)              2494400
+KSkipListConcurrent(20)              2648440
+KSkipListConcurrent(24)              2106855
+KSkipListConcurrent(28)              2415450
+KSkipListConcurrent(32)              2620270
+KSkipListConcurrent(36)              2594710
+KSkipListConcurrent(40)              2624000
+ConcurrentSkipListSet                2570830
+NonBlockingFriendlySkipListSet       3586805
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 2, update rate: 0.35
+KSkipListConcurrent(16)              2417220
+KSkipListConcurrent(20)              2242235
+KSkipListConcurrent(24)              2522230
+KSkipListConcurrent(28)              2549890
+KSkipListConcurrent(32)              2506870
+KSkipListConcurrent(36)              2496520
+KSkipListConcurrent(40)              2476305
+ConcurrentSkipListSet                2550960
+NonBlockingFriendlySkipListSet       3313000
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 2, update rate: 0.5
+KSkipListConcurrent(16)              2333540
+KSkipListConcurrent(20)              2325660
+KSkipListConcurrent(24)              2406790
+KSkipListConcurrent(28)              2439685
+KSkipListConcurrent(32)              2281295
+KSkipListConcurrent(36)              2279835
+KSkipListConcurrent(40)              2166795
+ConcurrentSkipListSet                2264855
+NonBlockingFriendlySkipListSet       3154590
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 2, update rate: 0.75
+KSkipListConcurrent(16)              2131410
+KSkipListConcurrent(20)              2255855
+KSkipListConcurrent(24)              2264380
+KSkipListConcurrent(28)              2180115
+KSkipListConcurrent(32)              2266520
+KSkipListConcurrent(36)              2216215
+KSkipListConcurrent(40)              2032205
+ConcurrentSkipListSet                2242830
+NonBlockingFriendlySkipListSet       2547405
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 2, update rate: 1.0
+KSkipListConcurrent(16)              2144750
+KSkipListConcurrent(20)              2160365
+KSkipListConcurrent(24)              1944110
+KSkipListConcurrent(28)              2222410
+KSkipListConcurrent(32)              2018155
+KSkipListConcurrent(36)              2261405
+KSkipListConcurrent(40)              2163565
+ConcurrentSkipListSet                2105115
+NonBlockingFriendlySkipListSet       2711445
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 4, update rate: 0.2
+KSkipListConcurrent(16)              5356575
+KSkipListConcurrent(20)              4647345
+KSkipListConcurrent(24)              5125945
+KSkipListConcurrent(28)              4034405
+KSkipListConcurrent(32)              4686035
+KSkipListConcurrent(36)              4717035
+KSkipListConcurrent(40)              4179530
+ConcurrentSkipListSet                5231725
+NonBlockingFriendlySkipListSet       6244470
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 4, update rate: 0.35
+KSkipListConcurrent(16)              4810460
+KSkipListConcurrent(20)              4815415
+KSkipListConcurrent(24)              4859585
+KSkipListConcurrent(28)              4551790
+KSkipListConcurrent(32)              4111325
+KSkipListConcurrent(36)              4723075
+KSkipListConcurrent(40)              4543915
+ConcurrentSkipListSet                4533395
+NonBlockingFriendlySkipListSet       6312660
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 4, update rate: 0.5
+KSkipListConcurrent(16)              4445320
+KSkipListConcurrent(20)              4449020
+KSkipListConcurrent(24)              4466015
+KSkipListConcurrent(28)              4736725
+KSkipListConcurrent(32)              4464680
+KSkipListConcurrent(36)              4212280
+KSkipListConcurrent(40)              4447670
+ConcurrentSkipListSet                4706335
+NonBlockingFriendlySkipListSet       5683835
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 4, update rate: 0.75
+KSkipListConcurrent(16)              4182530
+KSkipListConcurrent(20)              4293510
+KSkipListConcurrent(24)              4365015
+KSkipListConcurrent(28)              4065090
+KSkipListConcurrent(32)              4320495
+KSkipListConcurrent(36)              4411605
+KSkipListConcurrent(40)              3953230
+ConcurrentSkipListSet                4372510
+NonBlockingFriendlySkipListSet       5464360
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 4, update rate: 1.0
+KSkipListConcurrent(16)              3954255
+KSkipListConcurrent(20)              4156470
+KSkipListConcurrent(24)              4314740
+KSkipListConcurrent(28)              3999740
+KSkipListConcurrent(32)              4284015
+KSkipListConcurrent(36)              4256075
+KSkipListConcurrent(40)              3968290
+ConcurrentSkipListSet                3982690
+NonBlockingFriendlySkipListSet       5068390
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 8, update rate: 0.2
+KSkipListConcurrent(16)              8239505
+KSkipListConcurrent(20)              9010620
+KSkipListConcurrent(24)              9375330
+KSkipListConcurrent(28)              8068175
+KSkipListConcurrent(32)              6355655
+KSkipListConcurrent(36)              8958105
+KSkipListConcurrent(40)              8598465
+ConcurrentSkipListSet                8977705
+NonBlockingFriendlySkipListSet       9693235
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 8, update rate: 0.35
+KSkipListConcurrent(16)              5921940
+KSkipListConcurrent(20)              8836055
+KSkipListConcurrent(24)              9051010
+KSkipListConcurrent(28)              8498115
+KSkipListConcurrent(32)              8832100
+KSkipListConcurrent(36)              8694065
+KSkipListConcurrent(40)              8497570
+ConcurrentSkipListSet                8370385
+NonBlockingFriendlySkipListSet      11748695
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 8, update rate: 0.5
+KSkipListConcurrent(16)              7866970
+KSkipListConcurrent(20)              8096725
+KSkipListConcurrent(24)              7522760
+KSkipListConcurrent(28)              8487080
+KSkipListConcurrent(32)              8376720
+KSkipListConcurrent(36)              8281985
+KSkipListConcurrent(40)              7474870
+ConcurrentSkipListSet                8120985
+NonBlockingFriendlySkipListSet      11099245
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 8, update rate: 0.75
+KSkipListConcurrent(16)              7533610
+KSkipListConcurrent(20)              7877255
+KSkipListConcurrent(24)              8017890
+KSkipListConcurrent(28)              7421245
+KSkipListConcurrent(32)              7818905
+KSkipListConcurrent(36)              7875275
+KSkipListConcurrent(40)              7683290
+ConcurrentSkipListSet                7802035
+NonBlockingFriendlySkipListSet       9201140
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 8, update rate: 1.0
+KSkipListConcurrent(16)              6964655
+KSkipListConcurrent(20)              7408200
+KSkipListConcurrent(24)              7301935
+KSkipListConcurrent(28)              7480745
+KSkipListConcurrent(32)              7607260
+KSkipListConcurrent(36)              7415640
+KSkipListConcurrent(40)              7761365
+ConcurrentSkipListSet                7279995
+NonBlockingFriendlySkipListSet       9722255
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 12, update rate: 0.2
+KSkipListConcurrent(16)             12899680
+KSkipListConcurrent(20)             12720245
+KSkipListConcurrent(24)              8948250
+KSkipListConcurrent(28)             11936010
+KSkipListConcurrent(32)             10911360
+KSkipListConcurrent(36)             13311030
+KSkipListConcurrent(40)             12901785
+ConcurrentSkipListSet               13075050
+NonBlockingFriendlySkipListSet      13074220
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 12, update rate: 0.35
+KSkipListConcurrent(16)             12096880
+KSkipListConcurrent(20)             11775535
+KSkipListConcurrent(24)             12516295
+KSkipListConcurrent(28)             12501640
+KSkipListConcurrent(32)             11795620
+KSkipListConcurrent(36)             11912370
+KSkipListConcurrent(40)             11959325
+ConcurrentSkipListSet               12024320
+NonBlockingFriendlySkipListSet      14734640
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 12, update rate: 0.5
+KSkipListConcurrent(16)             10576345
+KSkipListConcurrent(20)             11299565
+KSkipListConcurrent(24)             11506670
+KSkipListConcurrent(28)             11349810
+KSkipListConcurrent(32)             10960165
+KSkipListConcurrent(36)             12212335
+KSkipListConcurrent(40)             11573735
+ConcurrentSkipListSet               11506635
+NonBlockingFriendlySkipListSet      14618485
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 12, update rate: 0.75
+KSkipListConcurrent(16)              7792085
+KSkipListConcurrent(20)             11387995
+KSkipListConcurrent(24)             10446330
+KSkipListConcurrent(28)             10532775
+KSkipListConcurrent(32)             11187080
+KSkipListConcurrent(36)             10407080
+KSkipListConcurrent(40)             10736025
+ConcurrentSkipListSet               10935520
+NonBlockingFriendlySkipListSet      12160405
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 12, update rate: 1.0
+KSkipListConcurrent(16)             10812100
+KSkipListConcurrent(20)              7488650
+KSkipListConcurrent(24)              9455295
+KSkipListConcurrent(28)             10838670
+KSkipListConcurrent(32)             11321265
+KSkipListConcurrent(36)             11159530
+KSkipListConcurrent(40)             10808830
+ConcurrentSkipListSet               10626420
+NonBlockingFriendlySkipListSet      12047915
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 16, update rate: 0.2
+KSkipListConcurrent(16)             16467095
+KSkipListConcurrent(20)             16674585
+KSkipListConcurrent(24)             15845620
+KSkipListConcurrent(28)             17034220
+KSkipListConcurrent(32)             11488320
+KSkipListConcurrent(36)             15255240
+KSkipListConcurrent(40)             14307725
+ConcurrentSkipListSet               15369520
+NonBlockingFriendlySkipListSet      20359815
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 16, update rate: 0.35
+KSkipListConcurrent(16)             15898340
+KSkipListConcurrent(20)             15650815
+KSkipListConcurrent(24)             15351215
+KSkipListConcurrent(28)             15550280
+KSkipListConcurrent(32)             14322755
+KSkipListConcurrent(36)             12242035
+KSkipListConcurrent(40)             15134705
+ConcurrentSkipListSet               14880985
+NonBlockingFriendlySkipListSet      16678060
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 16, update rate: 0.5
+KSkipListConcurrent(16)             15211930
+KSkipListConcurrent(20)             14809340
+KSkipListConcurrent(24)             13892565
+KSkipListConcurrent(28)             14026895
+KSkipListConcurrent(32)             14890605
+KSkipListConcurrent(36)             14687210
+KSkipListConcurrent(40)             13606105
+ConcurrentSkipListSet               15334530
+NonBlockingFriendlySkipListSet      19043080
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 16, update rate: 0.75
+KSkipListConcurrent(16)             14385165
+KSkipListConcurrent(20)             13301730
+KSkipListConcurrent(24)             14564900
+KSkipListConcurrent(28)             14364090
+KSkipListConcurrent(32)             14047090
+KSkipListConcurrent(36)             14078845
+KSkipListConcurrent(40)             13660490
+ConcurrentSkipListSet               13724580
+NonBlockingFriendlySkipListSet      16912510
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 16, update rate: 1.0
+KSkipListConcurrent(16)             10772590
+KSkipListConcurrent(20)             11629845
+KSkipListConcurrent(24)             12983990
+KSkipListConcurrent(28)             14240950
+KSkipListConcurrent(32)             13980265
+KSkipListConcurrent(36)             13983680
+KSkipListConcurrent(40)             13660660
+ConcurrentSkipListSet               12917715
+NonBlockingFriendlySkipListSet      17491875
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 22, update rate: 0.2
+KSkipListConcurrent(16)             20077155
+KSkipListConcurrent(20)             16839155
+KSkipListConcurrent(24)             20183210
+KSkipListConcurrent(28)             16472185
+KSkipListConcurrent(32)             19018750
+KSkipListConcurrent(36)             18572760
+KSkipListConcurrent(40)             19826405
+ConcurrentSkipListSet               19642345
+NonBlockingFriendlySkipListSet      24445975
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 22, update rate: 0.35
+KSkipListConcurrent(16)             18623715
+KSkipListConcurrent(20)             17787790
+KSkipListConcurrent(24)             19414015
+KSkipListConcurrent(28)             18709200
+KSkipListConcurrent(32)             18922100
+KSkipListConcurrent(36)             18669425
+KSkipListConcurrent(40)             17415400
+ConcurrentSkipListSet               20065755
+NonBlockingFriendlySkipListSet      21038280
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 22, update rate: 0.5
+KSkipListConcurrent(16)             18842055
+KSkipListConcurrent(20)             17830115
+KSkipListConcurrent(24)             18160670
+KSkipListConcurrent(28)             17865560
+KSkipListConcurrent(32)             18345800
+KSkipListConcurrent(36)             17480095
+KSkipListConcurrent(40)             15982970
+ConcurrentSkipListSet               18442655
+NonBlockingFriendlySkipListSet      25231960
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 22, update rate: 0.75
+KSkipListConcurrent(16)             17331540
+KSkipListConcurrent(20)             17538865
+KSkipListConcurrent(24)             13568855
+KSkipListConcurrent(28)             17659900
+KSkipListConcurrent(32)             17909860
+KSkipListConcurrent(36)             16236060
+KSkipListConcurrent(40)             16415210
+ConcurrentSkipListSet               17581300
+NonBlockingFriendlySkipListSet      17728550
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 22, update rate: 1.0
+KSkipListConcurrent(16)             17683795
+KSkipListConcurrent(20)             16330090
+KSkipListConcurrent(24)             15968095
+KSkipListConcurrent(28)             17187755
+KSkipListConcurrent(32)             16453930
+KSkipListConcurrent(36)             16931585
+KSkipListConcurrent(40)             16446185
+ConcurrentSkipListSet               16130615
+NonBlockingFriendlySkipListSet      22325115
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 26, update rate: 0.2
+KSkipListConcurrent(16)             21431235
+KSkipListConcurrent(20)             22727660
+KSkipListConcurrent(24)             21051175
+KSkipListConcurrent(28)             21711135
+KSkipListConcurrent(32)             22887355
+KSkipListConcurrent(36)             22129750
+KSkipListConcurrent(40)             21971370
+ConcurrentSkipListSet               24100650
+NonBlockingFriendlySkipListSet      25923120
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 26, update rate: 0.35
+KSkipListConcurrent(16)             22071930
+KSkipListConcurrent(20)             21490060
+KSkipListConcurrent(24)             20683135
+KSkipListConcurrent(28)             21332205
+KSkipListConcurrent(32)             21407645
+KSkipListConcurrent(36)             17737235
+KSkipListConcurrent(40)             20958140
+ConcurrentSkipListSet               22085245
+NonBlockingFriendlySkipListSet      22368230
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 26, update rate: 0.5
+KSkipListConcurrent(16)             20508485
+KSkipListConcurrent(20)             20511520
+KSkipListConcurrent(24)             19020400
+KSkipListConcurrent(28)             21030555
+KSkipListConcurrent(32)             20007545
+KSkipListConcurrent(36)             20003410
+KSkipListConcurrent(40)             20623225
+ConcurrentSkipListSet               19798955
+NonBlockingFriendlySkipListSet      26948770
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 26, update rate: 0.75
+KSkipListConcurrent(16)             20155985
+KSkipListConcurrent(20)             20298875
+KSkipListConcurrent(24)             20013020
+KSkipListConcurrent(28)             19760915
+KSkipListConcurrent(32)             18994890
+KSkipListConcurrent(36)             18664775
+KSkipListConcurrent(40)             19658285
+ConcurrentSkipListSet               20125765
+NonBlockingFriendlySkipListSet      24554095
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 26, update rate: 1.0
+KSkipListConcurrent(16)             19469825
+KSkipListConcurrent(20)             19563330
+KSkipListConcurrent(24)             17900295
+KSkipListConcurrent(28)             16612905
+KSkipListConcurrent(32)             19561500
+KSkipListConcurrent(36)             15236095
+KSkipListConcurrent(40)             19171710
+ConcurrentSkipListSet               18958750
+NonBlockingFriendlySkipListSet      24338385
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 32, update rate: 0.2
+KSkipListConcurrent(16)             25838415
+KSkipListConcurrent(20)             26666680
+KSkipListConcurrent(24)             21868045
+KSkipListConcurrent(28)             24774650
+KSkipListConcurrent(32)             26187250
+KSkipListConcurrent(36)             20080635
+KSkipListConcurrent(40)             22138970
+ConcurrentSkipListSet               27349895
+NonBlockingFriendlySkipListSet      33009220
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 32, update rate: 0.35
+KSkipListConcurrent(16)             24465590
+KSkipListConcurrent(20)             25476510
+KSkipListConcurrent(24)             25279630
+KSkipListConcurrent(28)             20466615
+KSkipListConcurrent(32)             23769675
+KSkipListConcurrent(36)             25270200
+KSkipListConcurrent(40)             23684290
+ConcurrentSkipListSet               26838765
+NonBlockingFriendlySkipListSet      30195500
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 32, update rate: 0.5
+KSkipListConcurrent(16)             24655060
+KSkipListConcurrent(20)             24309015
+KSkipListConcurrent(24)             22678065
+KSkipListConcurrent(28)             23433415
+KSkipListConcurrent(32)             22603555
+KSkipListConcurrent(36)             23906960
+KSkipListConcurrent(40)             23620405
+ConcurrentSkipListSet               24443855
+NonBlockingFriendlySkipListSet      28247190
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 32, update rate: 0.75
+KSkipListConcurrent(16)             23473780
+KSkipListConcurrent(20)             23054540
+KSkipListConcurrent(24)             23016770
+KSkipListConcurrent(28)             22460830
+KSkipListConcurrent(32)             19447800
+KSkipListConcurrent(36)             22598840
+KSkipListConcurrent(40)             23025870
+ConcurrentSkipListSet               23461770
+NonBlockingFriendlySkipListSet      27571635
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 32, update rate: 1.0
+KSkipListConcurrent(16)             16270305
+KSkipListConcurrent(20)             21964300
+KSkipListConcurrent(24)             22296315
+KSkipListConcurrent(28)             21637930
+KSkipListConcurrent(32)             22360300
+KSkipListConcurrent(36)             20036835
+KSkipListConcurrent(40)             22424480
+ConcurrentSkipListSet               20281835
+NonBlockingFriendlySkipListSet      25654315
+
+########################################################################################################################
+########################################################################################################################
+########################################################################################################################
+
+500000
+Threads: 1, update rate: 0.2
+KSkipListConcurrent(16)              1011580
+KSkipListConcurrent(20)              1062140
+KSkipListConcurrent(24)              1103805
+KSkipListConcurrent(28)              1086120
+KSkipListConcurrent(32)              1132025
+KSkipListConcurrent(36)              1150365
+KSkipListConcurrent(40)              1129210
+ConcurrentSkipListSet                 991450
+NonBlockingFriendlySkipListSet        999830
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 1, update rate: 0.35
+KSkipListConcurrent(16)              1008090
+KSkipListConcurrent(20)              1015360
+KSkipListConcurrent(24)              1048545
+KSkipListConcurrent(28)              1049265
+KSkipListConcurrent(32)              1073135
+KSkipListConcurrent(36)              1084300
+KSkipListConcurrent(40)              1043540
+ConcurrentSkipListSet                 958070
+NonBlockingFriendlySkipListSet        932970
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 1, update rate: 0.5
+KSkipListConcurrent(16)               944520
+KSkipListConcurrent(20)               971015
+KSkipListConcurrent(24)               983360
+KSkipListConcurrent(28)               990265
+KSkipListConcurrent(32)              1030235
+KSkipListConcurrent(36)              1041525
+KSkipListConcurrent(40)              1048430
+ConcurrentSkipListSet                 914310
+NonBlockingFriendlySkipListSet        903130
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 1, update rate: 0.75
+KSkipListConcurrent(16)               913405
+KSkipListConcurrent(20)               976310
+KSkipListConcurrent(24)               952635
+KSkipListConcurrent(28)               972640
+KSkipListConcurrent(32)               969760
+KSkipListConcurrent(36)              1009920
+KSkipListConcurrent(40)               958180
+ConcurrentSkipListSet                 855850
+NonBlockingFriendlySkipListSet        815865
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 1, update rate: 1.0
+KSkipListConcurrent(16)               900305
+KSkipListConcurrent(20)               941870
+KSkipListConcurrent(24)               955560
+KSkipListConcurrent(28)               976735
+KSkipListConcurrent(32)               981985
+KSkipListConcurrent(36)               993750
+KSkipListConcurrent(40)              1001475
+ConcurrentSkipListSet                 858410
+NonBlockingFriendlySkipListSet        808910
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 2, update rate: 0.2
+KSkipListConcurrent(16)              1722525
+KSkipListConcurrent(20)              1764535
+KSkipListConcurrent(24)              1789340
+KSkipListConcurrent(28)              1839935
+KSkipListConcurrent(32)              1796090
+KSkipListConcurrent(36)              1956715
+KSkipListConcurrent(40)              1935665
+ConcurrentSkipListSet                1899470
+NonBlockingFriendlySkipListSet       1693740
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 2, update rate: 0.35
+KSkipListConcurrent(16)              1610995
+KSkipListConcurrent(20)              1502735
+KSkipListConcurrent(24)              1624390
+KSkipListConcurrent(28)              1855790
+KSkipListConcurrent(32)              1636040
+KSkipListConcurrent(36)              1845970
+KSkipListConcurrent(40)              1848600
+ConcurrentSkipListSet                1792255
+NonBlockingFriendlySkipListSet       1797265
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 2, update rate: 0.5
+KSkipListConcurrent(16)              1642335
+KSkipListConcurrent(20)              1708290
+KSkipListConcurrent(24)              1692055
+KSkipListConcurrent(28)              1633220
+KSkipListConcurrent(32)              1717195
+KSkipListConcurrent(36)              1561755
+KSkipListConcurrent(40)              1618255
+ConcurrentSkipListSet                1649590
+NonBlockingFriendlySkipListSet       1712190
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 2, update rate: 0.75
+KSkipListConcurrent(16)              1352260
+KSkipListConcurrent(20)              1576045
+KSkipListConcurrent(24)              1510080
+KSkipListConcurrent(28)              1673450
+KSkipListConcurrent(32)              1672540
+KSkipListConcurrent(36)              1699305
+KSkipListConcurrent(40)              1446360
+ConcurrentSkipListSet                1509245
+NonBlockingFriendlySkipListSet       1449005
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 2, update rate: 1.0
+KSkipListConcurrent(16)              1505690
+KSkipListConcurrent(20)              1538875
+KSkipListConcurrent(24)              1586045
+KSkipListConcurrent(28)              1570740
+KSkipListConcurrent(32)              1612980
+KSkipListConcurrent(36)              1658770
+KSkipListConcurrent(40)              1667995
+ConcurrentSkipListSet                1505625
+NonBlockingFriendlySkipListSet       1469795
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 4, update rate: 0.2
+KSkipListConcurrent(16)              3177490
+KSkipListConcurrent(20)              3669675
+KSkipListConcurrent(24)              3553900
+KSkipListConcurrent(28)              2993270
+KSkipListConcurrent(32)              3810850
+KSkipListConcurrent(36)              2911685
+KSkipListConcurrent(40)              3726150
+ConcurrentSkipListSet                3358140
+NonBlockingFriendlySkipListSet       3213015
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 4, update rate: 0.35
+KSkipListConcurrent(16)              3200925
+KSkipListConcurrent(20)              3287975
+KSkipListConcurrent(24)              3384105
+KSkipListConcurrent(28)              3259465
+KSkipListConcurrent(32)              3604265
+KSkipListConcurrent(36)              3434520
+KSkipListConcurrent(40)              3447225
+ConcurrentSkipListSet                3241300
+NonBlockingFriendlySkipListSet       2988235
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 4, update rate: 0.5
+KSkipListConcurrent(16)              3155535
+KSkipListConcurrent(20)              2996015
+KSkipListConcurrent(24)              3299995
+KSkipListConcurrent(28)              3376835
+KSkipListConcurrent(32)              3279200
+KSkipListConcurrent(36)              3363590
+KSkipListConcurrent(40)              3099510
+ConcurrentSkipListSet                3190275
+NonBlockingFriendlySkipListSet       2975170
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 4, update rate: 0.75
+KSkipListConcurrent(16)              2981380
+KSkipListConcurrent(20)              3022930
+KSkipListConcurrent(24)              3090155
+KSkipListConcurrent(28)              3024740
+KSkipListConcurrent(32)              3026380
+KSkipListConcurrent(36)              3018860
+KSkipListConcurrent(40)              3059835
+ConcurrentSkipListSet                2887890
+NonBlockingFriendlySkipListSet       3015060
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 4, update rate: 1.0
+KSkipListConcurrent(16)              2858245
+KSkipListConcurrent(20)              2840995
+KSkipListConcurrent(24)              3008400
+KSkipListConcurrent(28)              2764500
+KSkipListConcurrent(32)              3110545
+KSkipListConcurrent(36)              2903625
+KSkipListConcurrent(40)              3087315
+ConcurrentSkipListSet                2660920
+NonBlockingFriendlySkipListSet       2651245
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 8, update rate: 0.2
+KSkipListConcurrent(16)              6313315
+KSkipListConcurrent(20)              6215240
+KSkipListConcurrent(24)              6674235
+KSkipListConcurrent(28)              6594900
+KSkipListConcurrent(32)              6720570
+KSkipListConcurrent(36)              6658815
+KSkipListConcurrent(40)              6955500
+ConcurrentSkipListSet                6714765
+NonBlockingFriendlySkipListSet       6299310
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 8, update rate: 0.35
+KSkipListConcurrent(16)              6610175
+KSkipListConcurrent(20)              6048090
+KSkipListConcurrent(24)              6335490
+KSkipListConcurrent(28)              6186610
+KSkipListConcurrent(32)              6177210
+KSkipListConcurrent(36)              6020720
+KSkipListConcurrent(40)              6164565
+ConcurrentSkipListSet                5893960
+NonBlockingFriendlySkipListSet       5647860
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 8, update rate: 0.5
+KSkipListConcurrent(16)              5478035
+KSkipListConcurrent(20)              5854350
+KSkipListConcurrent(24)              5648910
+KSkipListConcurrent(28)              5848675
+KSkipListConcurrent(32)              5613865
+KSkipListConcurrent(36)              6045155
+KSkipListConcurrent(40)              5927400
+ConcurrentSkipListSet                5657445
+NonBlockingFriendlySkipListSet       5615180
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 8, update rate: 0.75
+KSkipListConcurrent(16)              5990045
+KSkipListConcurrent(20)              5633460
+KSkipListConcurrent(24)              5293590
+KSkipListConcurrent(28)              5753505
+KSkipListConcurrent(32)              5713985
+KSkipListConcurrent(36)              5362045
+KSkipListConcurrent(40)              5652490
+ConcurrentSkipListSet                5289985
+NonBlockingFriendlySkipListSet       5457950
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 8, update rate: 1.0
+KSkipListConcurrent(16)              5265300
+KSkipListConcurrent(20)              5634620
+KSkipListConcurrent(24)              5393755
+KSkipListConcurrent(28)              5672965
+KSkipListConcurrent(32)              5753645
+KSkipListConcurrent(36)              5478750
+KSkipListConcurrent(40)              5695645
+ConcurrentSkipListSet                5052545
+NonBlockingFriendlySkipListSet       5330165
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 12, update rate: 0.2
+KSkipListConcurrent(16)              9094030
+KSkipListConcurrent(20)              9162630
+KSkipListConcurrent(24)              9376775
+KSkipListConcurrent(28)              9435685
+KSkipListConcurrent(32)              9109875
+KSkipListConcurrent(36)              9208145
+KSkipListConcurrent(40)              9614430
+ConcurrentSkipListSet                9278840
+NonBlockingFriendlySkipListSet       8946345
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 12, update rate: 0.35
+KSkipListConcurrent(16)              8316695
+KSkipListConcurrent(20)              8490745
+KSkipListConcurrent(24)              8170965
+KSkipListConcurrent(28)              8284840
+KSkipListConcurrent(32)              8523390
+KSkipListConcurrent(36)              8979310
+KSkipListConcurrent(40)              8384395
+ConcurrentSkipListSet                8453455
+NonBlockingFriendlySkipListSet       8776440
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 12, update rate: 0.5
+KSkipListConcurrent(16)              7855970
+KSkipListConcurrent(20)              8368110
+KSkipListConcurrent(24)              8093310
+KSkipListConcurrent(28)              8468385
+KSkipListConcurrent(32)              7980810
+KSkipListConcurrent(36)              8594725
+KSkipListConcurrent(40)              8450840
+ConcurrentSkipListSet                7950620
+NonBlockingFriendlySkipListSet       8625905
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 12, update rate: 0.75
+KSkipListConcurrent(16)              7625840
+KSkipListConcurrent(20)              7930565
+KSkipListConcurrent(24)              7813015
+KSkipListConcurrent(28)              8215515
+KSkipListConcurrent(32)              7799180
+KSkipListConcurrent(36)              7894125
+KSkipListConcurrent(40)              7812595
+ConcurrentSkipListSet                7360395
+NonBlockingFriendlySkipListSet       8119910
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 12, update rate: 1.0
+KSkipListConcurrent(16)              7547035
+KSkipListConcurrent(20)              7071240
+KSkipListConcurrent(24)              7959590
+KSkipListConcurrent(28)              6456185
+KSkipListConcurrent(32)              8098805
+KSkipListConcurrent(36)              8145445
+KSkipListConcurrent(40)              7794190
+ConcurrentSkipListSet                7328515
+NonBlockingFriendlySkipListSet       7463350
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 16, update rate: 0.2
+KSkipListConcurrent(16)             10913165
+KSkipListConcurrent(20)             11425375
+KSkipListConcurrent(24)             11175495
+KSkipListConcurrent(28)              9395665
+KSkipListConcurrent(32)             11388720
+KSkipListConcurrent(36)             11455735
+KSkipListConcurrent(40)             11441180
+ConcurrentSkipListSet               11674830
+NonBlockingFriendlySkipListSet      11174660
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 16, update rate: 0.35
+KSkipListConcurrent(16)             10383410
+KSkipListConcurrent(20)             10504925
+KSkipListConcurrent(24)             10918395
+KSkipListConcurrent(28)              9027460
+KSkipListConcurrent(32)              9182370
+KSkipListConcurrent(36)             11318330
+KSkipListConcurrent(40)             11035355
+ConcurrentSkipListSet               10281685
+NonBlockingFriendlySkipListSet      11316930
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 16, update rate: 0.5
+KSkipListConcurrent(16)             10136495
+KSkipListConcurrent(20)             10510875
+KSkipListConcurrent(24)             10423040
+KSkipListConcurrent(28)             10418310
+KSkipListConcurrent(32)             10288985
+KSkipListConcurrent(36)             10286685
+KSkipListConcurrent(40)             10280865
+ConcurrentSkipListSet               10284480
+NonBlockingFriendlySkipListSet      10346360
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 16, update rate: 0.75
+KSkipListConcurrent(16)             10226265
+KSkipListConcurrent(20)              9598830
+KSkipListConcurrent(24)             10005475
+KSkipListConcurrent(28)              8069490
+KSkipListConcurrent(32)             10307460
+KSkipListConcurrent(36)              9913630
+KSkipListConcurrent(40)             10074905
+ConcurrentSkipListSet                9594650
+NonBlockingFriendlySkipListSet       9959850
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 16, update rate: 1.0
+KSkipListConcurrent(16)              7537860
+KSkipListConcurrent(20)              9915275
+KSkipListConcurrent(24)              9917430
+KSkipListConcurrent(28)              9910730
+KSkipListConcurrent(32)             10220535
+KSkipListConcurrent(36)              9655435
+KSkipListConcurrent(40)             10117485
+ConcurrentSkipListSet                9069295
+NonBlockingFriendlySkipListSet       9713745
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 22, update rate: 0.2
+KSkipListConcurrent(16)             13805415
+KSkipListConcurrent(20)             13869475
+KSkipListConcurrent(24)             14434855
+KSkipListConcurrent(28)             14041195
+KSkipListConcurrent(32)             14902600
+KSkipListConcurrent(36)             13973375
+KSkipListConcurrent(40)             14566290
+ConcurrentSkipListSet               14432750
+NonBlockingFriendlySkipListSet      13914340
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 22, update rate: 0.35
+KSkipListConcurrent(16)             13208350
+KSkipListConcurrent(20)             12718575
+KSkipListConcurrent(24)             10724240
+KSkipListConcurrent(28)             13431790
+KSkipListConcurrent(32)             13728370
+KSkipListConcurrent(36)             13503070
+KSkipListConcurrent(40)             12424285
+ConcurrentSkipListSet               13332565
+NonBlockingFriendlySkipListSet      13663700
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 22, update rate: 0.5
+KSkipListConcurrent(16)             12832455
+KSkipListConcurrent(20)             11992470
+KSkipListConcurrent(24)             12940065
+KSkipListConcurrent(28)             12629855
+KSkipListConcurrent(32)             13426390
+KSkipListConcurrent(36)             13268870
+KSkipListConcurrent(40)             12436365
+ConcurrentSkipListSet               12407565
+NonBlockingFriendlySkipListSet      13519615
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 22, update rate: 0.75
+KSkipListConcurrent(16)             12136460
+KSkipListConcurrent(20)             12259950
+KSkipListConcurrent(24)             12667110
+KSkipListConcurrent(28)             12540765
+KSkipListConcurrent(32)             12607350
+KSkipListConcurrent(36)             12265450
+KSkipListConcurrent(40)             11591185
+ConcurrentSkipListSet               11678530
+NonBlockingFriendlySkipListSet      12785125
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 22, update rate: 1.0
+KSkipListConcurrent(16)             11875350
+KSkipListConcurrent(20)             12063400
+KSkipListConcurrent(24)             12434690
+KSkipListConcurrent(28)             11962135
+KSkipListConcurrent(32)             12716060
+KSkipListConcurrent(36)             11415595
+KSkipListConcurrent(40)             12483265
+ConcurrentSkipListSet               11242250
+NonBlockingFriendlySkipListSet      12115620
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 26, update rate: 0.2
+KSkipListConcurrent(16)             15181630
+KSkipListConcurrent(20)             15294315
+KSkipListConcurrent(24)             15856025
+KSkipListConcurrent(28)             15604705
+KSkipListConcurrent(32)             15891185
+KSkipListConcurrent(36)             16354160
+KSkipListConcurrent(40)             15519470
+ConcurrentSkipListSet               16177760
+NonBlockingFriendlySkipListSet      16664760
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 26, update rate: 0.35
+KSkipListConcurrent(16)             14328610
+KSkipListConcurrent(20)             14253150
+KSkipListConcurrent(24)             14303240
+KSkipListConcurrent(28)             15384900
+KSkipListConcurrent(32)             15473555
+KSkipListConcurrent(36)             15185680
+KSkipListConcurrent(40)             13764765
+ConcurrentSkipListSet               15126800
+NonBlockingFriendlySkipListSet      15868435
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 26, update rate: 0.5
+KSkipListConcurrent(16)             14420420
+KSkipListConcurrent(20)             14169155
+KSkipListConcurrent(24)             14057770
+KSkipListConcurrent(28)             14281265
+KSkipListConcurrent(32)             14171240
+KSkipListConcurrent(36)             13857320
+KSkipListConcurrent(40)             14541250
+ConcurrentSkipListSet               13966430
+NonBlockingFriendlySkipListSet      15454455
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 26, update rate: 0.75
+KSkipListConcurrent(16)             13625095
+KSkipListConcurrent(20)             13413150
+KSkipListConcurrent(24)             13769220
+KSkipListConcurrent(28)             14042215
+KSkipListConcurrent(32)             13893860
+KSkipListConcurrent(36)             14069210
+KSkipListConcurrent(40)             13990085
+ConcurrentSkipListSet               13256605
+NonBlockingFriendlySkipListSet      14480605
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 26, update rate: 1.0
+KSkipListConcurrent(16)             13463430
+KSkipListConcurrent(20)             13559880
+KSkipListConcurrent(24)             13915745
+KSkipListConcurrent(28)             14176735
+KSkipListConcurrent(32)             14230535
+KSkipListConcurrent(36)             13661465
+KSkipListConcurrent(40)             13925570
+ConcurrentSkipListSet               12466910
+NonBlockingFriendlySkipListSet      14913855
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 32, update rate: 0.2
+KSkipListConcurrent(16)             17854015
+KSkipListConcurrent(20)             18295565
+KSkipListConcurrent(24)             17516940
+KSkipListConcurrent(28)             18351985
+KSkipListConcurrent(32)             18752445
+KSkipListConcurrent(36)             15037180
+KSkipListConcurrent(40)             15340995
+ConcurrentSkipListSet               17895930
+NonBlockingFriendlySkipListSet      17450315
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 32, update rate: 0.35
+KSkipListConcurrent(16)             17438495
+KSkipListConcurrent(20)             17607460
+KSkipListConcurrent(24)             18095875
+KSkipListConcurrent(28)             16720605
+KSkipListConcurrent(32)             17154200
+KSkipListConcurrent(36)             17422615
+KSkipListConcurrent(40)             17802105
+ConcurrentSkipListSet               17247705
+NonBlockingFriendlySkipListSet      17485570
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 32, update rate: 0.5
+KSkipListConcurrent(16)             16354660
+KSkipListConcurrent(20)             17101695
+KSkipListConcurrent(24)             17094795
+KSkipListConcurrent(28)             16897195
+KSkipListConcurrent(32)             17310725
+KSkipListConcurrent(36)             17312715
+KSkipListConcurrent(40)             16742025
+ConcurrentSkipListSet               16793190
+NonBlockingFriendlySkipListSet      16811740
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 32, update rate: 0.75
+KSkipListConcurrent(16)             16365145
+KSkipListConcurrent(20)             16432390
+KSkipListConcurrent(24)             16106225
+KSkipListConcurrent(28)             16641010
+KSkipListConcurrent(32)             16914600
+KSkipListConcurrent(36)             16109405
+KSkipListConcurrent(40)             16499545
+ConcurrentSkipListSet               15377040
+NonBlockingFriendlySkipListSet      16887470
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 32, update rate: 1.0
+KSkipListConcurrent(16)             15260385
+KSkipListConcurrent(20)             15945835
+KSkipListConcurrent(24)             16381295
+KSkipListConcurrent(28)             16290720
+KSkipListConcurrent(32)             15863735
+KSkipListConcurrent(36)             16121450
+KSkipListConcurrent(40)             16117180
+ConcurrentSkipListSet               14860400
+NonBlockingFriendlySkipListSet      15853565
+
+########################################################################################################################
+########################################################################################################################
+########################################################################################################################
+
+1500000
+Threads: 1, update rate: 0.2
+KSkipListConcurrent(16)               657775
+KSkipListConcurrent(20)               694270
+KSkipListConcurrent(24)               696635
+KSkipListConcurrent(28)               747620
+KSkipListConcurrent(32)               743790
+KSkipListConcurrent(36)               753130
+KSkipListConcurrent(40)               765650
+ConcurrentSkipListSet                 644440
+NonBlockingFriendlySkipListSet        677675
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 1, update rate: 0.35
+KSkipListConcurrent(16)               617025
+KSkipListConcurrent(20)               661655
+KSkipListConcurrent(24)               667475
+KSkipListConcurrent(28)               698140
+KSkipListConcurrent(32)               708060
+KSkipListConcurrent(36)               709815
+KSkipListConcurrent(40)               714470
+ConcurrentSkipListSet                 546025
+NonBlockingFriendlySkipListSet        530435
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 1, update rate: 0.5
+KSkipListConcurrent(16)               597230
+KSkipListConcurrent(20)               630330
+KSkipListConcurrent(24)               636435
+KSkipListConcurrent(28)               649065
+KSkipListConcurrent(32)               709265
+KSkipListConcurrent(36)               685495
+KSkipListConcurrent(40)               708865
+ConcurrentSkipListSet                 570290
+NonBlockingFriendlySkipListSet        589820
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 1, update rate: 0.75
+KSkipListConcurrent(16)               569375
+KSkipListConcurrent(20)               601845
+KSkipListConcurrent(24)               625850
+KSkipListConcurrent(28)               642675
+KSkipListConcurrent(32)               686165
+KSkipListConcurrent(36)               676415
+KSkipListConcurrent(40)               670645
+ConcurrentSkipListSet                 543725
+NonBlockingFriendlySkipListSet        557970
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 1, update rate: 1.0
+KSkipListConcurrent(16)               555580
+KSkipListConcurrent(20)               596505
+KSkipListConcurrent(24)               614965
+KSkipListConcurrent(28)               649670
+KSkipListConcurrent(32)               658850
+KSkipListConcurrent(36)               674790
+KSkipListConcurrent(40)               683240
+ConcurrentSkipListSet                 506530
+NonBlockingFriendlySkipListSet        498315
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 2, update rate: 0.2
+KSkipListConcurrent(16)              1113940
+KSkipListConcurrent(20)              1243800
+KSkipListConcurrent(24)              1382040
+KSkipListConcurrent(28)              1314960
+KSkipListConcurrent(32)              1320725
+KSkipListConcurrent(36)              1299555
+KSkipListConcurrent(40)              1287495
+ConcurrentSkipListSet                1182860
+NonBlockingFriendlySkipListSet       1311715
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 2, update rate: 0.35
+KSkipListConcurrent(16)              1208520
+KSkipListConcurrent(20)              1258215
+KSkipListConcurrent(24)              1271745
+KSkipListConcurrent(28)              1193535
+KSkipListConcurrent(32)              1332485
+KSkipListConcurrent(36)              1345315
+KSkipListConcurrent(40)              1373225
+ConcurrentSkipListSet                1113835
+NonBlockingFriendlySkipListSet       1102295
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 2, update rate: 0.5
+KSkipListConcurrent(16)              1123375
+KSkipListConcurrent(20)              1188085
+KSkipListConcurrent(24)              1232595
+KSkipListConcurrent(28)              1236790
+KSkipListConcurrent(32)              1252100
+KSkipListConcurrent(36)              1202100
+KSkipListConcurrent(40)              1305365
+ConcurrentSkipListSet                 954915
+NonBlockingFriendlySkipListSet       1015755
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 2, update rate: 0.75
+KSkipListConcurrent(16)              1120190
+KSkipListConcurrent(20)              1110030
+KSkipListConcurrent(24)              1156240
+KSkipListConcurrent(28)              1158125
+KSkipListConcurrent(32)              1195765
+KSkipListConcurrent(36)              1160915
+KSkipListConcurrent(40)              1158800
+ConcurrentSkipListSet                1005070
+NonBlockingFriendlySkipListSet        954705
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 2, update rate: 1.0
+KSkipListConcurrent(16)              1086395
+KSkipListConcurrent(20)              1074585
+KSkipListConcurrent(24)              1086445
+KSkipListConcurrent(28)              1128880
+KSkipListConcurrent(32)              1148095
+KSkipListConcurrent(36)              1094025
+KSkipListConcurrent(40)              1229610
+ConcurrentSkipListSet                 963995
+NonBlockingFriendlySkipListSet        903270
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 4, update rate: 0.2
+KSkipListConcurrent(16)              2303715
+KSkipListConcurrent(20)              2400705
+KSkipListConcurrent(24)              2487295
+KSkipListConcurrent(28)              2630170
+KSkipListConcurrent(32)              2653765
+KSkipListConcurrent(36)              2695015
+KSkipListConcurrent(40)              2703985
+ConcurrentSkipListSet                2121430
+NonBlockingFriendlySkipListSet       2256750
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 4, update rate: 0.35
+KSkipListConcurrent(16)              2284985
+KSkipListConcurrent(20)              2338990
+KSkipListConcurrent(24)              2413075
+KSkipListConcurrent(28)              2459715
+KSkipListConcurrent(32)              2444280
+KSkipListConcurrent(36)              2384260
+KSkipListConcurrent(40)              2489100
+ConcurrentSkipListSet                1944160
+NonBlockingFriendlySkipListSet       1984570
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 4, update rate: 0.5
+KSkipListConcurrent(16)              2069155
+KSkipListConcurrent(20)              2142750
+KSkipListConcurrent(24)              2130155
+KSkipListConcurrent(28)              2288550
+KSkipListConcurrent(32)              2257025
+KSkipListConcurrent(36)              2419785
+KSkipListConcurrent(40)              2500320
+ConcurrentSkipListSet                2026815
+NonBlockingFriendlySkipListSet       1935720
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 4, update rate: 0.75
+KSkipListConcurrent(16)              2068695
+KSkipListConcurrent(20)              2088160
+KSkipListConcurrent(24)              2119885
+KSkipListConcurrent(28)              2204735
+KSkipListConcurrent(32)              2086160
+KSkipListConcurrent(36)              2259650
+KSkipListConcurrent(40)              2313160
+ConcurrentSkipListSet                1817680
+NonBlockingFriendlySkipListSet       1598765
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 4, update rate: 1.0
+KSkipListConcurrent(16)              2043205
+KSkipListConcurrent(20)              2028630
+KSkipListConcurrent(24)              2085725
+KSkipListConcurrent(28)              2200955
+KSkipListConcurrent(32)              2270830
+KSkipListConcurrent(36)              2314835
+KSkipListConcurrent(40)              2318570
+ConcurrentSkipListSet                1826760
+NonBlockingFriendlySkipListSet       1717030
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 8, update rate: 0.2
+KSkipListConcurrent(16)              4463100
+KSkipListConcurrent(20)              4262175
+KSkipListConcurrent(24)              4655510
+KSkipListConcurrent(28)              4765630
+KSkipListConcurrent(32)              4744590
+KSkipListConcurrent(36)              4740460
+KSkipListConcurrent(40)              4843430
+ConcurrentSkipListSet                4002380
+NonBlockingFriendlySkipListSet       3957585
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 8, update rate: 0.35
+KSkipListConcurrent(16)              4198850
+KSkipListConcurrent(20)              4273030
+KSkipListConcurrent(24)              4454920
+KSkipListConcurrent(28)              4570510
+KSkipListConcurrent(32)              4330395
+KSkipListConcurrent(36)              4231865
+KSkipListConcurrent(40)              4674590
+ConcurrentSkipListSet                4039320
+NonBlockingFriendlySkipListSet       3780425
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 8, update rate: 0.5
+KSkipListConcurrent(16)              4030735
+KSkipListConcurrent(20)              3789885
+KSkipListConcurrent(24)              4283340
+KSkipListConcurrent(28)              4172280
+KSkipListConcurrent(32)              4450370
+KSkipListConcurrent(36)              4435140
+KSkipListConcurrent(40)              4513915
+ConcurrentSkipListSet                3805105
+NonBlockingFriendlySkipListSet       3556105
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 8, update rate: 0.75
+KSkipListConcurrent(16)              3621220
+KSkipListConcurrent(20)              3833985
+KSkipListConcurrent(24)              3799380
+KSkipListConcurrent(28)              4079275
+KSkipListConcurrent(32)              3868835
+KSkipListConcurrent(36)              4083125
+KSkipListConcurrent(40)              4255695
+ConcurrentSkipListSet                3636175
+NonBlockingFriendlySkipListSet       3269750
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 8, update rate: 1.0
+KSkipListConcurrent(16)              3924745
+KSkipListConcurrent(20)              3674600
+KSkipListConcurrent(24)              3814365
+KSkipListConcurrent(28)              4029095
+KSkipListConcurrent(32)              4083115
+KSkipListConcurrent(36)              3896725
+KSkipListConcurrent(40)              3828245
+ConcurrentSkipListSet                3459585
+NonBlockingFriendlySkipListSet       3112740
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 12, update rate: 0.2
+KSkipListConcurrent(16)              5902300
+KSkipListConcurrent(20)              5944135
+KSkipListConcurrent(24)              6117905
+KSkipListConcurrent(28)              6007805
+KSkipListConcurrent(32)              6788760
+KSkipListConcurrent(36)              7026690
+KSkipListConcurrent(40)              7023675
+ConcurrentSkipListSet                6028135
+NonBlockingFriendlySkipListSet       5725965
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 12, update rate: 0.35
+KSkipListConcurrent(16)              6044820
+KSkipListConcurrent(20)              5809400
+KSkipListConcurrent(24)              6135200
+KSkipListConcurrent(28)              6452020
+KSkipListConcurrent(32)              6205750
+KSkipListConcurrent(36)              6583640
+KSkipListConcurrent(40)              6434840
+ConcurrentSkipListSet                5650745
+NonBlockingFriendlySkipListSet       5089365
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 12, update rate: 0.5
+KSkipListConcurrent(16)              5729100
+KSkipListConcurrent(20)              5734245
+KSkipListConcurrent(24)              5986440
+KSkipListConcurrent(28)              5483855
+KSkipListConcurrent(32)              6176655
+KSkipListConcurrent(36)              6146355
+KSkipListConcurrent(40)              6301425
+ConcurrentSkipListSet                5405710
+NonBlockingFriendlySkipListSet       5010680
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 12, update rate: 0.75
+KSkipListConcurrent(16)              5523580
+KSkipListConcurrent(20)              5555250
+KSkipListConcurrent(24)              5716915
+KSkipListConcurrent(28)              5764880
+KSkipListConcurrent(32)              5807155
+KSkipListConcurrent(36)              5893280
+KSkipListConcurrent(40)              6035835
+ConcurrentSkipListSet                5124740
+NonBlockingFriendlySkipListSet       4555115
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 12, update rate: 1.0
+KSkipListConcurrent(16)              5300765
+KSkipListConcurrent(20)              5142800
+KSkipListConcurrent(24)              5559360
+KSkipListConcurrent(28)              5457125
+KSkipListConcurrent(32)              5770895
+KSkipListConcurrent(36)              5993620
+KSkipListConcurrent(40)              5939610
+ConcurrentSkipListSet                4951755
+NonBlockingFriendlySkipListSet       4546290
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 16, update rate: 0.2
+KSkipListConcurrent(16)              7636440
+KSkipListConcurrent(20)              7426955
+KSkipListConcurrent(24)              8210210
+KSkipListConcurrent(28)              7544425
+KSkipListConcurrent(32)              8594875
+KSkipListConcurrent(36)              8554395
+KSkipListConcurrent(40)              8833270
+ConcurrentSkipListSet                7526220
+NonBlockingFriendlySkipListSet       6867935
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 16, update rate: 0.35
+KSkipListConcurrent(16)              8081350
+KSkipListConcurrent(20)              7316670
+KSkipListConcurrent(24)              7437440
+KSkipListConcurrent(28)              7718495
+KSkipListConcurrent(32)              7836605
+KSkipListConcurrent(36)              8007635
+KSkipListConcurrent(40)              8118995
+ConcurrentSkipListSet                7302100
+NonBlockingFriendlySkipListSet       6457070
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 16, update rate: 0.5
+KSkipListConcurrent(16)              7126940
+KSkipListConcurrent(20)              7328605
+KSkipListConcurrent(24)              7418955
+KSkipListConcurrent(28)              7615190
+KSkipListConcurrent(32)              7679180
+KSkipListConcurrent(36)              7981495
+KSkipListConcurrent(40)              8002645
+ConcurrentSkipListSet                6971765
+NonBlockingFriendlySkipListSet       6374790
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 16, update rate: 0.75
+KSkipListConcurrent(16)              7096845
+KSkipListConcurrent(20)              6945095
+KSkipListConcurrent(24)              7050760
+KSkipListConcurrent(28)              6910160
+KSkipListConcurrent(32)              7584425
+KSkipListConcurrent(36)              7622750
+KSkipListConcurrent(40)              6931340
+ConcurrentSkipListSet                6454555
+NonBlockingFriendlySkipListSet       5676985
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 16, update rate: 1.0
+KSkipListConcurrent(16)              7094080
+KSkipListConcurrent(20)              6802600
+KSkipListConcurrent(24)              7000305
+KSkipListConcurrent(28)              7202895
+KSkipListConcurrent(32)              7266130
+KSkipListConcurrent(36)              7483755
+KSkipListConcurrent(40)              7395785
+ConcurrentSkipListSet                6299445
+NonBlockingFriendlySkipListSet       5695300
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 22, update rate: 0.2
+KSkipListConcurrent(16)             10718195
+KSkipListConcurrent(20)              9527780
+KSkipListConcurrent(24)             10174195
+KSkipListConcurrent(28)             10483415
+KSkipListConcurrent(32)             10772830
+KSkipListConcurrent(36)             10353365
+KSkipListConcurrent(40)             10579160
+ConcurrentSkipListSet                9510145
+NonBlockingFriendlySkipListSet       8627975
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 22, update rate: 0.35
+KSkipListConcurrent(16)              9481895
+KSkipListConcurrent(20)              9434380
+KSkipListConcurrent(24)              8747245
+KSkipListConcurrent(28)              9784965
+KSkipListConcurrent(32)              9658165
+KSkipListConcurrent(36)             10096785
+KSkipListConcurrent(40)              9217100
+ConcurrentSkipListSet                9062135
+NonBlockingFriendlySkipListSet       8194945
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 22, update rate: 0.5
+KSkipListConcurrent(16)              9640775
+KSkipListConcurrent(20)              8942275
+KSkipListConcurrent(24)              9130265
+KSkipListConcurrent(28)              8744885
+KSkipListConcurrent(32)              9461005
+KSkipListConcurrent(36)              9522895
+KSkipListConcurrent(40)              8772310
+ConcurrentSkipListSet                8647315
+NonBlockingFriendlySkipListSet       7823065
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 22, update rate: 0.75
+KSkipListConcurrent(16)              9594770
+KSkipListConcurrent(20)              8698710
+KSkipListConcurrent(24)              8597765
+KSkipListConcurrent(28)              8889525
+KSkipListConcurrent(32)              9338880
+KSkipListConcurrent(36)              9350520
+KSkipListConcurrent(40)              9149495
+ConcurrentSkipListSet                8243315
+NonBlockingFriendlySkipListSet       7178225
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 22, update rate: 1.0
+KSkipListConcurrent(16)              9607260
+KSkipListConcurrent(20)              8377125
+KSkipListConcurrent(24)              8680595
+KSkipListConcurrent(28)              8914710
+KSkipListConcurrent(32)              8948365
+KSkipListConcurrent(36)              8830000
+KSkipListConcurrent(40)              9288905
+ConcurrentSkipListSet                7692045
+NonBlockingFriendlySkipListSet       7372910
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 26, update rate: 0.2
+KSkipListConcurrent(16)             11034145
+KSkipListConcurrent(20)             10049715
+KSkipListConcurrent(24)             11119585
+KSkipListConcurrent(28)             11730095
+KSkipListConcurrent(32)             10415470
+KSkipListConcurrent(36)             10016025
+KSkipListConcurrent(40)             11872890
+ConcurrentSkipListSet               10400085
+NonBlockingFriendlySkipListSet       9595455
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 26, update rate: 0.35
+KSkipListConcurrent(16)             10722990
+KSkipListConcurrent(20)             10636710
+KSkipListConcurrent(24)             10760575
+KSkipListConcurrent(28)             10436020
+KSkipListConcurrent(32)             11200110
+KSkipListConcurrent(36)             10979905
+KSkipListConcurrent(40)             11151855
+ConcurrentSkipListSet               10170600
+NonBlockingFriendlySkipListSet       9118205
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 26, update rate: 0.5
+KSkipListConcurrent(16)             10201530
+KSkipListConcurrent(20)              9949700
+KSkipListConcurrent(24)             10174440
+KSkipListConcurrent(28)             10263250
+KSkipListConcurrent(32)              9509755
+KSkipListConcurrent(36)             10881000
+KSkipListConcurrent(40)             10871705
+ConcurrentSkipListSet                9893440
+NonBlockingFriendlySkipListSet       8254635
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 26, update rate: 0.75
+KSkipListConcurrent(16)             10634980
+KSkipListConcurrent(20)              9620855
+KSkipListConcurrent(24)             10283750
+KSkipListConcurrent(28)              9940145
+KSkipListConcurrent(32)             10321260
+KSkipListConcurrent(36)             10301145
+KSkipListConcurrent(40)             10347430
+ConcurrentSkipListSet                9134615
+NonBlockingFriendlySkipListSet       7668995
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 26, update rate: 1.0
+KSkipListConcurrent(16)             10727295
+KSkipListConcurrent(20)              9387725
+KSkipListConcurrent(24)             10034455
+KSkipListConcurrent(28)             10081525
+KSkipListConcurrent(32)              9472600
+KSkipListConcurrent(36)             10051435
+KSkipListConcurrent(40)             10259110
+ConcurrentSkipListSet                8818165
+NonBlockingFriendlySkipListSet       7265990
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 32, update rate: 0.2
+KSkipListConcurrent(16)             12144465
+KSkipListConcurrent(20)             12770460
+KSkipListConcurrent(24)             12321410
+KSkipListConcurrent(28)             12510650
+KSkipListConcurrent(32)             12234020
+KSkipListConcurrent(36)             13727770
+KSkipListConcurrent(40)             13383865
+ConcurrentSkipListSet               12725435
+NonBlockingFriendlySkipListSet       9923585
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 32, update rate: 0.35
+KSkipListConcurrent(16)             11408710
+KSkipListConcurrent(20)             11454695
+KSkipListConcurrent(24)             12546960
+KSkipListConcurrent(28)             12708200
+KSkipListConcurrent(32)             12717030
+KSkipListConcurrent(36)             13097830
+KSkipListConcurrent(40)             12552440
+ConcurrentSkipListSet               11653650
+NonBlockingFriendlySkipListSet       9022505
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 32, update rate: 0.5
+KSkipListConcurrent(16)             11246635
+KSkipListConcurrent(20)             11394905
+KSkipListConcurrent(24)             12226590
+KSkipListConcurrent(28)             12039575
+KSkipListConcurrent(32)             12276575
+KSkipListConcurrent(36)             12381865
+KSkipListConcurrent(40)             12735395
+ConcurrentSkipListSet               11182355
+NonBlockingFriendlySkipListSet       8271965
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 32, update rate: 0.75
+KSkipListConcurrent(16)             11718845
+KSkipListConcurrent(20)             11471270
+KSkipListConcurrent(24)             11577415
+KSkipListConcurrent(28)             11833365
+KSkipListConcurrent(32)             12160570
+KSkipListConcurrent(36)             10605255
+KSkipListConcurrent(40)             12046125
+ConcurrentSkipListSet               10373790
+NonBlockingFriendlySkipListSet       8583675
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 32, update rate: 1.0
+KSkipListConcurrent(16)             10614555
+KSkipListConcurrent(20)             11014315
+KSkipListConcurrent(24)             11370335
+KSkipListConcurrent(28)             11609175
+KSkipListConcurrent(32)             11835480
+KSkipListConcurrent(36)             11803710
+KSkipListConcurrent(40)             11504395
+ConcurrentSkipListSet               10048115
+NonBlockingFriendlySkipListSet       7780005
+
+########################################################################################################################
+########################################################################################################################
+########################################################################################################################
+
+5000000
+Threads: 1, update rate: 0.2
+KSkipListConcurrent(16)               365345
+KSkipListConcurrent(20)               415880
+KSkipListConcurrent(24)               501530
+KSkipListConcurrent(28)               472995
+KSkipListConcurrent(32)               540175
+KSkipListConcurrent(36)               498800
+KSkipListConcurrent(40)               478595
+ConcurrentSkipListSet                 434910
+NonBlockingFriendlySkipListSet        440705
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 1, update rate: 0.35
+KSkipListConcurrent(16)               445565
+KSkipListConcurrent(20)               439710
+KSkipListConcurrent(24)               376060
+KSkipListConcurrent(28)               432950
+KSkipListConcurrent(32)               474465
+KSkipListConcurrent(36)               479285
+KSkipListConcurrent(40)               482700
+ConcurrentSkipListSet                 356010
+NonBlockingFriendlySkipListSet        381770
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 1, update rate: 0.5
+KSkipListConcurrent(16)               443900
+KSkipListConcurrent(20)               444735
+KSkipListConcurrent(24)               384775
+KSkipListConcurrent(28)               414935
+KSkipListConcurrent(32)               471445
+KSkipListConcurrent(36)               405480
+KSkipListConcurrent(40)               482065
+ConcurrentSkipListSet                 385950
+NonBlockingFriendlySkipListSet        351355
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 1, update rate: 0.75
+KSkipListConcurrent(16)               380645
+KSkipListConcurrent(20)               353225
+KSkipListConcurrent(24)               374335
+KSkipListConcurrent(28)               397805
+KSkipListConcurrent(32)               418800
+KSkipListConcurrent(36)               427085
+KSkipListConcurrent(40)               418245
+ConcurrentSkipListSet                 369550
+NonBlockingFriendlySkipListSet        329240
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 1, update rate: 1.0
+KSkipListConcurrent(16)               394120
+KSkipListConcurrent(20)               395225
+KSkipListConcurrent(24)               360585
+KSkipListConcurrent(28)               381415
+KSkipListConcurrent(32)               425160
+KSkipListConcurrent(36)               403255
+KSkipListConcurrent(40)               409680
+ConcurrentSkipListSet                 320640
+NonBlockingFriendlySkipListSet        313245
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 2, update rate: 0.2
+KSkipListConcurrent(16)               934565
+KSkipListConcurrent(20)               915110
+KSkipListConcurrent(24)               811810
+KSkipListConcurrent(28)               816830
+KSkipListConcurrent(32)               859535
+KSkipListConcurrent(36)              1016990
+KSkipListConcurrent(40)               958005
+ConcurrentSkipListSet                 855605
+NonBlockingFriendlySkipListSet        815100
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 2, update rate: 0.35
+KSkipListConcurrent(16)               881370
+KSkipListConcurrent(20)               890930
+KSkipListConcurrent(24)               850515
+KSkipListConcurrent(28)               881675
+KSkipListConcurrent(32)               819000
+KSkipListConcurrent(36)               945230
+KSkipListConcurrent(40)               847540
+ConcurrentSkipListSet                 777715
+NonBlockingFriendlySkipListSet        752055
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 2, update rate: 0.5
+KSkipListConcurrent(16)               812130
+KSkipListConcurrent(20)               842985
+KSkipListConcurrent(24)               890170
+KSkipListConcurrent(28)               902600
+KSkipListConcurrent(32)               778845
+KSkipListConcurrent(36)               828205
+KSkipListConcurrent(40)               835260
+ConcurrentSkipListSet                 753325
+NonBlockingFriendlySkipListSet        704180
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 2, update rate: 0.75
+KSkipListConcurrent(16)               740565
+KSkipListConcurrent(20)               699320
+KSkipListConcurrent(24)               847200
+KSkipListConcurrent(28)               755055
+KSkipListConcurrent(32)               782480
+KSkipListConcurrent(36)               766365
+KSkipListConcurrent(40)               782615
+ConcurrentSkipListSet                 648460
+NonBlockingFriendlySkipListSet        652640
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 2, update rate: 1.0
+KSkipListConcurrent(16)               796960
+KSkipListConcurrent(20)               797015
+KSkipListConcurrent(24)               833910
+KSkipListConcurrent(28)               824685
+KSkipListConcurrent(32)               864905
+KSkipListConcurrent(36)               782775
+KSkipListConcurrent(40)               834545
+ConcurrentSkipListSet                 668600
+NonBlockingFriendlySkipListSet        598560
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 4, update rate: 0.2
+KSkipListConcurrent(16)              1574545
+KSkipListConcurrent(20)              1674330
+KSkipListConcurrent(24)              1522015
+KSkipListConcurrent(28)              1576650
+KSkipListConcurrent(32)              1642555
+KSkipListConcurrent(36)              1640110
+KSkipListConcurrent(40)              1926300
+ConcurrentSkipListSet                1584895
+NonBlockingFriendlySkipListSet       1643040
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 4, update rate: 0.35
+KSkipListConcurrent(16)              1588965
+KSkipListConcurrent(20)              1626375
+KSkipListConcurrent(24)              1688570
+KSkipListConcurrent(28)              1689330
+KSkipListConcurrent(32)              1532475
+KSkipListConcurrent(36)              1831360
+KSkipListConcurrent(40)              1838280
+ConcurrentSkipListSet                1461010
+NonBlockingFriendlySkipListSet       1417295
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 4, update rate: 0.5
+KSkipListConcurrent(16)              1543265
+KSkipListConcurrent(20)              1577215
+KSkipListConcurrent(24)              1635150
+KSkipListConcurrent(28)              1637085
+KSkipListConcurrent(32)              1673845
+KSkipListConcurrent(36)              1789770
+KSkipListConcurrent(40)              1771040
+ConcurrentSkipListSet                1418700
+NonBlockingFriendlySkipListSet       1406705
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 4, update rate: 0.75
+KSkipListConcurrent(16)              1490150
+KSkipListConcurrent(20)              1446475
+KSkipListConcurrent(24)              1512075
+KSkipListConcurrent(28)              1615330
+KSkipListConcurrent(32)              1554180
+KSkipListConcurrent(36)              1464125
+KSkipListConcurrent(40)              1636105
+ConcurrentSkipListSet                1175965
+NonBlockingFriendlySkipListSet       1167135
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 4, update rate: 1.0
+KSkipListConcurrent(16)              1444500
+KSkipListConcurrent(20)              1447395
+KSkipListConcurrent(24)              1490505
+KSkipListConcurrent(28)              1577935
+KSkipListConcurrent(32)              1601970
+KSkipListConcurrent(36)              1611115
+KSkipListConcurrent(40)              1475180
+ConcurrentSkipListSet                1186445
+NonBlockingFriendlySkipListSet       1162895
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 8, update rate: 0.2
+KSkipListConcurrent(16)              2889625
+KSkipListConcurrent(20)              3290590
+KSkipListConcurrent(24)              3374025
+KSkipListConcurrent(28)              3401515
+KSkipListConcurrent(32)              3292985
+KSkipListConcurrent(36)              3521725
+KSkipListConcurrent(40)              3577100
+ConcurrentSkipListSet                2881380
+NonBlockingFriendlySkipListSet       2994205
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 8, update rate: 0.35
+KSkipListConcurrent(16)              2964995
+KSkipListConcurrent(20)              3060685
+KSkipListConcurrent(24)              3054965
+KSkipListConcurrent(28)              3215490
+KSkipListConcurrent(32)              3365875
+KSkipListConcurrent(36)              3235985
+KSkipListConcurrent(40)              3258140
+ConcurrentSkipListSet                2663220
+NonBlockingFriendlySkipListSet       2684040
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 8, update rate: 0.5
+KSkipListConcurrent(16)              2869180
+KSkipListConcurrent(20)              2930510
+KSkipListConcurrent(24)              2956670
+KSkipListConcurrent(28)              3095330
+KSkipListConcurrent(32)              3141875
+KSkipListConcurrent(36)              3267150
+KSkipListConcurrent(40)              3197075
+ConcurrentSkipListSet                2485855
+NonBlockingFriendlySkipListSet       2487775
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 8, update rate: 0.75
+KSkipListConcurrent(16)              2555320
+KSkipListConcurrent(20)              2689435
+KSkipListConcurrent(24)              2928165
+KSkipListConcurrent(28)              2937775
+KSkipListConcurrent(32)              3058715
+KSkipListConcurrent(36)              3153325
+KSkipListConcurrent(40)              3191440
+ConcurrentSkipListSet                2279280
+NonBlockingFriendlySkipListSet       2243190
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 8, update rate: 1.0
+KSkipListConcurrent(16)              2363810
+KSkipListConcurrent(20)              2633575
+KSkipListConcurrent(24)              2786870
+KSkipListConcurrent(28)              2915140
+KSkipListConcurrent(32)              3090030
+KSkipListConcurrent(36)              3027505
+KSkipListConcurrent(40)              3200805
+ConcurrentSkipListSet                2307260
+NonBlockingFriendlySkipListSet       2122750
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 12, update rate: 0.2
+KSkipListConcurrent(16)              3923090
+KSkipListConcurrent(20)              4646550
+KSkipListConcurrent(24)              4753595
+KSkipListConcurrent(28)              4800675
+KSkipListConcurrent(32)              4960445
+KSkipListConcurrent(36)              4996525
+KSkipListConcurrent(40)              5052740
+ConcurrentSkipListSet                3826840
+NonBlockingFriendlySkipListSet       4126500
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 12, update rate: 0.35
+KSkipListConcurrent(16)              4009190
+KSkipListConcurrent(20)              4258330
+KSkipListConcurrent(24)              4521140
+KSkipListConcurrent(28)              4360755
+KSkipListConcurrent(32)              4638785
+KSkipListConcurrent(36)              4681455
+KSkipListConcurrent(40)              4891030
+ConcurrentSkipListSet                3467775
+NonBlockingFriendlySkipListSet       3462305
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 12, update rate: 0.5
+KSkipListConcurrent(16)              3599420
+KSkipListConcurrent(20)              3980325
+KSkipListConcurrent(24)              4340800
+KSkipListConcurrent(28)              4445760
+KSkipListConcurrent(32)              4399425
+KSkipListConcurrent(36)              4535185
+KSkipListConcurrent(40)              4578740
+ConcurrentSkipListSet                3266235
+NonBlockingFriendlySkipListSet       3263665
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 12, update rate: 0.75
+KSkipListConcurrent(16)              3506990
+KSkipListConcurrent(20)              3975210
+KSkipListConcurrent(24)              4161560
+KSkipListConcurrent(28)              4156140
+KSkipListConcurrent(32)              4372705
+KSkipListConcurrent(36)              4422635
+KSkipListConcurrent(40)              4475795
+ConcurrentSkipListSet                3155465
+NonBlockingFriendlySkipListSet       2980590
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 12, update rate: 1.0
+KSkipListConcurrent(16)              3384080
+KSkipListConcurrent(20)              3698000
+KSkipListConcurrent(24)              3973585
+KSkipListConcurrent(28)              4125710
+KSkipListConcurrent(32)              4221260
+KSkipListConcurrent(36)              4145695
+KSkipListConcurrent(40)              4395890
+ConcurrentSkipListSet                2820265
+NonBlockingFriendlySkipListSet       2643770
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 16, update rate: 0.2
+KSkipListConcurrent(16)              4953825
+KSkipListConcurrent(20)              5801960
+KSkipListConcurrent(24)              6007135
+KSkipListConcurrent(28)              5932720
+KSkipListConcurrent(32)              6083565
+KSkipListConcurrent(36)              6156515
+KSkipListConcurrent(40)              6286305
+ConcurrentSkipListSet                4676690
+NonBlockingFriendlySkipListSet       5279600
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 16, update rate: 0.35
+KSkipListConcurrent(16)              5206730
+KSkipListConcurrent(20)              5396025
+KSkipListConcurrent(24)              5647210
+KSkipListConcurrent(28)              5750215
+KSkipListConcurrent(32)              5814740
+KSkipListConcurrent(36)              6072880
+KSkipListConcurrent(40)              6026290
+ConcurrentSkipListSet                4369025
+NonBlockingFriendlySkipListSet       4453255
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 16, update rate: 0.5
+KSkipListConcurrent(16)              4566275
+KSkipListConcurrent(20)              5059935
+KSkipListConcurrent(24)              5447475
+KSkipListConcurrent(28)              5506465
+KSkipListConcurrent(32)              5400610
+KSkipListConcurrent(36)              5958540
+KSkipListConcurrent(40)              5468950
+ConcurrentSkipListSet                4040450
+NonBlockingFriendlySkipListSet       4024600
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 16, update rate: 0.75
+KSkipListConcurrent(16)              4312260
+KSkipListConcurrent(20)              4746330
+KSkipListConcurrent(24)              5136780
+KSkipListConcurrent(28)              5226295
+KSkipListConcurrent(32)              5148530
+KSkipListConcurrent(36)              5677370
+KSkipListConcurrent(40)              5633480
+ConcurrentSkipListSet                3647320
+NonBlockingFriendlySkipListSet       3534630
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 16, update rate: 1.0
+KSkipListConcurrent(16)              3963280
+KSkipListConcurrent(20)              4539510
+KSkipListConcurrent(24)              4934360
+KSkipListConcurrent(28)              5129875
+KSkipListConcurrent(32)              4904065
+KSkipListConcurrent(36)              5486780
+KSkipListConcurrent(40)              5426305
+ConcurrentSkipListSet                3482765
+NonBlockingFriendlySkipListSet       3208420
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 22, update rate: 0.2
+KSkipListConcurrent(16)              6275580
+KSkipListConcurrent(20)              6916925
+KSkipListConcurrent(24)              7180975
+KSkipListConcurrent(28)              7691315
+KSkipListConcurrent(32)              7219935
+KSkipListConcurrent(36)              7167860
+KSkipListConcurrent(40)              7820115
+ConcurrentSkipListSet                6030230
+NonBlockingFriendlySkipListSet       6593755
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 22, update rate: 0.35
+KSkipListConcurrent(16)              6246980
+KSkipListConcurrent(20)              6445090
+KSkipListConcurrent(24)              6742250
+KSkipListConcurrent(28)              7331275
+KSkipListConcurrent(32)              7440415
+KSkipListConcurrent(36)              7181645
+KSkipListConcurrent(40)              7481385
+ConcurrentSkipListSet                5276755
+NonBlockingFriendlySkipListSet       5396035
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 22, update rate: 0.5
+KSkipListConcurrent(16)              5599615
+KSkipListConcurrent(20)              6222970
+KSkipListConcurrent(24)              6486485
+KSkipListConcurrent(28)              6832465
+KSkipListConcurrent(32)              7073240
+KSkipListConcurrent(36)              7167675
+KSkipListConcurrent(40)              6791340
+ConcurrentSkipListSet                4927575
+NonBlockingFriendlySkipListSet       4660600
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 22, update rate: 0.75
+KSkipListConcurrent(16)              5285370
+KSkipListConcurrent(20)              6067225
+KSkipListConcurrent(24)              5998090
+KSkipListConcurrent(28)              6445490
+KSkipListConcurrent(32)              6770000
+KSkipListConcurrent(36)              6851500
+KSkipListConcurrent(40)              6886425
+ConcurrentSkipListSet                4393100
+NonBlockingFriendlySkipListSet       4194650
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 22, update rate: 1.0
+KSkipListConcurrent(16)              4948505
+KSkipListConcurrent(20)              5439000
+KSkipListConcurrent(24)              5742460
+KSkipListConcurrent(28)              5651315
+KSkipListConcurrent(32)              6429580
+KSkipListConcurrent(36)              6588280
+KSkipListConcurrent(40)              6484540
+ConcurrentSkipListSet                4131175
+NonBlockingFriendlySkipListSet       3775735
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 26, update rate: 0.2
+KSkipListConcurrent(16)              6990125
+KSkipListConcurrent(20)              7795510
+KSkipListConcurrent(24)              8066135
+KSkipListConcurrent(28)              8040145
+KSkipListConcurrent(32)              8587685
+KSkipListConcurrent(36)              8472785
+KSkipListConcurrent(40)              8616885
+ConcurrentSkipListSet                6702575
+NonBlockingFriendlySkipListSet       6704560
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 26, update rate: 0.35
+KSkipListConcurrent(16)              6570040
+KSkipListConcurrent(20)              7408210
+KSkipListConcurrent(24)              7809410
+KSkipListConcurrent(28)              8313255
+KSkipListConcurrent(32)              8206980
+KSkipListConcurrent(36)              7925695
+KSkipListConcurrent(40)              8327205
+ConcurrentSkipListSet                5660975
+NonBlockingFriendlySkipListSet       5641945
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 26, update rate: 0.5
+KSkipListConcurrent(16)              6289795
+KSkipListConcurrent(20)              6903735
+KSkipListConcurrent(24)              7236850
+KSkipListConcurrent(28)              7370025
+KSkipListConcurrent(32)              7815605
+KSkipListConcurrent(36)              8023825
+KSkipListConcurrent(40)              7978865
+ConcurrentSkipListSet                5107275
+NonBlockingFriendlySkipListSet       4783945
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 26, update rate: 0.75
+KSkipListConcurrent(16)              5319720
+KSkipListConcurrent(20)              5930575
+KSkipListConcurrent(24)              6283815
+KSkipListConcurrent(28)              6846550
+KSkipListConcurrent(32)              7221265
+KSkipListConcurrent(36)              7684270
+KSkipListConcurrent(40)              7775095
+ConcurrentSkipListSet                4637065
+NonBlockingFriendlySkipListSet       4230560
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 26, update rate: 1.0
+KSkipListConcurrent(16)              4993620
+KSkipListConcurrent(20)              5416065
+KSkipListConcurrent(24)              5668720
+KSkipListConcurrent(28)              6307715
+KSkipListConcurrent(32)              6906335
+KSkipListConcurrent(36)              7168420
+KSkipListConcurrent(40)              7681095
+ConcurrentSkipListSet                4453530
+NonBlockingFriendlySkipListSet       3855805
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 32, update rate: 0.2
+KSkipListConcurrent(16)              7480175
+KSkipListConcurrent(20)              8325615
+KSkipListConcurrent(24)              8420765
+KSkipListConcurrent(28)              9131345
+KSkipListConcurrent(32)              9478870
+KSkipListConcurrent(36)             10049770
+KSkipListConcurrent(40)             10266030
+ConcurrentSkipListSet                6778020
+NonBlockingFriendlySkipListSet       6995000
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 32, update rate: 0.35
+KSkipListConcurrent(16)              6867735
+KSkipListConcurrent(20)              7658560
+KSkipListConcurrent(24)              8351090
+KSkipListConcurrent(28)              9323735
+KSkipListConcurrent(32)              8913185
+KSkipListConcurrent(36)              9827730
+KSkipListConcurrent(40)              9761225
+ConcurrentSkipListSet                5796915
+NonBlockingFriendlySkipListSet       5818080
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 32, update rate: 0.5
+KSkipListConcurrent(16)              6262490
+KSkipListConcurrent(20)              6761120
+KSkipListConcurrent(24)              7158665
+KSkipListConcurrent(28)              7783485
+KSkipListConcurrent(32)              8468885
+KSkipListConcurrent(36)              9015085
+KSkipListConcurrent(40)              9047810
+ConcurrentSkipListSet                5566755
+NonBlockingFriendlySkipListSet       4681840
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 32, update rate: 0.75
+KSkipListConcurrent(16)              5542815
+KSkipListConcurrent(20)              6533105
+KSkipListConcurrent(24)              6549600
+KSkipListConcurrent(28)              7692390
+KSkipListConcurrent(32)              8617365
+KSkipListConcurrent(36)              9063285
+KSkipListConcurrent(40)              8752845
+ConcurrentSkipListSet                5097700
+NonBlockingFriendlySkipListSet       4301055
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Threads: 32, update rate: 1.0
+KSkipListConcurrent(16)              5037650
+KSkipListConcurrent(20)              5585870
+KSkipListConcurrent(24)              5918060
+KSkipListConcurrent(28)              6534800
+KSkipListConcurrent(32)              8173630
+KSkipListConcurrent(36)              8747720
+KSkipListConcurrent(40)              8383940
+ConcurrentSkipListSet                4723790
+NonBlockingFriendlySkipListSet       3783795
+
+########################################################################################################################
+########################################################################################################################
+########################################################################################################################
+
+Finished
