@@ -6,7 +6,8 @@ from pandas import read_csv
 x = []
 y = []
 
-slurm = "slurm-2639390"
+# slurm = "slurm-2639390"
+slurm = "slurm-2609367"
 files = [f for f in listdir(".") if f.endswith("csv") and f.startswith(slurm)]
 files = sorted(files, key=lambda x: int(x.split("_")[1]))
 
@@ -53,7 +54,7 @@ for files_block in res:
     # plt.ylabel('y')
     handles, labels = axs.get_legend_handles_labels()
     fig.legend(handles, labels, loc='upper center',
-               bbox_to_anchor=(0.5,0.15), fancybox=False, shadow=False, ncol=3)
+               bbox_to_anchor=(0.5,0.15), fancybox=False, shadow=False, ncol=2)
     # fig.legend(handles, labels, loc='best', prop={'size': 12})
     values_range = f.split('_')[1]
     fig.suptitle('{0:,}'.format(int(values_range)) + " values")
