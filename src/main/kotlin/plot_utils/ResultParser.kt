@@ -2,7 +2,7 @@ package plot_utils
 
 import java.io.File
 
-const val slurm_filename = "slurm-2609367"
+const val slurm_filename = "slurm-2639390"
 
 fun main() {
     val text = File("performance_tests/$slurm_filename.out").readLines().filter { it.isNotBlank() }

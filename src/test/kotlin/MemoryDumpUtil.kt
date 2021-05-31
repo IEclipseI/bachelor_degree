@@ -1,19 +1,20 @@
-import mine.KSkipListConcurrentGeneric
+import kset.ConcurrentSkipListSetInt
+import kotlin.random.Random
 
 
 val rolling = listOf('|', '/', '–', '\\')
 
 fun main() {
-    val skipList = KSkipListConcurrentGeneric<Int>()
-//    val skipList = ConcurrentSkipListSet<Int>()
+    val random = Random(13234)
+//    val skipList = KSkipListConcurrentInt()
+    val skipList = ConcurrentSkipListSetInt()
 //    val skipList = KSkipListConcurrentGeneric<Int>()
     val values = 1..5_000_000;
-    values.shuffled().forEach { skipList.add(it) }
+    values.shuffled(random).forEach { skipList.add(it) }
     var curPos = 0
     System.gc()
     while (true) {
         print(rolling[curPos++ % 4] + "\r")
         Thread.sleep(1000)
-
     }
 }
